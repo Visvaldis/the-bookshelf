@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBookshelf.Web", "TheBook
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBookshelf.Web.Tests", "TheBookshelf.Web.Tests\TheBookshelf.Web.Tests.csproj", "{F15A1892-501D-4DDA-BB47-F8EEA1DAACBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBookshelf.DAL", "TheBookshelf.DAL\TheBookshelf.DAL.csproj", "{12227958-E58C-40A2-9E07-B5DD7AC564B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F15A1892-501D-4DDA-BB47-F8EEA1DAACBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F15A1892-501D-4DDA-BB47-F8EEA1DAACBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F15A1892-501D-4DDA-BB47-F8EEA1DAACBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12227958-E58C-40A2-9E07-B5DD7AC564B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12227958-E58C-40A2-9E07-B5DD7AC564B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12227958-E58C-40A2-9E07-B5DD7AC564B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12227958-E58C-40A2-9E07-B5DD7AC564B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
