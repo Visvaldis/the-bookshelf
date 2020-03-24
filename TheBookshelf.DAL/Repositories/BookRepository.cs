@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using TheBookshelf.DAL.Context;
 using TheBookshelf.DAL.Entities;
 using TheBookshelf.DAL.Interfaces;
+using System.Data.Entity;
+
 
 namespace TheBookshelf.DAL.Repositories
 {
@@ -24,27 +26,34 @@ namespace TheBookshelf.DAL.Repositories
 
 		public void Delete(int id)
 		{
-			throw new NotImplementedException();
+			Book book = db.Books.Find(id);
+			if (book != null)
+				db.Books.Remove(book);
 		}
 
 		public IQueryable<Book> Find(Expression<Func<Book, bool>> predicate)
 		{
-			throw new NotImplementedException();
+			return db.Books
+				.Include(x => x.Tags).Include(x => x.AddedByUser).Include(x => x.Authors)
+				.Where(predicate);
 		}
 
 		public Book Get(int id)
 		{
-			throw new NotImplementedException();
+			return db.Books
+				.Include(x => x.Tags).Include(x => x.AddedByUser).Include(x => x.Authors)
+				.FirstOrDefault(x => x.Id == id);
 		}
 
 		public IEnumerable<Book> GetAll()
 		{
-			throw new NotImplementedException();
+			return db.Books
+				.Include(x => x.Tags).Include(x => x.AddedByUser).Include(x => x.Authors);
 		}
 
 		public void Update(Book item)
 		{
-			throw new NotImplementedException();
+			db.Entry(item).State = EntityState.Modified;
 		}
 	}
 }
