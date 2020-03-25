@@ -13,7 +13,7 @@ using TheBookshelf.BLL.Infrastructure;
 
 namespace TheBookshelf.BLL.Services
 {
-	public class TagService : IService<TagDTO>
+	public class TagService : ITagService<TagDTO>
 	{
 		IUnitOfWork Database { get; set; }
 		IMapper Mapper { get; set; }

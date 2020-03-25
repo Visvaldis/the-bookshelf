@@ -6,14 +6,15 @@ using System.Web.Mvc;
 using TheBookshelf.BLL.DTO;
 using AutoMapper;
 using TheBookshelf.BLL.Services;
+using TheBookshelf.BLL.Interfaces;
 using TheBookshelf.Web.Models;
 
 namespace TheBookshelf.Web.Controllers
 {
 	public class HomeController : Controller
 	{
-		TagService tagService;
-		public HomeController(TagService service)
+		ITagService<TagDTO> tagService;
+		public HomeController(ITagService<TagDTO> service)
 		{
 			tagService = service;
 		}
