@@ -17,7 +17,7 @@ namespace TheBookshelf.DAL.Entities
 		public string FileUrl { get; set; }
 		public DateTime PublishDate { get; set; }
 		public DateTime AddedDate { get; set; }
-
+		public int Assessment { get; set; } 
 		public Book()
 		{
 			Authors = new List<Author>();

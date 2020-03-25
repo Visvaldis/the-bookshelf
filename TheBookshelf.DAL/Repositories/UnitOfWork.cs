@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace TheBookshelf.DAL.Repositories
 {
-	class UnitOfWork : IUnitOfWork
+	public class UnitOfWork : IUnitOfWork
 	{
 		public UnitOfWork(string connectionString)
 		{
