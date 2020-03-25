@@ -44,17 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DTO\AuthorDTO.cs" />
     <Compile Include="DTO\TagDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\BookDTO.cs" />
+    <Compile Include="Infrastructure\ValidationException.cs" />
+    <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TagService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="NewFolder1 - Копировать %282%29\" />
-    <Folder Include="NewFolder1 - Копировать %283%29\" />
-    <Folder Include="NewFolder1 - Копировать\" />
+    <ProjectReference Include="..\TheBookshelf.DAL\TheBookshelf.DAL.csproj">
+      <Project>{12227958-E58C-40A2-9E07-B5DD7AC564B6}</Project>
+      <Name>TheBookshelf.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TheBookshelf.BLL.Models
+namespace TheBookshelf.BLL.DTO
 {
-	class TagDTO
+	public class TagDTO
 	{
+		public int Id { get; set; }
+		public string Name { get; set; }
 	}
 }

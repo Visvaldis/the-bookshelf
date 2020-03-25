@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TheBookshelf.BLL.Models
+namespace TheBookshelf.BLL.DTO
 {
 	class AuthorDTO
 	{
