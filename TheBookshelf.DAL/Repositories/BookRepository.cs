@@ -34,26 +34,28 @@ namespace TheBookshelf.DAL.Repositories
 		public IQueryable<Book> Find(Expression<Func<Book, bool>> predicate)
 		{
 			return db.Books
-				.Include(x => x.Tags).Include(x => x.AddedByUser).Include(x => x.Authors)
+				.Include(x => x.Tags).Include(x => x.Creator).Include(x => x.Authors)
 				.Where(predicate);
 		}
 
 		public Book Get(int id)
 		{
 			return db.Books
-				.Include(x => x.Tags).Include(x => x.AddedByUser).Include(x => x.Authors)
+				.Include(x => x.Tags).Include(x => x.Creator).Include(x => x.Authors)
 				.FirstOrDefault(x => x.Id == id);
 		}
 
 		public IEnumerable<Book> GetAll()
 		{
 			return db.Books
-				.Include(x => x.Tags).Include(x => x.AddedByUser).Include(x => x.Authors);
+				.Include(x => x.Tags).Include(x => x.Creator).Include(x => x.Authors);
 		}
 
 		public void Update(Book item)
 		{
-			db.Entry(item).State = EntityState.Modified;
+			var value = Get(item.Id);
+			value = item;
+			db.Entry(value).State = EntityState.Modified;
 		}
 	}
 }

@@ -26,6 +26,8 @@ namespace TheBookshelf.DAL.Repositories
 		public void Delete(int id)
 		{
 			Tag tag = db.Tags.Find(id);
+			if (tag != null)
+				db.Tags.Remove(tag);
 		}
 
 		public IQueryable<Tag> Find(Expression<Func<Tag, bool>> predicate)
@@ -45,6 +47,7 @@ namespace TheBookshelf.DAL.Repositories
 
 		public void Update(Tag item)
 		{
+			db.Tags.Attach(item);
 			db.Entry(item).State = EntityState.Modified;
 		}
 	}

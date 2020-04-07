@@ -17,6 +17,25 @@ namespace TheBookshelf.DAL.Context
 		public BookshelfContext(string connectionString)
 				: base(connectionString)
 		{ }
+		public BookshelfContext() : base("BookshelfContext")
+		{ }
+
+
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<User>()
+				.HasMany(a => a.AddedBooks)
+				.WithRequired(p => p.Creator);
+			modelBuilder.Entity<Book>()
+				.HasMany(p => p.FanUser)
+				.WithMany(c => c.LikedBooks)
+				.Map(m =>
+				  {
+					  m.ToTable("LikedBooks");
+
+				  });
+			base.OnModelCreating(modelBuilder);
+		}
 	}
 
 

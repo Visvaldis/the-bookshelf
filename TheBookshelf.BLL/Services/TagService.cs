@@ -32,12 +32,17 @@ namespace TheBookshelf.BLL.Services
 
 			var tag = Database.Tags.Find(x => x.Name.ToLower() == item.Name.ToLower());
 			if (tag.ToList().Count == 0)
+			{
 				Database.Tags.Create(Mapper.Map<TagDTO, Tag>(item));
+				Database.Save();
+			}
+
 		}
 
 		public void Delete(int id)
 		{
 			Database.Tags.Delete(id);
+			Database.Save();
 		}
 
 		public IEnumerable<TagDTO> GetWithFilter(Func<TagDTO, bool> filter)
@@ -72,6 +77,7 @@ namespace TheBookshelf.BLL.Services
 		public void Update(TagDTO item)
 		{
 			Database.Tags.Update(Mapper.Map<TagDTO, Tag>(item));
+			Database.Save();
 		}
 
 		public void Dispose()

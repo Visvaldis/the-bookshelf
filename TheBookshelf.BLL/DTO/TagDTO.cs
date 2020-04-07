@@ -10,5 +10,11 @@ namespace TheBookshelf.BLL.DTO
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
+		public ICollection<BookDTO> Books { get; set; }
+
+		public TagDTO()
+		{
+			Books = new List<BookDTO>();
+		}
 	}
 }

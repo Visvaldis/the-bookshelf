@@ -52,7 +52,9 @@ namespace TheBookshelf.DAL.Repositories
 
 		public void Update(User item)
 		{
-			db.Entry(item).State = EntityState.Modified;
+			var value = Get(item.Id);
+			value = item;
+			db.Entry(value).State = EntityState.Modified;
 		}
 	}
 }
