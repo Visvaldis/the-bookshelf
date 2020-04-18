@@ -13,7 +13,7 @@ namespace TheBookshelf.Web.Util
 	{
 		public override void Load()
 		{
-			Bind<ITagService<TagDTO>>().To<TagService>();
+			Bind<ITagService>().To<TagService>();
 		}
 	}
 }

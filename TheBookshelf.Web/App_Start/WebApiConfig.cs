@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Ninject;
+using Ninject.Modules;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using TheBookshelf.BLL.Infrastructure;
+using TheBookshelf.Web.Util;
 
 namespace TheBookshelf.Web
 {
@@ -20,5 +24,22 @@ namespace TheBookshelf.Web
 				defaults: new { id = RouteParameter.Optional }
 			);
 		}
+
+		internal static void DependencyInject(HttpConfiguration config)
+		{
+			INinjectModule[] RegisterModules()
+			{
+				return new INinjectModule[]
+				{
+					new TagModule(),
+					new ServiceModule("BookshelfContext")
+				};
+			}
+
+
+			var kernel = new StandardKernel(RegisterModules());
+			config.DependencyResolver = new NinjectResolver(kernel);
+		}
+
 	}
 }

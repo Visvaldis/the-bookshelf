@@ -1,7 +1,4 @@
-﻿using Ninject;
-using Ninject.Modules;
-using Ninject.Web.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,12 +21,8 @@ namespace TheBookshelf.Web
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-			// внедрение зависимостей
-			NinjectModule tagmodule = new TagModule();
-			NinjectModule serviceModule = new ServiceModule("BookshelfContext");
-			var kernel = new StandardKernel(tagmodule, serviceModule);
-			DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
 
+			GlobalConfiguration.Configure(WebApiConfig.DependencyInject);
 		}
 	}
 }

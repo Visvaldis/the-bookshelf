@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using TheBookshelf.DAL.Entities;
+
 namespace TheBookshelf.DAL.Context
 {
 	class BookshelfContext :DbContext
