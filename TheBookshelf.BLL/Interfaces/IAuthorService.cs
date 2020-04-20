@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TheBookshelf.BLL.DTO;
 
 namespace TheBookshelf.BLL.Interfaces
 {
-	public interface ITagService :IService<TagDTO>
+	interface IAuthorService : IService<AuthorDTO>
 	{
-	//	IEnumerable<TagDTO> GetTagsByName(string tagName);
-	//	int GetBookCountByTag(int tagId);
 	}
 }
