@@ -7,7 +7,7 @@ using TheBookshelf.BLL.DTO;
 using AutoMapper;
 using TheBookshelf.BLL.Services;
 using TheBookshelf.BLL.Interfaces;
-using TheBookshelf.Web.Models;
+
 using System.ComponentModel.DataAnnotations;
 
 namespace TheBookshelf.Web.Controllers
