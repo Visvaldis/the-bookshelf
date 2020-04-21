@@ -22,6 +22,7 @@ namespace TheBookshelf.DAL.Repositories
 		public void Create(User item)
 		{
 			db.Users.Add(item);
+
 		}
 
 		public void Delete(int id)

@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using TheBookshelf.DAL.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TheBookshelf.DAL.Context
 {
-	class BookshelfContext :DbContext
+	class BookshelfContext : IdentityDbContext<User, Role, int, UserLogin, UserRole, UserClaim>
 	{
 		public DbSet<Author> Authors { get; set; }
 		public DbSet<Tag> Tags { get; set; }
 		public DbSet<Book> Books { get; set; }
-		public DbSet<User> Users { get; set; }
 
 		public BookshelfContext(string connectionString)
 				: base(connectionString)
@@ -36,8 +36,12 @@ namespace TheBookshelf.DAL.Context
 
 				  });
 			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<User>().ToTable("Users");
+			modelBuilder.Entity<Role>().ToTable("Roles");
+			modelBuilder.Entity<UserRole>().ToTable("UserRoles");
+			modelBuilder.Entity<UserLogin>().ToTable("UserLogins");
+			modelBuilder.Entity<UserClaim>().ToTable("UserClaims");
 		}
 	}
-
-
 }
