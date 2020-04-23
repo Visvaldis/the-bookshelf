@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TheBookshelf.DAL.Entities;
-using TheBookshelf.DAL.Identity;
 
 namespace TheBookshelf.DAL.Interfaces
 {
@@ -14,8 +14,7 @@ namespace TheBookshelf.DAL.Interfaces
 		IRepository<Tag> Tags { get; }
 		IRepository<Book> Books { get; }
 		IRepository<User> Users { get; }
-		AppUserManager UserManager { get; }
-		AppRoleManager RoleManager { get; }
+		IUserStore<User, int> UserStore { get; }
 
 		void Save();
 		Task SaveAsync();

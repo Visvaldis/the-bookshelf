@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace TheBookshelf.Web.Models
 {
     // Модели, используемые в качестве параметров действий AccountController.
-
+	/*
     public class AddExternalLoginBindingModel
     {
         [Required]
@@ -31,8 +31,8 @@ namespace TheBookshelf.Web.Models
         [Compare("NewPassword", ErrorMessage = "Новый пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
     }
-
-    public class RegisterBindingModel
+	*/
+    public class RegisterModel
     {
         [Required]
         [Display(Name = "Адрес электронной почты")]
@@ -50,35 +50,49 @@ namespace TheBookshelf.Web.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class RegisterExternalBindingModel
-    {
-        [Required]
-        [Display(Name = "Адрес электронной почты")]
-        public string Email { get; set; }
-    }
+	public class LoginModel
+	{
+		[Required]
+		[Display(Name = "Адрес электронной почты")]
+		public string Email { get; set; }
 
-    public class RemoveLoginBindingModel
-    {
-        [Required]
-        [Display(Name = "Поставщик входа")]
-        public string LoginProvider { get; set; }
+		[Required]
+		[StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
+		[DataType(DataType.Password)]
+		[Display(Name = "Пароль")]
+		public string Password { get; set; }
+	}
+		/*
+		public class RegisterExternalBindingModel
+		{
+			[Required]
+			[Display(Name = "Адрес электронной почты")]
+			public string Email { get; set; }
+		}
 
-        [Required]
-        [Display(Name = "Ключ поставщика")]
-        public string ProviderKey { get; set; }
-    }
+		public class RemoveLoginBindingModel
+		{
+			[Required]
+			[Display(Name = "Поставщик входа")]
+			public string LoginProvider { get; set; }
 
-    public class SetPasswordBindingModel
-    {
-        [Required]
-        [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Новый пароль")]
-        public string NewPassword { get; set; }
+			[Required]
+			[Display(Name = "Ключ поставщика")]
+			public string ProviderKey { get; set; }
+		}
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Подтверждение нового пароля")]
-        [Compare("NewPassword", ErrorMessage = "Новый пароль и его подтверждение не совпадают.")]
-        public string ConfirmPassword { get; set; }
-    }
-}
+		public class SetPasswordBindingModel
+		{
+			[Required]
+			[StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
+			[DataType(DataType.Password)]
+			[Display(Name = "Новый пароль")]
+			public string NewPassword { get; set; }
+
+			[DataType(DataType.Password)]
+			[Display(Name = "Подтверждение нового пароля")]
+			[Compare("NewPassword", ErrorMessage = "Новый пароль и его подтверждение не совпадают.")]
+			public string ConfirmPassword { get; set; }
+		}
+		*/
+	}

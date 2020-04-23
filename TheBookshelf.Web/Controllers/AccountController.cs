@@ -15,9 +15,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using TheBookshelf.Web;
 using TheBookshelf.Web.Models;
-using TheBookshelf.Web.Providers;
-using TheBookshelf.Web.Results;
 
+/*
 namespace WebApplication1.Controllers
 {
     [Authorize]
@@ -493,3 +492,4 @@ namespace WebApplication1.Controllers
         #endregion
     }
 }
+*/

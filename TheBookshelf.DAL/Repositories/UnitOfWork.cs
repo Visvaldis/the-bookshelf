@@ -9,7 +9,7 @@ using TheBookshelf.DAL.Interfaces;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using TheBookshelf.DAL.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
 
 namespace TheBookshelf.DAL.Repositories
 {
@@ -18,17 +18,25 @@ namespace TheBookshelf.DAL.Repositories
 		public UnitOfWork(string connectionString)
 		{
 			db = new BookshelfContext(connectionString);
-			userManager = new AppUserManager(new UserStore<User, Role, int, UserLogin, UserRole, UserClaim>(db));
-			roleManager = new AppRoleManager(new RoleStore<Role, int, UserRole>(db));
+
 		}
 		private BookshelfContext db;
 		private BookRepository bookRepository;
 		private AuthorRepository authorRepository;
 		private UserRepository userRepository;
 		private TagRepository tagRepository;
+		private AppUserStore userStore;
 
-		private AppUserManager userManager;
-		private AppRoleManager roleManager;
+		public IUserStore<User, int> UserStore
+		{
+			get
+			{
+				if (userStore == null)
+					userStore = new AppUserStore(db);
+				return userStore;
+			}
+		}
+
 		public IRepository<Author> Authors
 		{
 			get
@@ -69,16 +77,7 @@ namespace TheBookshelf.DAL.Repositories
 			}
 		}
 
-		public AppUserManager UserManager
-		{
-			get { return userManager; }
-		}
-
-		public AppRoleManager RoleManager
-		{
-			get { return roleManager; }
-		}
-
+	
 		public async Task SaveAsync()
 		{
 			await db.SaveChangesAsync();

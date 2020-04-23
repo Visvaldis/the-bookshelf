@@ -8,10 +8,14 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using TheBookshelf.Web.Providers;
+using TheBookshelf.BLL.Identity;
+using TheBookshelf.BLL.Infrastructure;
+using TheBookshelf.BLL.Interfaces;
+using TheBookshelf.BLL.Services;
 using TheBookshelf.Web.Models;
+using TheBookshelf.Web.Util;
 
-namespace TheBookshelf.Web
+ namespace TheBookshelf.Web
 {
     public partial class Startup
     {
@@ -22,13 +26,12 @@ namespace TheBookshelf.Web
         // Дополнительные сведения о настройке аутентификации см. на странице https://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
-            // Настройка контекста базы данных и диспетчера пользователей для использования одного экземпляра на запрос
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
-            // Включение использования файла cookie, в котором приложение может хранить информацию для пользователя, выполнившего вход,
-            // и использование файла cookie для временного хранения информации о входах пользователя с помощью стороннего поставщика входа
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+			app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+
+			// Включение использования файла cookie, в котором приложение может хранить информацию для пользователя, выполнившего вход,
+			// и использование файла cookie для временного хранения информации о входах пользователя с помощью стороннего поставщика входа
+			app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Настройка приложения для потока обработки на основе OAuth
@@ -36,9 +39,9 @@ namespace TheBookshelf.Web
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/Token"),
-                Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+				Provider = new OAuthProvider(PublicClientId),
+				AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 // В рабочем режиме задайте AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };
@@ -67,3 +70,4 @@ namespace TheBookshelf.Web
         }
     }
 }
+

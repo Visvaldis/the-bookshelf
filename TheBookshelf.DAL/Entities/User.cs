@@ -29,6 +29,7 @@ namespace TheBookshelf.DAL.Entities
 		}
 	}
 
+
 	public class UserLogin : IdentityUserLogin<int>
 	{
 	}

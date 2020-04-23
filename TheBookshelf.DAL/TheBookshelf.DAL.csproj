@@ -62,8 +62,7 @@
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Identity\AppRoleManager.cs" />
-    <Compile Include="Identity\AppUserManager.cs" />
+    <Compile Include="Identity\AppUserStore.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\202003252140060_InitialCreate.cs" />

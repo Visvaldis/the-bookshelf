@@ -51,5 +51,10 @@ namespace TheBookshelf.Web.Util
 		{
 			return new NinjectScope(_kernel.BeginBlock());
 		}
+
+		public IKernel GetKernel()
+		{
+			return _kernel;
+		}
 	}
 }
