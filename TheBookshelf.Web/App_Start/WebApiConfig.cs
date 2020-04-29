@@ -1,7 +1,12 @@
-﻿using System;
+﻿using Microsoft.Owin.Security.OAuth;
+using Ninject;
+using Ninject.Modules;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using TheBookshelf.BLL.Infrastructure;
+using TheBookshelf.Web.Util;
 
 namespace TheBookshelf.Web
 {
@@ -11,6 +16,8 @@ namespace TheBookshelf.Web
 		{
 			// Конфигурация и службы веб-API
 
+			config.SuppressDefaultHostAuthentication();
+			config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 			// Маршруты веб-API
 			config.MapHttpAttributeRoutes();
 
@@ -20,5 +27,25 @@ namespace TheBookshelf.Web
 				defaults: new { id = RouteParameter.Optional }
 			);
 		}
+
+		public static StandardKernel Kernel { get; private set; }
+
+		internal static void DependencyInject(HttpConfiguration config)
+		{
+			INinjectModule[] RegisterModules()
+			{
+				return new INinjectModule[]
+				{
+					new UserModule(),
+					new TagModule(),
+					new ServiceModule("BookshelfContext")
+				};
+			}
+
+		//	StandardKernel
+			Kernel = new StandardKernel(RegisterModules());
+			config.DependencyResolver = new NinjectResolver(Kernel);
+		}
+
 	}
 }

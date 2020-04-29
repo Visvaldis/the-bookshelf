@@ -4,8 +4,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28306.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBookshelf.Web", "TheBookshelf.Web\TheBookshelf.Web.csproj", "{7F323554-C496-4EC4-957E-2430259626DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{404C20C5-4A26-4701-BB11-B55CC622993D} = {404C20C5-4A26-4701-BB11-B55CC622993D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBookshelf.Web.Tests", "TheBookshelf.Web.Tests\TheBookshelf.Web.Tests.csproj", "{F15A1892-501D-4DDA-BB47-F8EEA1DAACBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBookshelf.DAL", "TheBookshelf.DAL\TheBookshelf.DAL.csproj", "{12227958-E58C-40A2-9E07-B5DD7AC564B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBookshelf.BLL", "TheBookshelf.BLL\TheBookshelf.BLL.csproj", "{404C20C5-4A26-4701-BB11-B55CC622993D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12227958-E58C-40A2-9E07-B5DD7AC564B6} = {12227958-E58C-40A2-9E07-B5DD7AC564B6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +31,14 @@ Global
 		{F15A1892-501D-4DDA-BB47-F8EEA1DAACBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F15A1892-501D-4DDA-BB47-F8EEA1DAACBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F15A1892-501D-4DDA-BB47-F8EEA1DAACBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12227958-E58C-40A2-9E07-B5DD7AC564B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12227958-E58C-40A2-9E07-B5DD7AC564B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12227958-E58C-40A2-9E07-B5DD7AC564B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12227958-E58C-40A2-9E07-B5DD7AC564B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404C20C5-4A26-4701-BB11-B55CC622993D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404C20C5-4A26-4701-BB11-B55CC622993D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404C20C5-4A26-4701-BB11-B55CC622993D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404C20C5-4A26-4701-BB11-B55CC622993D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
