@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace TheBookshelf.DAL.Entities
 {
 	[Table("Users")]
-	public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>
+	public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>, IUser<int>
 	{
 		public virtual ICollection<Book> LikedBooks { get; set; }
 		public virtual ICollection<Book> AddedBooks { get; set; }
@@ -34,7 +35,7 @@ namespace TheBookshelf.DAL.Entities
 	{
 	}
 
-	public class Role : IdentityRole<int, UserRole>
+	public class Role : IdentityRole<int, UserRole>, IRole<int>
 	{
 	}
 

@@ -20,8 +20,11 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
+    <header class="mb-5" style="height: 200px; background-image: url(../media/index/books.jpg);">
+
+        <div style="height: 145px;"></div>
+
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-info rounded mt-auto">
 
             <a class="navbar-brand mb-0 ml-5 h1" href="#">Bookshelf</a>
             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navigation"
@@ -29,7 +32,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="navbar-collapse collapse" id="navigation" style="">
+            <div class="navbar-collapse collapse" id="navigation">
                 <ul class=" nav navbar-nav nav-pills  mr-auto ml-auto">
                     <li class="nav-item active">
                         <a class="nav-link" id="tags" href="{% url  'home' %}">Tags </a>
@@ -55,10 +58,118 @@
         </nav>
     </header>
 
+    <div class="container" style="width: 27rem;">
+        <div class="row row-cols-1 row-cols-md-2 justify-content-center">
 
-    <footer class="d-flex footer py-2 bg-primary alert-info mt-5">
+            <div class="col mb-4">
+                <a class="text-decoration-none" href="">
+                    <div class="card card-nav card-green  text-center" style="width: 12rem; height: 12rem;">
+                        <div class="card-body d-flex">
+                            <h5 class="m-auto card-text text-uppercase">tags</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col mb-4">
+                <a class="text-decoration-none" href="">
+                    <div class="card  card-nav card-blue text-center" style="width: 12rem; height: 12rem;">
+                        <div class="card-body d-flex">
+                            <h5 class="m-auto card-text text-uppercase">search</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col mb-4">
+                <a class="text-decoration-none" href="">
+                    <div class="card card-nav card-yellow text-center" style="width: 12rem; height: 12rem;">
+                        <div class="card-body d-flex">
+                            <h5 class="m-auto card-text text-uppercase">recently added</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col mb-4">
+                <a class="text-decoration-none" href="">
+                    <div class="card card-nav card-red text-center" style="width: 12rem; height: 12rem;">
+                        <div class="card-body d-flex">
+                            <h5 class="m-auto card-text text-uppercase">I`m felling lucky</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="mt-5 row row-cols-1 row-cols-md-3 justify-content-center">
+
+
+        <div class="card mb-3 ml-4 card-book"> 
+            <a class="image-block" href="">
+                <img src="../media/index/book.jpg" alt="Book name">
+            </a>
+
+            <div class="card-body ">
+                <a class="anime-title" href=""> Book title</a>
+                
+                <div class="card-footer border-book ">
+                    <span class="fa fa-star rating-star" data-id="2251" data-modal="rating-modal"></span>
+                    <span class="main-rating-block">
+                        <span class="main-rating">7.52</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="card mb-3 ml-4 border-book card-book" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="../media/index/book.jpg" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-header border-book">Book name</div>
+                    <div class="card-body">
+                        <div class="card-title">Rating: <strong>55</strong></div>
+                        <div class="card-text">
+                            Tags:
+                            <a href="">fantastic</a>
+                            <a href="">detective</a>
+                            <a href="">crime</a>
+                        </div>
+                    </div>
+
+                    <a class="mt-auto text-decoration-none" href="">
+                        <div class="text-right card-footer border-book">
+                            <h5 style="margin-bottom: 0px;">Go to book page</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <footer class="d-flex footer py-2 bg-info alert-info mt-5">
         <!-- Copyright -->
-        <p class="ml-auto mr-auto"> © 2019 Copyright <a class="ml-3" href="#"> VIS Production</a></p>
+        <p class="ml-auto mr-auto"> © 2020 Copyright <a class="ml-3" href="#"> VIS Production</a></p>
         <a class="mr-5" href="#">Back to top</a>
     </footer>
 </body>

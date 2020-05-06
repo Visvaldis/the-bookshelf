@@ -26,3 +26,64 @@ footer > p > a {
         font-size: 10px !important;
     }
 }
+
+.bg-info {
+    background-color: darkred !important;
+  
+    
+}
+
+body{
+    background-color: #e0e5ec;
+}
+
+.card-nav
+{
+    border-radius: 25px !important;
+    background-color: #e0e5ec;
+    color: black;
+    border: none !important;
+    box-shadow:  -9px -9px 16px #ffffff, 9px 9px 16px #a3b1c6;
+}
+
+.card-green:hover {
+    background-color: green;
+    color: white;
+    box-shadow:  -9px -9px 16px rgb(255, 255, 255, 0.7) inset,
+     9px 9px 16px rgba(77, 77, 78, 0.7) inset;
+}  
+.card-blue:hover {
+    background-color: navy;
+    color: white;
+    box-shadow:  -9px -9px 16px rgb(255, 255, 255, 0.7) inset,
+     9px 9px 16px rgba(77, 77, 78, 0.7)  inset;
+} 
+.card-yellow:hover {
+    background-color: goldenrod;
+    color: white;
+    box-shadow:  -9px -9px 16px rgb(255, 255, 255, 0.7) inset,
+    9px 9px 16px rgb(77, 77, 78, 0.7) inset;
+}
+.card-red:hover {
+    background-color: darkred;
+    color: white;
+    box-shadow:  -9px -9px 16px rgb(255, 255, 255, 0.7) inset,
+    9px 9px 16px rgba(77, 77, 78, 0.7)  inset;
+}
+
+
+a:hover{
+    color: orange !important;
+}
+
+.card-book{
+    background-color: #e0e5ec;
+    box-shadow:  -9px -9px 16px #ffffff, 9px 9px 16px #a3b1c6;
+}
+
+
+.card-header,
+.card-footer{
+    background-color: transparent;
+    border-color: darkred;
+}
