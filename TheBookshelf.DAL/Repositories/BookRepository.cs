@@ -19,9 +19,10 @@ namespace TheBookshelf.DAL.Repositories
 		{
 			this.db = context;
 		}
-		public void Create(Book item)
+		public int Create(Book item)
 		{
 			db.Books.Add(item);
+			return item.Id;
 		}
 
 		public void Delete(int id)

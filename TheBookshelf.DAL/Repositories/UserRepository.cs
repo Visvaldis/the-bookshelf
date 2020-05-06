@@ -8,7 +8,7 @@ using TheBookshelf.DAL.Entities;
 using TheBookshelf.DAL.Interfaces;
 using System.Data.Entity;
 using System.Linq.Expressions;
-
+/*
 namespace TheBookshelf.DAL.Repositories
 {
 	class UserRepository : IRepository<User>
@@ -58,3 +58,4 @@ namespace TheBookshelf.DAL.Repositories
 		}
 	}
 }
+*/

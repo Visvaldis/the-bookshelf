@@ -17,7 +17,7 @@ namespace TheBookshelf.Web.Controllers
 			tagService = service;
 		}
 
-		[Authorize]
+
 		[HttpGet]
 		public IHttpActionResult GetAll()
 		{
@@ -25,11 +25,32 @@ namespace TheBookshelf.Web.Controllers
 			return Ok(tags);
 		}
 
+		[Authorize]
+		[HttpGet]
+		public IHttpActionResult Get(int id)
+		{
+			var tag = tagService.Get(id);
+			return Ok(tag);
+		}
+
+		[Route("api/Tags/")]
 		[HttpPost]
 		public IHttpActionResult Create([FromBody] TagDTO item)
 		{
-			tagService.Add(item);
-			return Ok();
+			if (!ModelState.IsValid) return BadRequest(ModelState);
+			try
+			{
+				tagService.Add(item);
+				return Ok();
+			//	return Created()
+				//return Created(new Uri(Url.Link(ViewRouteName, new { taskId = taskId, id = view.Id })), view);
+			
+			}
+			catch (ArgumentNullException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+
 		}
     }
 }

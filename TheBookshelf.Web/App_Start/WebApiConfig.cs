@@ -15,6 +15,13 @@ namespace TheBookshelf.Web
 		public static void Register(HttpConfiguration config)
 		{
 			// Конфигурация и службы веб-API
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
+				new System.Net.Http.Headers.MediaTypeHeaderValue("text/html"));
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
+				new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream"));
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
+				new System.Net.Http.Headers.MediaTypeHeaderValue("application/x-www-form-urlencoded"));
+			
 
 			config.SuppressDefaultHostAuthentication();
 			config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));

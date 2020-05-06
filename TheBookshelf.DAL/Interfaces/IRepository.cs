@@ -12,7 +12,7 @@ namespace TheBookshelf.DAL.Interfaces
 		IEnumerable<T> GetAll();
 		T Get(int id);
 		IQueryable<T> Find(Expression<Func<T, Boolean>> predicate);
-		void Create(T item);   
+		int Create(T item);   
 		void Update(T item);
 		void Delete(int id);
 	}

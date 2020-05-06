@@ -11,7 +11,7 @@ namespace TheBookshelf.BLL.Interfaces
 		IEnumerable<T> GetAll();
 		T Get(int id);
 		IEnumerable<T> GetWithFilter(Func<T, Boolean> filter);
-		void Add(T item);
+		int Add(T item);
 		void Update(T item);
 		void Delete(int id);
 		void Dispose();

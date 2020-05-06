@@ -13,7 +13,7 @@ namespace TheBookshelf.DAL.Interfaces
 		IRepository<Author> Authors { get; }
 		IRepository<Tag> Tags { get; }
 		IRepository<Book> Books { get; }
-		IRepository<User> Users { get; }
+	//	IRepository<User> Users { get; }
 		IUserStore<User, int> UserStore { get; }
 
 		void Save();

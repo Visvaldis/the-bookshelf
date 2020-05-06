@@ -55,7 +55,7 @@ namespace TheBookshelf.DAL.Identity
 
 		public async Task<bool> HasPasswordAsync(User user)
 		{
-			return user.PasswordHash != null;
+			return  user.PasswordHash != null;
 		}
 
 		public async Task SetPasswordHashAsync(User user, string passwordHash)

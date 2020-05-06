@@ -25,7 +25,7 @@ namespace TheBookshelf.BLL.Services
 				cfg.CreateMap<TagDTO, Tag>();})
 			.CreateMapper();
 		}
-		public void Add(TagDTO item)
+		public int Add(TagDTO item)
 		{
 			if (item == null)
 				throw new ArgumentNullException("Current tag is null. Try again.");
@@ -33,10 +33,11 @@ namespace TheBookshelf.BLL.Services
 			var tag = Database.Tags.Find(x => x.Name.ToLower() == item.Name.ToLower());
 			if (tag.ToList().Count == 0)
 			{
-				Database.Tags.Create(Mapper.Map<TagDTO, Tag>(item));
+				int id = Database.Tags.Create(Mapper.Map<TagDTO, Tag>(item));
 				Database.Save();
+				return id;
 			}
-
+			return 0;
 		}
 
 		public void Delete(int id)
