@@ -21,6 +21,7 @@ namespace TheBookshelf.DAL.Repositories
 		public int Create(Tag item)
 		{
 			db.Tags.Add(item);
+			db.SaveChanges();
 			return item.Id;
 		}
 
@@ -43,7 +44,7 @@ namespace TheBookshelf.DAL.Repositories
 
 		public IEnumerable<Tag> GetAll()
 		{
-			return db.Tags;
+			return db.Tags.ToArray();
 		}
 
 		public void Update(Tag item)

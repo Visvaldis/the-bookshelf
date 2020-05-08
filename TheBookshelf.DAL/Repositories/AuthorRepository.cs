@@ -21,6 +21,7 @@ namespace TheBookshelf.DAL.Repositories
 		public int Create(Author item)
 		{
 			db.Authors.Add(item);
+			db.SaveChanges();
 			return item.Id;
 		}
 

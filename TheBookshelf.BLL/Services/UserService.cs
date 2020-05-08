@@ -36,7 +36,7 @@ namespace TheBookshelf.BLL.Services
 
 	
 
-		public async Task<IEnumerable<UserDTO>> GetAll()
+		public async Task<ICollection<UserDTO>> GetAll()
 		{
 			var users = await userManager.Users.ToListAsync();
 			return Mapper.Map<List<User>, List<UserDTO>>(users);

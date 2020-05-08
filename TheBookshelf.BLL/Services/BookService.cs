@@ -32,7 +32,7 @@ namespace TheBookshelf.BLL.Services
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<BookDTO> GetAll()
+		public ICollection<BookDTO> GetAll()
 		{
 			return Mapper.Map<IEnumerable<Book>, List<BookDTO>>(Database.Books.GetAll());
 
@@ -50,7 +50,7 @@ namespace TheBookshelf.BLL.Services
 			return Mapper.Map<Book, BookDTO>(book);
 		}
 
-		public IEnumerable<BookDTO> GetWithFilter(Func<BookDTO, bool> filter)
+		public ICollection<BookDTO> GetWithFilter(Func<BookDTO, bool> filter)
 		{
 			var mapper = new MapperConfiguration(
 			cfg => cfg.CreateMap<Func<BookDTO, bool>,
@@ -96,6 +96,16 @@ namespace TheBookshelf.BLL.Services
 		public void Dispose()
 		{
 			Database.Dispose();
+		}
+
+		public bool Exist(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public bool Exist(string Name)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

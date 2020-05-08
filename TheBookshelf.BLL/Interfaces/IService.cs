@@ -8,12 +8,14 @@ namespace TheBookshelf.BLL.Interfaces
 {
 	public interface IService<T> where T : class
 	{
-		IEnumerable<T> GetAll();
+		ICollection<T> GetAll();
 		T Get(int id);
-		IEnumerable<T> GetWithFilter(Func<T, Boolean> filter);
+		ICollection<T> GetWithFilter(Func<T, Boolean> filter);
 		int Add(T item);
 		void Update(T item);
 		void Delete(int id);
+		bool Exist(int id);
+		bool Exist(string Name);
 		void Dispose();
 	}
 }

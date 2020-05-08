@@ -13,7 +13,7 @@ namespace TheBookshelf.BLL.Interfaces
 {
 	public interface IUserService : IDisposable
 	{
-		Task<IEnumerable<UserDTO>> GetAll();
+		Task<ICollection<UserDTO>> GetAll();
 		Task<IdentityResult> CreateAsync(UserDTO user, string password);
 	}
 }

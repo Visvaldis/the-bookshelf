@@ -23,7 +23,7 @@ namespace TheBookshelf.DAL.Repositories
 		private BookshelfContext db;
 		private BookRepository bookRepository;
 		private AuthorRepository authorRepository;
-		private UserRepository userRepository;
+//		private UserRepository userRepository;
 		private TagRepository tagRepository;
 		private AppUserStore userStore;
 
@@ -66,7 +66,7 @@ namespace TheBookshelf.DAL.Repositories
 				return bookRepository;
 			}
 		}
-
+		/*
 		public IRepository<User> Users
 		{
 			get
@@ -76,7 +76,7 @@ namespace TheBookshelf.DAL.Repositories
 				return userRepository;
 			}
 		}
-
+		*/
 	
 		public async Task SaveAsync()
 		{

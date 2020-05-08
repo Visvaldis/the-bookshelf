@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TheBookshelf.BLL.Infrastructure
 {
-	class ValidationException : Exception
+	public class ValidationException : Exception
 	{
 		public ValidationException()
 		{

@@ -30,14 +30,14 @@ namespace TheBookshelf.BLL.Services
 			if (item == null)
 				throw new ArgumentNullException("Current tag is null. Try again.");
 
-			var tag = Database.Tags.Find(x => x.Name.ToLower() == item.Name.ToLower());
-			if (tag.ToList().Count == 0)
-			{
+			var tag = Database.Tags.Find(x => x.Name.ToLower() == item.Name.ToLower()).FirstOrDefault();
+
+			if (tag != default(Tag))
+				throw new ValidationException(tag.Id.ToString());
+			else {
 				int id = Database.Tags.Create(Mapper.Map<TagDTO, Tag>(item));
-				Database.Save();
 				return id;
 			}
-			return 0;
 		}
 
 		public void Delete(int id)
@@ -46,7 +46,7 @@ namespace TheBookshelf.BLL.Services
 			Database.Save();
 		}
 
-		public IEnumerable<TagDTO> GetWithFilter(Func<TagDTO, bool> filter)
+		public ICollection<TagDTO> GetWithFilter(Func<TagDTO, bool> filter)
 		{
 
 			var mapper = new MapperConfiguration(
@@ -57,7 +57,7 @@ namespace TheBookshelf.BLL.Services
 			var expression = mapper.Map<Expression<Func<Tag, bool>>>(filter);
 
 
-			return Mapper.Map<IEnumerable<Tag>, List<TagDTO>>
+			return Mapper.Map<ICollection<Tag>, List<TagDTO>>
 				(Database.Tags.Find(expression).ToList());
 		}
 
@@ -70,13 +70,15 @@ namespace TheBookshelf.BLL.Services
 			return Mapper.Map<Tag, TagDTO>(tag);
 		}
 
-		public IEnumerable<TagDTO> GetAll()
+		public ICollection<TagDTO> GetAll()
 		{
-			return Mapper.Map<IEnumerable<Tag>, List<TagDTO>>(Database.Tags.GetAll());
+			var tags = Database.Tags.GetAll();
+			return Mapper.Map<IEnumerable<Tag>, List<TagDTO>>(tags);
 		}
 
 		public void Update(TagDTO item)
 		{
+
 			Database.Tags.Update(Mapper.Map<TagDTO, Tag>(item));
 			Database.Save();
 		}
@@ -86,5 +88,19 @@ namespace TheBookshelf.BLL.Services
 			Database.Dispose();
 		}
 
+		public bool Exist(int id)
+		{
+			var tag = Database.Tags.Get(id);
+			if (tag == null) return false;
+			else return true;
+		}
+
+		public bool Exist(string Name)
+		{
+			var tag = Database.Tags.Find(x => x.Name.ToLower() == Name.ToLower())
+				.FirstOrDefault();
+			if (tag == default(Tag)) return false;
+			else return true;
+		}
 	}
 }
