@@ -13,7 +13,7 @@ namespace TheBookshelf.BLL.DTO
 		public string Description { get; set; }
 		public ICollection<AuthorDTO> Authors { get; set; }
 		public ICollection<TagDTO> Tags { get; set; }
-	//	public ICollection<UserDTO> FanUsers { get; set; }
+		public ICollection<UserDTO> FanUsers { get; set; }
 		public UserDTO Creator { get; set; }
 		public int CreatorId { get; set; }
 		public string FileUrl { get; set; }
@@ -24,7 +24,7 @@ namespace TheBookshelf.BLL.DTO
 		{
 			Authors = new List<AuthorDTO>();
 			Tags = new List<TagDTO>();
-	//		FanUsers = new List<UserDTO>();
+			FanUsers = new List<UserDTO>();
 		}
 	}
 }

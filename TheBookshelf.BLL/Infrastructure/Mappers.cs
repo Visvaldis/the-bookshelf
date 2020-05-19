@@ -20,6 +20,8 @@ namespace TheBookshelf.BLL.Infrastructure
 					cfg.CreateMap<BookDTO, Book>();
 					cfg.CreateMap<User, UserDTO>();
 					cfg.CreateMap<UserDTO, User>();
+					cfg.CreateMap<Tag, TagDTO>();
+					cfg.CreateMap<TagDTO, Tag>();
 					//.ForMember(b => b.Creator, conf => conf.MapFrom(b => b.Creator))
 					//.ForMember(b => b.Authors, conf => conf.MapFrom(b => b.Authors))
 					//.ForMember(b => b.FanUser, conf => conf.MapFrom(b => b.FanUser))

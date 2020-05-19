@@ -44,6 +44,17 @@ namespace TheBookshelf.Web.Controllers
 			}
 		}
 
+		[Route("{tagId}/books")]
+		[HttpGet, ActionName("GetBooksByTag")]
+		public IHttpActionResult GetBooksByTag(int tagId)
+		{
+			if (tagId <= 0)
+				return BadRequest("Id is negative");
+
+			var books = tagService.GetBooksByTag(tagId);
+			return Ok(books);
+		}
+
 		[Route()]
 		[HttpPost]
 		public IHttpActionResult Create([FromBody] TagDTO item)
