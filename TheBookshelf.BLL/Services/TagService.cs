@@ -102,6 +102,9 @@ namespace TheBookshelf.BLL.Services
 		public IEnumerable<BookDTO> GetBooksByTag(int tagId)
 		{
 			var tag = Database.Tags.Get(tagId);
+			if (tag == null)
+				throw new ValidationException("Current tag is not found");
+
 			var books = tag.Books;
 			var bookDto = Mappers.BookMapper.Map<IEnumerable<Book>, List<BookDTO>>(books);
 			return bookDto;

@@ -33,6 +33,22 @@ namespace TheBookshelf.DAL.Repositories
 				}
 				item.Tags.Add(tag);
 			}
+
+			var authors = item.Authors;
+			item.Authors = new List<Author>();
+			foreach (var author in authors)
+			{
+				Author aut = db.Authors.SingleOrDefault(t => t.Name == author.Name);
+				if (aut == null)
+				{
+					/*
+					aut = new Author {Bio = author.Bio, Birthday = author.Birthday, Books = author.Books, Name = author.Name };
+					db.Authors.Add(aut);*/
+					continue;
+				}
+				item.Authors.Add(aut);
+			}
+
 			db.Books.Add(item);
 			db.SaveChanges();
 			return item.Id;
@@ -67,6 +83,34 @@ namespace TheBookshelf.DAL.Repositories
 
 		public void Update(Book item)
 		{
+			var tags = item.Tags;
+			item.Tags = new List<Tag>();
+			foreach (var booktag in tags)
+			{
+				Tag tag = db.Tags.SingleOrDefault(t => t.Name == booktag.Name);
+				if (tag == null)
+				{
+					tag = new Tag { Name = booktag.Name };
+					db.Tags.Add(tag);
+				}
+				item.Tags.Add(tag);
+			}
+
+			var authors = item.Authors;
+			item.Authors = new List<Author>();
+			foreach (var author in authors)
+			{
+				Author aut = db.Authors.SingleOrDefault(t => t.Name == author.Name);
+				if (aut == null)
+				{
+					/*
+					aut = new Author {Bio = author.Bio, Birthday = author.Birthday, Books = author.Books, Name = author.Name };
+					db.Authors.Add(aut);*/
+					continue;
+				}
+				item.Authors.Add(aut);
+			}
+
 			db.Books.Attach(item);
 			db.Entry(item).State = EntityState.Modified;
 		}

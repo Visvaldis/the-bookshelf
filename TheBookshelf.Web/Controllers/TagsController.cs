@@ -50,9 +50,16 @@ namespace TheBookshelf.Web.Controllers
 		{
 			if (tagId <= 0)
 				return BadRequest("Id is negative");
-
-			var books = tagService.GetBooksByTag(tagId);
-			return Ok(books);
+			try
+			{
+				var books = tagService.GetBooksByTag(tagId);
+				return Ok(books);
+			}
+			catch (ValidationException ex)
+			{
+				return NotFound();
+			}
+			
 		}
 
 		[Route()]
