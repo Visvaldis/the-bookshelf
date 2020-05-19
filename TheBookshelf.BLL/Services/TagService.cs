@@ -101,7 +101,8 @@ namespace TheBookshelf.BLL.Services
 
 		public IEnumerable<BookDTO> GetBooksByTag(int tagId)
 		{
-			var books = Database.Tags.Get(tagId).Books;
+			var tag = Database.Tags.Get(tagId);
+			var books = tag.Books;
 			var bookDto = Mappers.BookMapper.Map<IEnumerable<Book>, List<BookDTO>>(books);
 			return bookDto;
 		}

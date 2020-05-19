@@ -21,8 +21,19 @@ namespace TheBookshelf.DAL.Repositories
 		}
 		public int Create(Book item)
 		{
+			var tags = item.Tags;
+			item.Tags = new List<Tag>();
+			foreach (var booktag in tags)
+			{
+				Tag tag = db.Tags.SingleOrDefault(t => t.Name == booktag.Name);
+				if(tag == null)
+				{
+					tag = new Tag { Name = booktag.Name };
+					db.Tags.Add(tag);
+				}
+				item.Tags.Add(tag);
+			}
 			db.Books.Add(item);
-
 			db.SaveChanges();
 			return item.Id;
 		}
