@@ -20,10 +20,7 @@ namespace TheBookshelf.BLL.Services
 		public TagService(IUnitOfWork uow)
 		{
 			Database = uow;
-			Mapper = new MapperConfiguration(cfg => {
-				cfg.CreateMap<Tag, TagDTO>();
-				cfg.CreateMap<TagDTO, Tag>();})
-			.CreateMapper();
+			Mapper = Mappers.TagMapper;
 		}
 		public int Add(TagDTO item)
 		{
@@ -78,7 +75,6 @@ namespace TheBookshelf.BLL.Services
 
 		public void Update(TagDTO item)
 		{
-
 			Database.Tags.Update(Mapper.Map<TagDTO, Tag>(item));
 			Database.Save();
 		}
@@ -101,6 +97,13 @@ namespace TheBookshelf.BLL.Services
 				.FirstOrDefault();
 			if (tag == default(Tag)) return false;
 			else return true;
+		}
+
+		public IEnumerable<BookDTO> GetBooksByTag(int tagId)
+		{
+			var books = Database.Tags.Get(tagId).Books;
+			var bookDto = Mappers.BookMapper.Map<IEnumerable<Book>, List<BookDTO>>(books);
+			return bookDto;
 		}
 	}
 }

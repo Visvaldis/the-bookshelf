@@ -48,6 +48,7 @@ namespace TheBookshelf.Web
 			{
 				return new INinjectModule[]
 				{
+					new BookModule(),
 					new UserModule(),
 					new TagModule(),
 					new ServiceModule("BookshelfContext")

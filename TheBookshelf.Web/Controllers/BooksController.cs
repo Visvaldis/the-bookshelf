@@ -10,60 +10,64 @@ using TheBookshelf.BLL.Interfaces;
 
 namespace TheBookshelf.Web.Controllers
 {
-	[RoutePrefix("api/tags")]
-    public class TagsController : ApiController
+	[RoutePrefix("api/books")]
+	public class BooksController : ApiController
     {
-		ITagService tagService;
-		public TagsController(ITagService service)
+		IBookService bookService;
+		IUserService userService;
+		public BooksController(IBookService books, IUserService users)
 		{
-			tagService = service;
+			bookService = books;
+			userService = users;
+
 		}
 
 		[Route()]
-		[HttpGet, ActionName("GetAllTags")]
+		[HttpGet, ActionName("GetAllBooks")]
 		public IHttpActionResult GetAll()
 		{
-			var tags = tagService.GetAll();
-			return Ok(tags);
+			var books = bookService.GetAll();
+			return Ok(books);
 		}
 
 		[Route("{id}")]
-		[HttpGet, ActionName("GetTag")]
+		[HttpGet, ActionName("GetBook")]
 		public IHttpActionResult Get(int id)
 		{
 			if (id <= 0)
 				return BadRequest("Id is negative");
 			try
 			{
-				var tag = tagService.Get(id);
-				return Ok(tag);
+				var book = bookService.Get(id);
+				return Ok(book);
 			}
 			catch (ValidationException ex)
 			{
 				return NotFound();
 			}
 		}
-
+		[Authorize]
 		[Route()]
 		[HttpPost]
-		public IHttpActionResult Create([FromBody] TagDTO item)
+		public IHttpActionResult Create([FromBody] BookDTO item)
 		{
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 			try
 			{
-				int tagId = tagService.Add(item);
-				item.Id = tagId;
-				
-				return Created(new Uri($"{Request.RequestUri}/{tagId}", UriKind.RelativeOrAbsolute), item);
+				var name = RequestContext.Principal.Identity.Name;
+				var user = userService.GetUser(name);
+				item.CreatorId = user.Id;
+				item.PublishDate = DateTime.Today;
+				item.AddedDate = DateTime.Today;
+				int bookId = bookService.Add(item);
+				item.Id = bookId;
+
+				return Created(new Uri($"{Request.RequestUri}/{bookId}", UriKind.RelativeOrAbsolute), item);
 			}
 			catch (ArgumentNullException ex)
 			{
 				return BadRequest(ex.Message);
-			}
-			catch(ValidationException ex)
-			{
-				return Ok($"Tag already exist. Id = {ex.Message}");
 			}
 		}
 
@@ -74,25 +78,24 @@ namespace TheBookshelf.Web.Controllers
 		{
 			if (id < 0)
 				return BadRequest("Id is negative");
-			if (!tagService.Exist(id))
+			if (!bookService.Exist(id))
 				return NotFound();
 
-			tagService.Delete(id);
+			bookService.Delete(id);
 			return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
 		}
 
-
 		[Route("{id}")]
 		[HttpPut]
-		public IHttpActionResult Update(int id, [FromBody] TagDTO item)
+		public IHttpActionResult Update(int id, [FromBody] BookDTO item)
 		{
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
-			if (!tagService.Exist(id))
+			if (!bookService.Exist(id))
 				return NotFound();
 
 			item.Id = id;
-			tagService.Update(item);
+			bookService.Update(item);
 			return Ok();
 		}
 	}

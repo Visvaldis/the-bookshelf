@@ -7,13 +7,13 @@ namespace TheBookshelf.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class AddAnnotation : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAnnotation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202004070943344_AddAnnotation"; }
+            get { return "202005182006016_Initial"; }
         }
         
         string IMigrationMetadata.Source

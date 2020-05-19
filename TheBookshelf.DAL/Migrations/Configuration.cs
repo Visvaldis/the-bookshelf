@@ -10,7 +10,6 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "TheBookshelf.DAL.Context.BookshelfContext";
         }
 
         protected override void Seed(TheBookshelf.DAL.Context.BookshelfContext context)

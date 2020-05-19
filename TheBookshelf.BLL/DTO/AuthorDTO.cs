@@ -12,11 +12,12 @@ namespace TheBookshelf.BLL.DTO
 		public string Name { get; set; }
 		public string Bio { get; set; }
 		public DateTime Birthday { get; set; }
-		public virtual ICollection<BookDTO> Books { get; set; }
+//		public virtual ICollection<BookDTO> Books { get; set; }
 
-		public AuthorDTO()
+/*		public AuthorDTO()
 		{
 			Books = new List<BookDTO>();
 		}
+*/
 	}
 }

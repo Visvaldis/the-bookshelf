@@ -13,23 +13,19 @@ using TheBookshelf.DAL.Interfaces;
 
 namespace TheBookshelf.BLL.Services
 {
-	class BookService: IBookService
+	public class BookService: IBookService
 	{
 		IUnitOfWork Database { get; set; }
 		IMapper Mapper { get; set; }
 		public BookService(IUnitOfWork uow)
 		{
 			Database = uow;
-			Mapper = new MapperConfiguration(cfg => {
-				cfg.CreateMap<Book, BookDTO>();
-				cfg.CreateMap<BookDTO, Book>();
-			})
-			.CreateMapper();
+			Mapper = Mappers.BookMapper;
 		}
 
-		public BookDTO GetBookByName(string bookName)
+		public ICollection<BookDTO> GetBooksByName(string bookName)
 		{
-			throw new NotImplementedException();
+			return GetWithFilter(x => x.Name.Contains(bookName));
 		}
 
 		public ICollection<BookDTO> GetAll()
@@ -40,9 +36,6 @@ namespace TheBookshelf.BLL.Services
 
 		public BookDTO Get(int id)
 		{
-			if (id < 1)
-				throw new ArgumentException($"id = {id}");
-		
 			var book = Database.Books.Get(id);
 			if (book == null)
 				throw new ValidationException("Book is not found");
@@ -56,10 +49,8 @@ namespace TheBookshelf.BLL.Services
 			cfg => cfg.CreateMap<Func<BookDTO, bool>,
 			Expression<Func<Book, bool>>>())
 				.CreateMapper();
-
 			var expression = mapper.Map<Expression<Func<Book, bool>>>(filter);
-
-
+			
 			return Mapper.Map<IEnumerable<Book>, List<BookDTO>>
 				(Database.Books.Find(expression).ToList());
 
@@ -69,26 +60,21 @@ namespace TheBookshelf.BLL.Services
 		{
 			if (item == null)
 				throw new ArgumentNullException("Book is null. Try again.");
-	
-			int id = Database.Books.Create(Mapper.Map<BookDTO, Book>(item));
-			Database.Save();
+			var book = Mapper.Map<BookDTO, Book>(item);
+			int id = Database.Books.Create(book);
+		//	Database.Save();
 			return id;
 
 		}
 
 		public void Update(BookDTO item)
 		{
-			if (item == null)
-				throw new ArgumentNullException("Book is null. Try again.");
-
 			Database.Books.Update(Mapper.Map<BookDTO, Book>(item));
 			Database.Save();
 		}
 
 		public void Delete(int id)
 		{
-			if (id < 1)
-				throw new ArgumentException($"id = {id}");
 			Database.Books.Delete(id);
 			Database.Save();
 		}
@@ -98,14 +84,17 @@ namespace TheBookshelf.BLL.Services
 			Database.Dispose();
 		}
 
-		public bool Exist(int id)
+		public ICollection<BookDTO> GetBooksByTag(int tagId)
 		{
-			throw new NotImplementedException();
+			var tag = Mapper.Map<TagDTO>(Database.Tags.Get(tagId));
+			return GetWithFilter(x => x.Tags.Contains(tag));
 		}
 
-		public bool Exist(string Name)
+		public bool Exist(int id)
 		{
-			throw new NotImplementedException();
+			var book = Database.Books.Get(id);
+			if (book == null) return false;
+			else return true;
 		}
 	}
 }

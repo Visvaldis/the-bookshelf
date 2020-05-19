@@ -15,5 +15,6 @@ namespace TheBookshelf.BLL.Interfaces
 	{
 		Task<ICollection<UserDTO>> GetAll();
 		Task<IdentityResult> CreateAsync(UserDTO user, string password);
+		UserDTO GetUser(string userName);
 	}
 }

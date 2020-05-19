@@ -15,13 +15,13 @@ namespace TheBookshelf.BLL.DTO
 		public DateTime RegistrationDate { get; set; }
 		public string Role { get; set; }
 		public virtual ICollection<BookDTO> LikedBooks { get; set; }
-		public virtual ICollection<BookDTO> AddedBooks { get; set; }
+//		public virtual ICollection<BookDTO> AddedBooks { get; set; }
 		public string AvatarUrl { get; set; }
 
 		public UserDTO()
 		{
 			LikedBooks = new List<BookDTO>();
-			AddedBooks = new List<BookDTO >();
+	//		AddedBooks = new List<BookDTO >();
 		}
 	}
 }

@@ -15,7 +15,6 @@ namespace TheBookshelf.BLL.Interfaces
 		void Update(T item);
 		void Delete(int id);
 		bool Exist(int id);
-		bool Exist(string Name);
 		void Dispose();
 	}
 }

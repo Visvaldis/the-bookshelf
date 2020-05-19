@@ -89,6 +89,7 @@
     <Compile Include="Identity\AppRoleManager.cs" />
     <Compile Include="Identity\AppUserManager.cs" />
     <Compile Include="Identity\OAuthProvider.cs" />
+    <Compile Include="Infrastructure\Mappers.cs" />
     <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />

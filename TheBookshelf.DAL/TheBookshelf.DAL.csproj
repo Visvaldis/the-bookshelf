@@ -65,33 +65,9 @@
     <Compile Include="Identity\AppUserStore.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\202003252140060_InitialCreate.cs" />
-    <Compile Include="Migrations\202003252140060_InitialCreate.designer.cs">
-      <DependentUpon>202003252140060_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004061201416_AddBooksToTag.cs" />
-    <Compile Include="Migrations\202004061201416_AddBooksToTag.designer.cs">
-      <DependentUpon>202004061201416_AddBooksToTag.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004061338300_AddRightConnection.cs" />
-    <Compile Include="Migrations\202004061338300_AddRightConnection.designer.cs">
-      <DependentUpon>202004061338300_AddRightConnection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004070943344_AddAnnotation.cs" />
-    <Compile Include="Migrations\202004070943344_AddAnnotation.designer.cs">
-      <DependentUpon>202004070943344_AddAnnotation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004071041032_AddAnnotation1.cs" />
-    <Compile Include="Migrations\202004071041032_AddAnnotation1.designer.cs">
-      <DependentUpon>202004071041032_AddAnnotation1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004071044190_RemoveAnnotations.cs" />
-    <Compile Include="Migrations\202004071044190_RemoveAnnotations.designer.cs">
-      <DependentUpon>202004071044190_RemoveAnnotations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004211046370_Added Identity.cs" />
-    <Compile Include="Migrations\202004211046370_Added Identity.designer.cs">
-      <DependentUpon>202004211046370_Added Identity.cs</DependentUpon>
+    <Compile Include="Migrations\202005182006016_Initial.cs" />
+    <Compile Include="Migrations\202005182006016_Initial.designer.cs">
+      <DependentUpon>202005182006016_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,31 +78,13 @@
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003252140060_InitialCreate.resx">
-      <DependentUpon>202003252140060_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004061201416_AddBooksToTag.resx">
-      <DependentUpon>202004061201416_AddBooksToTag.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004061338300_AddRightConnection.resx">
-      <DependentUpon>202004061338300_AddRightConnection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004070943344_AddAnnotation.resx">
-      <DependentUpon>202004070943344_AddAnnotation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004071041032_AddAnnotation1.resx">
-      <DependentUpon>202004071041032_AddAnnotation1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004071044190_RemoveAnnotations.resx">
-      <DependentUpon>202004071044190_RemoveAnnotations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004211046370_Added Identity.resx">
-      <DependentUpon>202004211046370_Added Identity.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202005182006016_Initial.resx">
+      <DependentUpon>202005182006016_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

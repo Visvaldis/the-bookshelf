@@ -7,12 +7,12 @@ using TheBookshelf.BLL.DTO;
 
 namespace TheBookshelf.BLL.Interfaces
 {
-	interface IBookService: IService<BookDTO>
+	public interface IBookService: IService<BookDTO>
 	{
-	//	ICollection<TagDTO> GetTagsByBook(int bookId);
+		ICollection<BookDTO> GetBooksByTag(int tagId);
 	//	UserDTO GetBookCreator(int bookId);
 	//	void AddTagToBook(int bookId, int tagId);
-		BookDTO GetBookByName(string bookName);
+		ICollection<BookDTO> GetBooksByName(string bookName);
 	//	ICollection<AuthorDTO> GetAuthorsByBook(int bookId);
 	}
 }

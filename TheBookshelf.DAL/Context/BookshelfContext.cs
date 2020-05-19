@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using TheBookshelf.DAL.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TheBookshelf.DAL.Context
 {
@@ -24,12 +25,14 @@ namespace TheBookshelf.DAL.Context
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
+
 			modelBuilder.Entity<User>()
 				.HasMany(a => a.AddedBooks)
-				.WithRequired(p => p.Creator);
-			modelBuilder.Entity<Book>()
-				.HasMany(p => p.FanUser)
-				.WithMany(c => c.LikedBooks)
+				.WithRequired(p => p.Creator)
+				.HasForeignKey(s => s.CreatorId); 
+			modelBuilder.Entity<User>()
+				.HasMany(p => p.LikedBooks)
+				.WithMany(c => c.FanUsers)
 				.Map(m =>
 				  {
 					  m.ToTable("LikedBooks");

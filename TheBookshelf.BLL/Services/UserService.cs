@@ -27,11 +27,7 @@ namespace TheBookshelf.BLL.Services
 		{
 			Database = uow;
 			userManager = new ApplicationUserManager(Database.UserStore);
-			Mapper = new MapperConfiguration(cfg => {
-				cfg.CreateMap<User, UserDTO>();
-				cfg.CreateMap<UserDTO, User>();
-			})
-			.CreateMapper();
+			Mapper = Mappers.UserMapper;
 		}
 
 	
@@ -52,6 +48,12 @@ namespace TheBookshelf.BLL.Services
 		{
 			var u = Mapper.Map<UserDTO, User>(user);
 			return userManager.CreateAsync(u, password);
+		}
+
+		public UserDTO GetUser(string userName)
+		{
+			var user = userManager.FindByName(userName);
+			return  Mapper.Map<User, UserDTO>(user);
 		}
 	}
 }

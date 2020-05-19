@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,17 +16,21 @@ namespace TheBookshelf.DAL.Entities
 		public string Description { get; set; }
 		public ICollection<Author> Authors { get; set; }
 		public ICollection<Tag> Tags { get; set; }
-		public ICollection<User> FanUser { get; set; }
-		public User Creator { get; set; }
+		public ICollection<User> FanUsers { get; set; }
+		public int CreatorId { get; set; }
+		public virtual User Creator { get; set; }
 		public string FileUrl { get; set; }
-		public DateTime PublishDate { get; set; }
-		public DateTime AddedDate { get; set; }
+
+		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+		public DateTime? PublishDate { get; set; }
+		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+		public DateTime? AddedDate { get; set; }
 		public int Assessment { get; set; } 
 		public Book()
 		{
 			Authors = new List<Author>();
 			Tags = new List<Tag>();
-			FanUser = new List<User>();
+			FanUsers = new List<User>();
 		}
 	}
 }
