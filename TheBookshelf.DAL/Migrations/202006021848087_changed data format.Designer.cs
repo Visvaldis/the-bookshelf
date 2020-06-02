@@ -7,13 +7,13 @@ namespace TheBookshelf.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class changeddataformat : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(changeddataformat));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005182006016_Initial"; }
+            get { return "202006021848087_changed data format"; }
         }
         
         string IMigrationMetadata.Source

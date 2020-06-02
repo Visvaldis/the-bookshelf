@@ -11,7 +11,7 @@ namespace TheBookshelf.DAL.Interfaces
 	{
 		IEnumerable<T> GetAll();
 		T Get(int id);
-		IQueryable<T> Find(Expression<Func<T, Boolean>> predicate);
+		IEnumerable<T> Find(Expression<Func<T, Boolean>> predicate);
 		int Create(T item);   
 		void Update(T item);
 		void Delete(int id);

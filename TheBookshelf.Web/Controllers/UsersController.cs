@@ -32,7 +32,7 @@ namespace TheBookshelf.Web.Controllers
 			{
 				return BadRequest(ModelState);
 			}
-			var user = new UserDTO() { UserName  = model.Email, Email = model.Email };
+			var user = new UserDTO() { UserName  = model.Email, Email = model.Email};
 
 			IdentityResult result = await userService.CreateAsync(user, model.Password);
 

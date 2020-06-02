@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TheBookshelf.BLL.DTO;
@@ -11,56 +12,50 @@ namespace TheBookshelf.BLL.Infrastructure
 {
 	public class Mappers
 	{
-		public static IMapper BookMapper
+		public static IMapper BookshelfMapper
 		{
 			get
 			{
-				return new MapperConfiguration(cfg => {
-					cfg.CreateMap<Book, BookDTO>();
-					cfg.CreateMap<BookDTO, Book>();
+				var mapperCfg = new MapperConfiguration(cfg =>
+				{
+					cfg.CreateMap<Book, BookDTO>().ReverseMap();
+
 					cfg.CreateMap<User, UserDTO>();
-					cfg.CreateMap<UserDTO, User>();
-					cfg.CreateMap<Tag, TagDTO>();
-					cfg.CreateMap<TagDTO, Tag>();
-					//.ForMember(b => b.Creator, conf => conf.MapFrom(b => b.Creator))
-					//.ForMember(b => b.Authors, conf => conf.MapFrom(b => b.Authors))
-					//.ForMember(b => b.FanUser, conf => conf.MapFrom(b => b.FanUser))
-					//.ForMember(b => b.Tags, conf => conf.MapFrom(b => b.Tags));
-				}).CreateMapper();
-			}
-		}
+					cfg.CreateMap<UserDTO, User>()
+					.ForMember(dest => dest.AddedBooks, conf => conf.Ignore())
+					.ForMember(dest => dest.LikedBooks, conf => conf.Ignore())
+					.ForMember(dest => dest.EmailConfirmed, conf => conf.Ignore())
+					.ForMember(dest => dest.PasswordHash, conf => conf.Ignore())
+					.ForMember(dest => dest.SecurityStamp, conf => conf.Ignore())
+					.ForMember(dest => dest.PhoneNumber, conf => conf.Ignore())
+					.ForMember(dest => dest.PhoneNumberConfirmed, conf => conf.Ignore())
+					.ForMember(dest => dest.TwoFactorEnabled, conf => conf.Ignore())
+					.ForMember(dest => dest.LockoutEnabled, conf => conf.Ignore())
+					.ForMember(dest => dest.LockoutEndDateUtc, conf => conf.Ignore())
+					.ForMember(dest => dest.Logins, conf => conf.Ignore())
+					.ForMember(dest => dest.AccessFailedCount, conf => conf.Ignore())
+					.ForMember(dest => dest.Claims, conf => conf.Ignore());
+					//	.ForAllOtherMembers(conf => conf.Ignore());
 
 
-		public static IMapper TagMapper
-		{
-			get
-			{
-				return new MapperConfiguration(cfg => {
+
+					cfg.CreateMap<RoleDTO, Role>()
+					.ForMember(dest => dest.Users, conf => conf.Ignore());
+					cfg.CreateMap<Role, RoleDTO>();
+
 					cfg.CreateMap<Tag, TagDTO>()
 					.ForMember(t => t.BookCount, conf => conf.MapFrom(b => b.Books.Count));
-					cfg.CreateMap<TagDTO, Tag>();
-				}).CreateMapper();
-			}
-		}
+					cfg.CreateMap<TagDTO, Tag>()
+					.ForMember(t => t.Books, conf => conf.Ignore());
 
-		public static IMapper UserMapper
-		{
-			get
-			{
-				return new MapperConfiguration(cfg => {
-					cfg.CreateMap<User, UserDTO>();
-					cfg.CreateMap<UserDTO, User>();
-				}).CreateMapper();
-			}
-		}
-		public static IMapper AuthorMapper
-		{
-			get
-			{
-				return new MapperConfiguration(cfg => {
-					cfg.CreateMap<Author, AuthorDTO>();
-					cfg.CreateMap<AuthorDTO, Author>();
-				}).CreateMapper();
+					cfg.CreateMap<Author, AuthorDTO>().ReverseMap();
+
+
+					cfg.CreateMap<Expression<Func<BookDTO, bool>>,
+					Expression<Func<Book, bool>>>();
+				});
+		//		mapperCfg.AssertConfigurationIsValid();
+				return mapperCfg.CreateMapper();
 			}
 		}
 	

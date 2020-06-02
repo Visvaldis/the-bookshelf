@@ -32,9 +32,9 @@ namespace TheBookshelf.DAL.Repositories
 				db.Tags.Remove(tag);
 		}
 
-		public IQueryable<Tag> Find(Expression<Func<Tag, bool>> predicate)
+		public IEnumerable<Tag> Find(Expression<Func<Tag, bool>> predicate)
 		{
-			return db.Tags.Where(predicate);
+			return db.Tags.Where(predicate).ToList();
 		}
 
 		public Tag Get(int id)
@@ -52,5 +52,6 @@ namespace TheBookshelf.DAL.Repositories
 			db.Tags.Attach(item);
 			db.Entry(item).State = EntityState.Modified;
 		}
+
 	}
 }

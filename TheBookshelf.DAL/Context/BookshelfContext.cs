@@ -30,6 +30,7 @@ namespace TheBookshelf.DAL.Context
 				.HasMany(a => a.AddedBooks)
 				.WithRequired(p => p.Creator)
 				.HasForeignKey(s => s.CreatorId); 
+
 			modelBuilder.Entity<User>()
 				.HasMany(p => p.LikedBooks)
 				.WithMany(c => c.FanUsers)

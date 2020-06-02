@@ -20,7 +20,7 @@ namespace TheBookshelf.BLL.Services
 		public TagService(IUnitOfWork uow)
 		{
 			Database = uow;
-			Mapper = Mappers.TagMapper;
+			Mapper = Mappers.BookshelfMapper;
 		}
 		public int Add(TagDTO item)
 		{
@@ -43,16 +43,13 @@ namespace TheBookshelf.BLL.Services
 			Database.Save();
 		}
 
-		public ICollection<TagDTO> GetWithFilter(Func<TagDTO, bool> filter)
+		public ICollection<TagDTO> GetWithFilter(Expression<Func<TagDTO, bool>> filter)
 		{
-
 			var mapper = new MapperConfiguration(
-				cfg => cfg.CreateMap<Func<TagDTO, bool>,
+				cfg => cfg.CreateMap< Expression<Func<TagDTO, bool>>,
 				Expression<Func<Tag, bool>>>())
 					.CreateMapper();
-
 			var expression = mapper.Map<Expression<Func<Tag, bool>>>(filter);
-
 
 			return Mapper.Map<ICollection<Tag>, List<TagDTO>>
 				(Database.Tags.Find(expression).ToList());
@@ -106,7 +103,7 @@ namespace TheBookshelf.BLL.Services
 				throw new ValidationException("Current tag is not found");
 
 			var books = tag.Books;
-			var bookDto = Mappers.BookMapper.Map<IEnumerable<Book>, List<BookDTO>>(books);
+			var bookDto = Mappers.BookshelfMapper.Map<IEnumerable<Book>, List<BookDTO>>(books);
 			return bookDto;
 		}
 	}

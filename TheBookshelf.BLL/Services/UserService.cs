@@ -27,7 +27,7 @@ namespace TheBookshelf.BLL.Services
 		{
 			Database = uow;
 			userManager = new ApplicationUserManager(Database.UserStore);
-			Mapper = Mappers.UserMapper;
+			Mapper = Mappers.BookshelfMapper;
 		}
 
 	

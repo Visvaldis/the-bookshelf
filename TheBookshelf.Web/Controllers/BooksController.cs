@@ -12,7 +12,7 @@ namespace TheBookshelf.Web.Controllers
 {
 	[RoutePrefix("api/books")]
 	public class BooksController : ApiController
-    {
+	{
 		IBookService bookService;
 		IUserService userService;
 		public BooksController(IBookService books, IUserService users)
@@ -30,7 +30,7 @@ namespace TheBookshelf.Web.Controllers
 			return Ok(books);
 		}
 
-		[Route("{id}")]
+		[Route("{id:int}")]
 		[HttpGet, ActionName("GetBook")]
 		public IHttpActionResult Get(int id)
 		{
@@ -46,6 +46,27 @@ namespace TheBookshelf.Web.Controllers
 				return NotFound();
 			}
 		}
+
+
+		[Route("search/{name}")]
+		[HttpGet, ActionName("GetBookByName")]
+		public IHttpActionResult GetByName(string name)
+		{
+			if (name is null || name == "")
+				return BadRequest("Name is negative");
+			try
+			{
+				var books = bookService.GetBooksByName(name);
+
+				return Ok(books);
+			}
+			catch (ValidationException ex)
+			{
+				return NotFound();
+			}
+		}
+
+
 		[Authorize]
 		[Route()]
 		[HttpPost]

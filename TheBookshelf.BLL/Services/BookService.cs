@@ -20,7 +20,7 @@ namespace TheBookshelf.BLL.Services
 		public BookService(IUnitOfWork uow)
 		{
 			Database = uow;
-			Mapper = Mappers.BookMapper;
+			Mapper = Mappers.BookshelfMapper;
 		}
 
 		public ICollection<BookDTO> GetBooksByName(string bookName)
@@ -30,9 +30,12 @@ namespace TheBookshelf.BLL.Services
 
 		public ICollection<BookDTO> GetAll()
 		{
-			return Mapper.Map<IEnumerable<Book>, List<BookDTO>>(Database.Books.GetAll());
+			var query = Database.Books.GetAll();
+			var books = query.ToList();
+			return Mapper.Map<IEnumerable<Book>, List<BookDTO>>(books);
 
 		}
+
 
 		public BookDTO Get(int id)
 		{
@@ -43,17 +46,13 @@ namespace TheBookshelf.BLL.Services
 			return Mapper.Map<Book, BookDTO>(book);
 		}
 
-		public ICollection<BookDTO> GetWithFilter(Func<BookDTO, bool> filter)
+		public ICollection<BookDTO> GetWithFilter(Expression<Func<Book, bool>> filter)
 		{
-			var mapper = new MapperConfiguration(
-			cfg => cfg.CreateMap<Func<BookDTO, bool>,
-			Expression<Func<Book, bool>>>())
-				.CreateMapper();
-			var expression = mapper.Map<Expression<Func<Book, bool>>>(filter);
-			
+			var a = Database.Books.Find(filter);
+			var list = a.AsEnumerable<Book>();
 			return Mapper.Map<IEnumerable<Book>, List<BookDTO>>
-				(Database.Books.Find(expression).ToList());
-
+				(list);
+			
 		}
 
 		public int Add(BookDTO item)
@@ -83,13 +82,13 @@ namespace TheBookshelf.BLL.Services
 		{
 			Database.Dispose();
 		}
-
+/*
 		public ICollection<BookDTO> GetBooksByTag(int tagId)
 		{
 			var tag = Mapper.Map<TagDTO>(Database.Tags.Get(tagId));
 			return GetWithFilter(x => x.Tags.Contains(tag));
 		}
-
+*/
 		public bool Exist(int id)
 		{
 			var book = Database.Books.Get(id);

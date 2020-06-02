@@ -32,25 +32,30 @@ namespace TheBookshelf.DAL.Repositories
 				db.Authors.Remove(author);
 		}
 
-		public IQueryable<Author> Find(Expression<Func<Author, bool>> predicate)
+		public IEnumerable<Author> Find(Expression<Func<Author, bool>> predicate)
 		{
-			return db.Authors.Include(x => x.Books).Where(predicate);
+			return GetAllQuary().Where(predicate).ToList();
 		}
 
 		public Author Get(int id)
 		{
-			return db.Authors.Include(x => x.Books).FirstOrDefault(x => x.Id == id);
+			return GetAllQuary().FirstOrDefault(x => x.Id == id);
 		}
 
 		public IEnumerable<Author> GetAll()
 		{
-			return db.Authors;
+			return GetAllQuary().ToList();
 		}
 
 		public void Update(Author item)
 		{
 			db.Authors.Attach(item);
 			db.Entry(item).State = EntityState.Modified;
+		}
+
+		private IQueryable<Author> GetAllQuary()
+		{
+			return db.Authors.Include(x => x.Books);
 		}
 	}
 }

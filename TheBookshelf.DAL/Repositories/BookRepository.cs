@@ -61,24 +61,21 @@ namespace TheBookshelf.DAL.Repositories
 				db.Books.Remove(book);
 		}
 
-		public IQueryable<Book> Find(Expression<Func<Book, bool>> predicate)
+		public IEnumerable<Book> Find(Expression<Func<Book, bool>> predicate)
 		{
-			return db.Books
-				.Include(x => x.Tags).Include(x => x.Creator).Include(x => x.Authors)
-				.Where(predicate);
+			return GetAllQuary()
+				.Where(predicate).ToList();
 		}
 
 		public Book Get(int id)
 		{
-			return db.Books
-				.Include(x => x.Tags).Include(x => x.Creator).Include(x => x.Authors)
+			return GetAllQuary()
 				.FirstOrDefault(x => x.Id == id);
 		}
 
 		public IEnumerable<Book> GetAll()
 		{
-			return db.Books
-				.Include(x => x.Tags).Include(x => x.Creator).Include(x => x.Authors);
+			return GetAllQuary();
 		}
 
 		public void Update(Book item)
@@ -113,6 +110,12 @@ namespace TheBookshelf.DAL.Repositories
 
 			db.Books.Attach(item);
 			db.Entry(item).State = EntityState.Modified;
+		}
+
+		private IQueryable<Book> GetAllQuary()
+		{
+			return db.Books
+					.Include(x => x.Tags).Include(x => x.Creator).Include(x => x.Authors);
 		}
 	}
 }

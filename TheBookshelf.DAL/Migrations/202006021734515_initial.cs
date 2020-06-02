@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -40,6 +40,7 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        RegistrationDate = c.DateTime(nullable: false),
                         AvatarUrl = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
