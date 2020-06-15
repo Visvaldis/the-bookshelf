@@ -7,7 +7,7 @@ using TheBookshelf.BLL.DTO;
 
 namespace TheBookshelf.BLL.Interfaces
 {
-	interface IAuthorService : IService<AuthorDTO>
+	public interface IAuthorService : IService<AuthorDTO>
 	{
 		ICollection<BookDTO> GetBooksByAuthor(int authorId);
 	}
