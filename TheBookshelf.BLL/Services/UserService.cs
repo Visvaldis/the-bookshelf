@@ -55,6 +55,30 @@ namespace TheBookshelf.BLL.Services
 			var user = userManager.FindByName(userName);
 			return  Mapper.Map<User, UserDTO>(user);
 		}
+
+		public void LikeBook(int userId, int bookId)
+		{
+			var user = userManager.FindById(userId);
+			if (user == null)
+				throw new ValidationException("User not found");
+
+			var book = Database.Books.Get(bookId);
+			if (book == null)
+				throw new ValidationException("Book not found");
+
+			if(user.LikedBooks.Contains(book) == 
+			
+		}
+
+		public ICollection<BookDTO> GetLikedBooks(int userId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public ICollection<BookDTO> GetAddedBooks(int userId)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
 	

@@ -13,6 +13,10 @@ namespace TheBookshelf.BLL.Interfaces
 {
 	public interface IUserService : IDisposable
 	{
+		void LikeBook(int userId, int bookId);
+		void DislikeBook(int userId, int bookId);
+		ICollection<BookDTO> GetLikedBooks(int userId);
+		ICollection<BookDTO> GetAddedBooks(int userId);
 		Task<ICollection<UserDTO>> GetAll();
 		Task<IdentityResult> CreateAsync(UserDTO user, string password);
 		UserDTO GetUser(string userName);
