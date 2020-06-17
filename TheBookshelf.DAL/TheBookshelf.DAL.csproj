@@ -65,17 +65,9 @@
     <Compile Include="Identity\AppUserStore.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\202006021734515_initial.cs" />
-    <Compile Include="Migrations\202006021734515_initial.designer.cs">
-      <DependentUpon>202006021734515_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006021848087_changed data format.cs" />
-    <Compile Include="Migrations\202006021848087_changed data format.designer.cs">
-      <DependentUpon>202006021848087_changed data format.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006021905195_edit user model.cs" />
-    <Compile Include="Migrations\202006021905195_edit user model.designer.cs">
-      <DependentUpon>202006021905195_edit user model.cs</DependentUpon>
+    <Compile Include="Migrations\202006170757178_Initial.cs" />
+    <Compile Include="Migrations\202006170757178_Initial.designer.cs">
+      <DependentUpon>202006170757178_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,14 +82,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202006021734515_initial.resx">
-      <DependentUpon>202006021734515_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006021848087_changed data format.resx">
-      <DependentUpon>202006021848087_changed data format.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006021905195_edit user model.resx">
-      <DependentUpon>202006021905195_edit user model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202006170757178_Initial.resx">
+      <DependentUpon>202006170757178_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

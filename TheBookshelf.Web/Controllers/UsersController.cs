@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TheBookshelf.BLL.DTO;
+using TheBookshelf.BLL.Infrastructure;
 using TheBookshelf.BLL.Interfaces;
 using TheBookshelf.Web.Models;
 
@@ -18,9 +19,11 @@ namespace TheBookshelf.Web.Controllers
 	public class UsersController : ApiController
     {
 		IUserService userService;
-		public UsersController(IUserService service)
+		IBookService bookService;
+		public UsersController(IUserService users, IBookService books)
 		{
-			userService = service;
+			userService = users;
+			bookService = books;
 		}
 
 		// POST api/Account/Register
@@ -50,6 +53,27 @@ namespace TheBookshelf.Web.Controllers
 		{
 			var us = userService.GetAll();
 			return Ok(us);
+		}
+
+		[Route("like/{bookId}")]
+		[HttpPost]
+		public IHttpActionResult LikeOrDislikeBook(int bookId)
+		{
+			var userId = RequestContext.Principal.Identity.GetUserId<int>();
+			int likes;
+			try
+			{
+				bool isLiked = userService.LikeBook(userId, bookId, out likes);
+				var book = bookService.Get(bookId);
+
+				var content = new { IsLiked = isLiked, Likes = likes, Book = book };
+				return Ok(content);
+			}
+			catch (ValidationException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			
 		}
 
 

@@ -12,7 +12,7 @@ using TheBookshelf.DAL.Interfaces;
 
 namespace TheBookshelf.BLL.Services
 {
-	class AuthorService : IAuthorService
+	public class AuthorService : IAuthorService
 	{
 		IUnitOfWork Database { get; set; }
 		IMapper Mapper { get; set; }

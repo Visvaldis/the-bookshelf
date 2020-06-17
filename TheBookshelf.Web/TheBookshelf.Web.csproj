@@ -232,6 +232,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Util\AuthorModule.cs" />
     <Compile Include="Util\BookModule.cs" />
     <Compile Include="Util\NinjectResolver.cs" />
     <Compile Include="Util\UserModule.cs" />
