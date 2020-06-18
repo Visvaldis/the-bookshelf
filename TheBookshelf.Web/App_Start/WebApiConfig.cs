@@ -8,6 +8,8 @@ using System.Web.Http;
 using System.Web.Http.Routing.Constraints;
 using TheBookshelf.BLL.Infrastructure;
 using TheBookshelf.Web.Util;
+using System.Web.Http.Cors;
+using Newtonsoft.Json.Serialization;
 
 namespace TheBookshelf.Web
 {
@@ -22,7 +24,17 @@ namespace TheBookshelf.Web
 				new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream"));
 			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
 				new System.Net.Http.Headers.MediaTypeHeaderValue("application/x-www-form-urlencoded"));
-			
+
+
+			// Set JSON formatter as default one and remove XmlFormatter
+			var jsonFormatter = config.Formatters.JsonFormatter;
+			jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+			config.Formatters.Remove(config.Formatters.XmlFormatter);
+			jsonFormatter.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
+
+			// Enable CORS for the Angular App
+			var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+			config.EnableCors(cors);
 
 			config.SuppressDefaultHostAuthentication();
 			config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
