@@ -38,7 +38,7 @@ namespace TheBookshelf.Web.Controllers
 				var author = authorService.Get(id);
 				return Ok(author);
 			}
-			catch (ValidationException ex)
+			catch (ValidationException)
 			{
 				return NotFound();
 			}
@@ -57,7 +57,7 @@ namespace TheBookshelf.Web.Controllers
 				var books = authorService.GetBooksByAuthor(authorId);
 				return Ok(books);
 			}
-			catch (ValidationException ex)
+			catch (ValidationException)
 			{
 				return NotFound();
 			}

@@ -76,6 +76,67 @@ namespace TheBookshelf.Web.Controllers
 			
 		}
 
+		[HttpGet]
+		[Route("likedbooks")]
+		public IHttpActionResult GetLikedBooks()
+		{
+			var userId = RequestContext.Principal.Identity.GetUserId<int>();
+			try
+			{
+				var books = userService.GetLikedBooks(userId);
+				return Ok(books);
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+		}
+
+		[HttpGet]
+		[Route("{userId}/likedbooks")]
+		public IHttpActionResult GetLikedBooks(int userId)
+		{
+			try
+			{
+				var books = userService.GetLikedBooks(userId);
+				return Ok(books);
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+		}
+
+		[HttpGet]
+		[Route("addedbooks")]
+		public IHttpActionResult GetAddedBooks()
+		{
+			var userId = RequestContext.Principal.Identity.GetUserId<int>();
+			try
+			{
+				var books = userService.GetAddedBooks(userId);
+				return Ok(books);
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+		}
+
+		[HttpGet]
+		[Route("{userId}/addedbooks")]
+		public IHttpActionResult GetAddedBooks(int userId)
+		{
+			try
+			{
+				var books = userService.GetAddedBooks(userId);
+				return Ok(books);
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+		}
 
 		private IAuthenticationManager Authentication
 		{
