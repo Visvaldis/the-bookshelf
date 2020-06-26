@@ -83,7 +83,6 @@ namespace TheBookshelf.Web.Controllers
 				item.AddedDate = DateTime.Today;
 				int bookId = bookService.Add(item);
 				item.Id = bookId;
-				item.Creator = user;
 
 				return Created(new Uri($"{Request.RequestUri}/{bookId}", UriKind.RelativeOrAbsolute), item);
 			}

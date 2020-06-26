@@ -13,7 +13,7 @@ namespace TheBookshelf.DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202006200835015_Initial"; }
+            get { return "202006170757178_Initial"; }
         }
         
         string IMigrationMetadata.Source
