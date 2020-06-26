@@ -21,6 +21,7 @@ namespace TheBookshelf.DAL.Entities
 		public ICollection<User> FanUsers { get; set; }
 		public int CreatorId { get; set; }
 		public virtual User Creator { get; set; }
+		[Url] 
 		public string FileUrl { get; set; }
 
 		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
