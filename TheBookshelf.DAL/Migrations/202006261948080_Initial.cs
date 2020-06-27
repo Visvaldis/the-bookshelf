@@ -12,8 +12,8 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Bio = c.String(),
+                        Name = c.String(nullable: false, maxLength: 256),
+                        Bio = c.String(nullable: false),
                         Birthday = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -23,8 +23,8 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Description = c.String(),
+                        Name = c.String(nullable: false, maxLength: 256),
+                        Description = c.String(nullable: false),
                         CreatorId = c.Int(nullable: false),
                         FileUrl = c.String(),
                         PublishDate = c.DateTime(),

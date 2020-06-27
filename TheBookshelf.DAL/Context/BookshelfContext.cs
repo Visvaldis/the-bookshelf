@@ -19,7 +19,7 @@ namespace TheBookshelf.DAL.Context
 		public BookshelfContext(string connectionString)
 				: base(connectionString)
 		{ }
-		public BookshelfContext() : base("BookshelfContext")
+		public BookshelfContext() : base("Remote")
 		{ }
 
 

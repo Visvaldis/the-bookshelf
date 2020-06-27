@@ -23,8 +23,16 @@ namespace TheBookshelf.Web.Controllers
 		[HttpGet, ActionName("GetAllTags")]
 		public IHttpActionResult GetAll()
 		{
-			var tags = tagService.GetAll();
-			return Ok(tags);
+			try
+			{
+				var tags = tagService.GetAll();
+				return Ok(tags);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+
 		}
 
 		[Route("{id}")]
