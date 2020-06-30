@@ -78,12 +78,10 @@ namespace TheBookshelf.Web.Controllers
 			{
 				var name = RequestContext.Principal.Identity.Name;
 				var user = userService.GetUser(name);
-				item.CreatorId = user.Id;
 				item.PublishDate = DateTime.Today;
 				item.AddedDate = DateTime.Today;
 				int bookId = bookService.Add(item);
 				item.Id = bookId;
-				item.Creator = user;
 
 				return Created(new Uri($"{Request.RequestUri}/{bookId}", UriKind.RelativeOrAbsolute), item);
 			}

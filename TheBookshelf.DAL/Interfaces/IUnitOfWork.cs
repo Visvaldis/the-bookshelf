@@ -15,6 +15,7 @@ namespace TheBookshelf.DAL.Interfaces
 		IRepository<Book> Books { get; }
 	//	IRepository<User> Users { get; }
 		IUserStore<User, int> UserStore { get; }
+		IRoleStore<Role, int> RoleStore { get; }
 
 		void Save();
 		Task SaveAsync();

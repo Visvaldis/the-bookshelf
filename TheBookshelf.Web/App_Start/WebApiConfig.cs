@@ -74,5 +74,7 @@ namespace TheBookshelf.Web
 			config.DependencyResolver = new NinjectResolver(Kernel);
 		}
 
+
+
 	}
 }

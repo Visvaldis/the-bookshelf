@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -27,6 +28,7 @@ namespace TheBookshelf.BLL.Services
 		{
 			Database = uow;
 			userManager = new ApplicationUserManager(Database.UserStore);
+			roleManager = new ApplicationRoleManager(Database.RoleStore);
 			Mapper = Mappers.BookshelfMapper;
 		}
 
@@ -93,15 +95,22 @@ namespace TheBookshelf.BLL.Services
 			return Mapper.Map<ICollection<BookDTO>>(books);
 		}
 
-		public ICollection<BookDTO> GetAddedBooks(int userId)
-		{
-			var user = userManager.FindById(userId);
-			if (user == null)
-				throw new ValidationException("User not found");
-			var books = user.AddedBooks;
-			return Mapper.Map<ICollection<BookDTO>>(books);
-		}
 
+		public async Task SetInitialData(UserDTO adminDto, string password, List<string> roles)
+		{
+			foreach (string roleName in roles)
+			{
+				var role = await roleManager.FindByNameAsync(roleName);
+				if (role == null)
+				{
+					role = new Role { Name = roleName };
+					await roleManager.CreateAsync(role);
+				}
+			}
+			var u = Mapper.Map<UserDTO, User>(adminDto);
+			var res = await CreateAsync(adminDto, password);
+			await userManager.AddToRoleAsync(userManager.Find(adminDto.UserName,password).Id, roles[1]);
+		}
 	}
 }
 	

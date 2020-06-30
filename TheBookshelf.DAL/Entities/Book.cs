@@ -19,8 +19,6 @@ namespace TheBookshelf.DAL.Entities
 		public ICollection<Author> Authors { get; set; }
 		public ICollection<Tag> Tags { get; set; }
 		public ICollection<User> FanUsers { get; set; }
-		public int CreatorId { get; set; }
-		public virtual User Creator { get; set; }
 		[Url] 
 		public string FileUrl { get; set; }
 

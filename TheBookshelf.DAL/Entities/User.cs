@@ -13,7 +13,6 @@ namespace TheBookshelf.DAL.Entities
 	public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>, IUser<int>
 	{
 		public virtual ICollection<Book> LikedBooks { get; set; }
-		public virtual ICollection<Book> AddedBooks { get; set; }
 
 	//	[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 	//	public DateTime RegistrationDate { get; set; }
@@ -22,13 +21,11 @@ namespace TheBookshelf.DAL.Entities
 		public User()
 		{
 			LikedBooks = new List<Book>();
-			AddedBooks = new List<Book>();
 		}
 
-		public User(ICollection<Book> likedBooks, ICollection<Book> addedBooks, string avatarUrl)
+		public User(ICollection<Book> likedBooks, string avatarUrl)
 		{
 			LikedBooks = likedBooks;
-			AddedBooks = addedBooks;
 			AvatarUrl = avatarUrl;
 		}
 	}

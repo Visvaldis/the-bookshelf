@@ -15,9 +15,9 @@ namespace TheBookshelf.BLL.Interfaces
 	{
 		bool LikeBook(int userId, int bookId, out int likes);
 		ICollection<BookDTO> GetLikedBooks(int userId);
-		ICollection<BookDTO> GetAddedBooks(int userId);
 		Task<ICollection<UserDTO>> GetAll();
 		Task<IdentityResult> CreateAsync(UserDTO user, string password);
 		UserDTO GetUser(string userName);
+		Task SetInitialData(UserDTO adminDto, string password, List<string> roles);
 	}
 }

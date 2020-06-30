@@ -105,42 +105,24 @@ namespace TheBookshelf.Web.Controllers
 				return NotFound();
 			}
 		}
-
+		[AllowAnonymous]
 		[HttpGet]
-		[Route("addedbooks")]
-		public IHttpActionResult GetAddedBooks()
+		[Route("initdb")]
+		public async Task SetInitialDataAsync()
 		{
-			var userId = RequestContext.Principal.Identity.GetUserId<int>();
-			try
+			await userService.SetInitialData(new UserDTO
 			{
-				var books = userService.GetAddedBooks(userId);
-				return Ok(books);
-			}
-			catch (Exception)
-			{
-				return NotFound();
-			}
+				Email = "admin@admin.com",
+				UserName = "admin@admin.com",
+			}, "admin!", new List<string> { "user", "admin" });
 		}
 
-		[HttpGet]
-		[Route("{userId}/addedbooks")]
-		public IHttpActionResult GetAddedBooks(int userId)
-		{
-			try
-			{
-				var books = userService.GetAddedBooks(userId);
-				return Ok(books);
-			}
-			catch (Exception)
-			{
-				return NotFound();
-			}
-		}
 
 		private IAuthenticationManager Authentication
 		{
 			get { return Request.GetOwinContext().Authentication; }
 		}
+		
 
 		private IHttpActionResult GetErrorResult(IdentityResult result)
 		{

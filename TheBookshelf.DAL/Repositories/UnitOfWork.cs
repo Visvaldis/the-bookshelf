@@ -10,6 +10,7 @@ using System.Data.Entity;
 using System.Linq.Expressions;
 using TheBookshelf.DAL.Identity;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TheBookshelf.DAL.Repositories
 {
@@ -26,7 +27,17 @@ namespace TheBookshelf.DAL.Repositories
 //		private UserRepository userRepository;
 		private TagRepository tagRepository;
 		private AppUserStore userStore;
+		private RoleStore<Role, int, UserRole> roleStore;
 
+		public IRoleStore<Role, int> RoleStore
+		{
+			get
+			{
+				if (roleStore == null)
+					roleStore = new RoleStore<Role, int, UserRole>(db);
+				return roleStore;
+			}
+		}
 		public IUserStore<User, int> UserStore
 		{
 			get

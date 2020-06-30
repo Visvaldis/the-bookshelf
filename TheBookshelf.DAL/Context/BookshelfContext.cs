@@ -26,10 +26,6 @@ namespace TheBookshelf.DAL.Context
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 
-			modelBuilder.Entity<User>()
-				.HasMany(a => a.AddedBooks)
-				.WithRequired(p => p.Creator)
-				.HasForeignKey(s => s.CreatorId); 
 
 			modelBuilder.Entity<User>()
 				.HasMany(p => p.LikedBooks)
