@@ -64,7 +64,8 @@ namespace TheBookshelf.Web
 					new BookModule(),
 					new UserModule(),
 					new TagModule(),
-					new ServiceModule("BookshelfContext")
+					new ServiceModule("Remote")
+					// new ServiceModule("BookshelfContext")
 				};
 			}
 

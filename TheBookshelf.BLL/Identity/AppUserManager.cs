@@ -23,7 +23,8 @@ namespace TheBookshelf.BLL.Identity
 
 		public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
 		{
-			IKernel kernel = new StandardKernel(new ServiceModule("BookshelfContext"));
+			IKernel kernel = new StandardKernel(new ServiceModule("Remote"));
+		//	IKernel kernel = new StandardKernel(new ServiceModule("BookshelfContext"));
 			IUnitOfWork uow = kernel.Get<IUnitOfWork>();
 			var store = uow.UserStore;
 			var manager = new ApplicationUserManager(store);
