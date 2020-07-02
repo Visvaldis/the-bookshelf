@@ -19,5 +19,6 @@ namespace TheBookshelf.BLL.Interfaces
 		Task<IdentityResult> CreateAsync(UserDTO user, string password);
 		UserDTO GetUser(string userName);
 		Task SetInitialData(UserDTO adminDto, string password, List<string> roles);
+		Task<IdentityResult> DeleteUser(int userId);
 	}
 }

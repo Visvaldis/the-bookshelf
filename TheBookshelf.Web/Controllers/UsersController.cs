@@ -14,7 +14,7 @@ using TheBookshelf.Web.Models;
 
 namespace TheBookshelf.Web.Controllers
 {
-	[Authorize]
+
 	[RoutePrefix("api/Account")]
 	public class UsersController : ApiController
     {
@@ -47,14 +47,16 @@ namespace TheBookshelf.Web.Controllers
 			return Ok();
 		}
 
-		[AllowAnonymous]
+		[Authorize(Roles = "admin")]
+		[Route("")]
 		[HttpGet]
-		public IHttpActionResult GetAll()
+		public async Task<IHttpActionResult> GetAll()
 		{
-			var us = userService.GetAll();
+			var us = await userService.GetAll();
 			return Ok(us);
 		}
 
+		[Authorize(Roles = "admin, user")]
 		[Route("like/{bookId}")]
 		[HttpPost]
 		public IHttpActionResult LikeOrDislikeBook(int bookId)
@@ -75,8 +77,9 @@ namespace TheBookshelf.Web.Controllers
 			}
 			
 		}
-		[HttpGet]
+		[Authorize(Roles = "admin, user")]
 		[Route("likedbooks")]
+		[HttpGet]
 		public IHttpActionResult GetLikedBooks()
 		{
 			var userId = RequestContext.Principal.Identity.GetUserId<int>();
@@ -90,9 +93,9 @@ namespace TheBookshelf.Web.Controllers
 				return NotFound();
 			}
 		}
-
-		[HttpGet]
+		[Authorize(Roles = "admin, user")]
 		[Route("{userId}/likedbooks")]
+		[HttpGet]
 		public IHttpActionResult GetLikedBooks(int userId)
 		{
 			try
@@ -117,6 +120,19 @@ namespace TheBookshelf.Web.Controllers
 			}, "admin!", new List<string> { "user", "admin" });
 		}
 
+	
+		[HttpDelete]
+		[Route("delete/{id}")]
+		public async Task<IHttpActionResult> DeleteUser(int id)
+		{
+			if (id < 0)
+				return BadRequest("Id is negative");
+			IdentityResult result = await userService.DeleteUser(id);
+			if (result.Succeeded)
+				return Ok();
+			else
+				return BadRequest(result.Errors.First());
+		}
 
 		private IAuthenticationManager Authentication
 		{

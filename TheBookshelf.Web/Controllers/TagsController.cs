@@ -19,6 +19,7 @@ namespace TheBookshelf.Web.Controllers
 			tagService = service;
 		}
 
+		[Authorize(Roles ="admin")]
 		[Route()]
 		[HttpGet, ActionName("GetAllTags")]
 		public IHttpActionResult GetAll()
@@ -35,6 +36,7 @@ namespace TheBookshelf.Web.Controllers
 
 		}
 
+		[Authorize(Roles = "admin, user")]
 		[Route("{id}")]
 		[HttpGet, ActionName("GetTag")]
 		public IHttpActionResult Get(int id)

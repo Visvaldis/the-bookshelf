@@ -46,10 +46,14 @@ namespace TheBookshelf.BLL.Services
 			Database.Dispose();
 		}
 
-		public Task<IdentityResult> CreateAsync(UserDTO user, string password)
+		public async Task<IdentityResult> CreateAsync(UserDTO user, string password)
 		{
 			var u = Mapper.Map<UserDTO, User>(user);
-			return userManager.CreateAsync(u, password);
+			var res = await userManager.CreateAsync(u, password);
+			await userManager.AddToRoleAsync(
+				userManager.Find(user.UserName, password).Id,
+								 roleManager.Roles.Where(r => r.Name == "user").FirstOrDefault().Name);
+			return res;
 		}
 
 		public UserDTO GetUser(string userName)
@@ -110,6 +114,12 @@ namespace TheBookshelf.BLL.Services
 			var u = Mapper.Map<UserDTO, User>(adminDto);
 			var res = await CreateAsync(adminDto, password);
 			await userManager.AddToRoleAsync(userManager.Find(adminDto.UserName,password).Id, roles[1]);
+		}
+
+		public Task<IdentityResult> DeleteUser(int userId)
+		{
+			var user = userManager.FindById(userId);
+			return userManager.DeleteAsync(user);
 		}
 	}
 }

@@ -11,13 +11,15 @@ using TheBookshelf.DAL.Entities;
 
 namespace TheBookshelf.DAL.Identity
 {
-	class AppUserStore : IUserStore<User, int>, IUserPasswordStore<User, int>, IUserRoleStore<User,int>
+	class AppUserStore : IUserStore<User, int>, IUserPasswordStore<User, int>, IUserRoleStore<User,int>, IQueryableUserStore<User, int>
 	{
 		private BookshelfContext db;
 		public AppUserStore (BookshelfContext context)
 		{
 			this.db = context;
 		}
+
+		public IQueryable<User> Users => db.Users.Include(u => u.Roles);
 
 		public Task AddToRoleAsync(User user, string roleName)
 		{
