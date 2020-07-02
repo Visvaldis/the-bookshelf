@@ -7,6 +7,13 @@ using System.Web.Http;
 using TheBookshelf.BLL.DTO;
 using TheBookshelf.BLL.Infrastructure;
 using TheBookshelf.BLL.Interfaces;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Blob;
+using System.Threading.Tasks;
+using System.IO;
+using System.Web.Configuration;
 
 namespace TheBookshelf.Web.Controllers
 {
@@ -120,6 +127,49 @@ namespace TheBookshelf.Web.Controllers
 			item.Id = id;
 			bookService.Update(item);
 			return Ok();
+		}
+
+		[Authorize(Roles = "admin")]
+		[Route("Upload/{id}")]
+		[HttpPost]
+		public async Task Upload([FromUri] int id, [FromBody] string pathToFile)
+		{
+			string connectionString = WebConfigurationManager.AppSettings["BlobStorage"];
+			// Retrieve storage account from connection string.
+			CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+			// Create the blob client.
+			CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+			// Retrieve reference to a previously created container.
+			CloudBlobContainer container = blobClient.GetContainerReference("thebookshelf-blob");
+
+			var book = bookService.Get(id);
+			// Retrieve reference to a blob named "myblob".
+			CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{book.Id}-{book.Name}");
+
+			// Create or overwrite the "myblob" blob with contents from a local file.
+			blockBlob.UploadFromFile(pathToFile);			
+		}
+
+		[Authorize(Roles = "admin, user")]
+		[Route("Download/{id}")]
+		[HttpPost]
+		public async Task Download([FromUri] int id, [FromBody] string downloadPath)
+		{
+			string connectionString = WebConfigurationManager.AppSettings["BlobStorage"];
+			// Retrieve storage account from connection string.
+			CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+
+			// Create the blob client.
+			CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+			// Retrieve reference to a previously created container.
+			CloudBlobContainer container = blobClient.GetContainerReference("thebookshelf-blob");
+
+			var book = bookService.Get(id);
+			// Retrieve reference to a blob named "myblob".
+			CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{book.Id}-{book.Name}");
+
+			blockBlob.DownloadToFile(downloadPath, FileMode.Create);
 		}
 	}
 }

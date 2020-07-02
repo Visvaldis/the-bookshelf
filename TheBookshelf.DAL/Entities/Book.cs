@@ -20,7 +20,7 @@ namespace TheBookshelf.DAL.Entities
 		public ICollection<Tag> Tags { get; set; }
 		public ICollection<User> FanUsers { get; set; }
 		[Url] 
-		public string FileUrl { get; set; }
+		public string CoverUrl { get; set; }
 
 		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime? PublishDate { get; set; }

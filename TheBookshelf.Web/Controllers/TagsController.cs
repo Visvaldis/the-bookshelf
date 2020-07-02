@@ -1,8 +1,14 @@
-﻿using System;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Blob;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using TheBookshelf.BLL.DTO;
 using TheBookshelf.BLL.Infrastructure;
@@ -128,7 +134,10 @@ namespace TheBookshelf.Web.Controllers
 			return Ok();
 		}
 
+		
 
+
+	
 
 	}
 }

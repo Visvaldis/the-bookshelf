@@ -50,14 +50,20 @@
     <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Azure.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Azure.Core.1.0.0\lib\netstandard2.0\Azure.Core.dll</HintPath>
+    <Reference Include="Azure.Core, Version=1.2.2.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.2.2\lib\netstandard2.0\Azure.Core.dll</HintPath>
     </Reference>
     <Reference Include="Azure.Security.KeyVault.Keys, Version=4.0.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Security.KeyVault.Keys.4.0.0\lib\netstandard2.0\Azure.Security.KeyVault.Keys.dll</HintPath>
     </Reference>
     <Reference Include="Azure.Security.KeyVault.Secrets, Version=4.0.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Security.KeyVault.Secrets.4.0.0\lib\netstandard2.0\Azure.Security.KeyVault.Secrets.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Storage.Blobs, Version=12.4.4.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Storage.Blobs.12.4.4\lib\netstandard2.0\Azure.Storage.Blobs.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Storage.Common, Version=12.4.3.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Storage.Common.12.4.3\lib\netstandard2.0\Azure.Storage.Common.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
@@ -73,6 +79,15 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Storage.Blob, Version=11.1.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Storage.Blob.11.1.7\lib\net452\Microsoft.Azure.Storage.Blob.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Storage.Common, Version=11.1.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Storage.Common.11.1.7\lib\net452\Microsoft.Azure.Storage.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -297,6 +312,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <None Include="appSettings.config" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
