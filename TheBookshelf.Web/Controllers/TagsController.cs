@@ -17,9 +17,11 @@ namespace TheBookshelf.Web.Controllers
 		public TagsController(ITagService service)
 		{
 			tagService = service;
+
+
 		}
 
-		[Authorize(Roles ="admin")]
+		[AllowAnonymous]
 		[Route()]
 		[HttpGet, ActionName("GetAllTags")]
 		public IHttpActionResult GetAll()
@@ -36,7 +38,7 @@ namespace TheBookshelf.Web.Controllers
 
 		}
 
-		[Authorize(Roles = "admin, user")]
+		[AllowAnonymous]
 		[Route("{id}")]
 		[HttpGet, ActionName("GetTag")]
 		public IHttpActionResult Get(int id)
@@ -54,6 +56,7 @@ namespace TheBookshelf.Web.Controllers
 			}
 		}
 
+		[AllowAnonymous]
 		[Route("{tagId}/books")]
 		[HttpGet, ActionName("GetBooksByTag")]
 		public IHttpActionResult GetBooksByTag(int tagId)
@@ -72,6 +75,7 @@ namespace TheBookshelf.Web.Controllers
 			
 		}
 
+		[Authorize(Roles = "admin")]
 		[Route()]
 		[HttpPost]
 		public IHttpActionResult Create([FromBody] TagDTO item)
@@ -95,7 +99,7 @@ namespace TheBookshelf.Web.Controllers
 			}
 		}
 
-
+		[Authorize(Roles = "admin")]
 		[Route("{id}")]
 		[HttpDelete]
 		public IHttpActionResult Delete([FromUri] int id)
@@ -109,7 +113,7 @@ namespace TheBookshelf.Web.Controllers
 			return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
 		}
 
-
+		[Authorize(Roles = "admin")]
 		[Route("{id}")]
 		[HttpPut]
 		public IHttpActionResult Update(int id, [FromBody] TagDTO item)
@@ -123,5 +127,8 @@ namespace TheBookshelf.Web.Controllers
 			tagService.Update(item);
 			return Ok();
 		}
+
+
+
 	}
 }

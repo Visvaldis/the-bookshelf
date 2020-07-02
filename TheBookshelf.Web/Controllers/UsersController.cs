@@ -108,9 +108,11 @@ namespace TheBookshelf.Web.Controllers
 				return NotFound();
 			}
 		}
+
+		[NonAction]
 		[AllowAnonymous]
-		[HttpGet]
 		[Route("initdb")]
+		[HttpGet]
 		public async Task SetInitialDataAsync()
 		{
 			await userService.SetInitialData(new UserDTO
@@ -120,7 +122,7 @@ namespace TheBookshelf.Web.Controllers
 			}, "admin!", new List<string> { "user", "admin" });
 		}
 
-	
+		[Authorize(Roles = "admin")]
 		[HttpDelete]
 		[Route("delete/{id}")]
 		public async Task<IHttpActionResult> DeleteUser(int id)

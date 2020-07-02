@@ -22,6 +22,7 @@ namespace TheBookshelf.Web.Controllers
 
 		}
 
+		[AllowAnonymous]
 		[Route()]
 		[HttpGet, ActionName("GetAllBooks")]
 		public IHttpActionResult GetAll()
@@ -30,6 +31,7 @@ namespace TheBookshelf.Web.Controllers
 			return Ok(books);
 		}
 
+		[AllowAnonymous]
 		[Route("{id:int}")]
 		[HttpGet, ActionName("GetBook")]
 		public IHttpActionResult Get(int id)
@@ -47,7 +49,7 @@ namespace TheBookshelf.Web.Controllers
 			}
 		}
 
-
+		[AllowAnonymous]
 		[Route("search/{name}")]
 		[HttpGet, ActionName("GetBookByName")]
 		public IHttpActionResult GetByName(string name)
@@ -67,7 +69,7 @@ namespace TheBookshelf.Web.Controllers
 		}
 
 
-		[Authorize]
+		[Authorize(Roles = "admin")]
 		[Route()]
 		[HttpPost]
 		public IHttpActionResult Create([FromBody] BookDTO item)
@@ -91,7 +93,7 @@ namespace TheBookshelf.Web.Controllers
 			}
 		}
 
-
+		[Authorize(Roles = "admin")]
 		[Route("{id}")]
 		[HttpDelete]
 		public IHttpActionResult Delete([FromUri] int id)
@@ -105,6 +107,7 @@ namespace TheBookshelf.Web.Controllers
 			return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
 		}
 
+		[Authorize(Roles = "admin")]
 		[Route("{id}")]
 		[HttpPut]
 		public IHttpActionResult Update(int id, [FromBody] BookDTO item)
