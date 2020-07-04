@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Tag} from '../../models/tag';
-import {TagService} from '../../services/tagService';
+import {Tag} from '../../../models/tag';
+import {TagService} from '../../../services/tagService';
 
 @Component({
   selector: 'app-tags',
