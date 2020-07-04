@@ -4,6 +4,10 @@
       "type": "secrets",
       "connectionId": "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONVAULT"
     },
+    "storage1": {
+      "type": "storage",
+      "connectionId": "bolb-storage"
+    },
     "mssql1": {
       "type": "mssql",
       "connectionId": "Remote"

@@ -15,8 +15,6 @@ namespace TheBookshelf.BLL.DTO
 		public ICollection<TagDTO> Tags { get; set; }
 		public ICollection<UserDTO> FanUsers { get; set; }
 		public string CoverUrl { get; set; }
-		public DateTime PublishDate { get; set; }
-		public DateTime AddedDate { get; set; }
 		public int Assessment { get; set; }
 		public BookDTO()
 		{

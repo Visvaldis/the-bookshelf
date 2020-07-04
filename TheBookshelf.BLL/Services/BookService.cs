@@ -74,6 +74,12 @@ namespace TheBookshelf.BLL.Services
 
 		public void Delete(int id)
 		{
+			var tags = Database.Books.Get(id).Tags;
+			var t = tags.Where(x => x.Books.Count == 1).ToList();
+			foreach (var tag in t)
+			{
+				Database.Tags.Delete(tag.Id);
+			}
 			Database.Books.Delete(id);
 			Database.Save();
 		}

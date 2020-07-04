@@ -49,8 +49,12 @@ namespace TheBookshelf.DAL.Repositories
 
 		public void Update(Tag item)
 		{
-			db.Tags.Attach(item);
-			db.Entry(item).State = EntityState.Modified;
+			var entity = db.Tags.Find(item.Id);
+			if (entity == null)
+			{
+				return;
+			}
+			db.Entry(entity).CurrentValues.SetValues(item);
 		}
 
 	}

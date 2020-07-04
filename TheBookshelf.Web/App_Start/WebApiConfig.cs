@@ -21,9 +21,17 @@ namespace TheBookshelf.Web
 			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
 				new System.Net.Http.Headers.MediaTypeHeaderValue("text/html"));
 			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
+				new System.Net.Http.Headers.MediaTypeHeaderValue("text/plain"));
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
 				new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream"));
 			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
+				new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf"));
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
+				new System.Net.Http.Headers.MediaTypeHeaderValue("application/zip"));
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
 				new System.Net.Http.Headers.MediaTypeHeaderValue("application/x-www-form-urlencoded"));
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
+				new System.Net.Http.Headers.MediaTypeHeaderValue("multipart/form-data"));
 
 
 			// Set JSON formatter as default one and remove XmlFormatter

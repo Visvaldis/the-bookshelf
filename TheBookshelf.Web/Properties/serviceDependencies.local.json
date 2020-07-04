@@ -5,6 +5,18 @@
       "type": "secrets.keyVault",
       "connectionId": "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONVAULT",
       "secretStore": null
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroup1')]/providers/Microsoft.Storage/storageAccounts/storage4thebookshelf",
+      "type": "storage.azure",
+      "connectionId": "bolb-storage",
+      "secretStore": "AzureKeyVault"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroup')]/providers/Microsoft.Sql/servers/thebookshelf-webdbserver/databases/TheBookshelf.Web_db",
+      "type": "mssql.azure",
+      "connectionId": "Remote",
+      "secretStore": "AzureKeyVault"
     }
   }
 }

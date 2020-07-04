@@ -49,8 +49,12 @@ namespace TheBookshelf.DAL.Repositories
 
 		public void Update(Author item)
 		{
-			db.Authors.Attach(item);
-			db.Entry(item).State = EntityState.Modified;
+			var entity = db.Authors.Find(item.Id);
+			if (entity == null)
+			{
+				return;
+			}
+			db.Entry(entity).CurrentValues.SetValues(item);
 		}
 
 		private IQueryable<Author> GetAllQuary()

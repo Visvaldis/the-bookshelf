@@ -80,6 +80,19 @@ namespace TheBookshelf.DAL.Repositories
 
 		public void Update(Book item)
 		{
+
+			/*
+			
+			db.Entry(item).State = EntityState.Modified;
+
+		*/
+
+			var entity = db.Books.Find(item.Id);
+			if (entity == null)
+			{
+				return;
+			}
+
 			var tags = item.Tags;
 			item.Tags = new List<Tag>();
 			foreach (var booktag in tags)
@@ -90,7 +103,7 @@ namespace TheBookshelf.DAL.Repositories
 					tag = new Tag { Name = booktag.Name };
 					db.Tags.Add(tag);
 				}
-				item.Tags.Add(tag);
+				entity.Tags.Add(tag);
 			}
 
 			var authors = item.Authors;
@@ -100,16 +113,14 @@ namespace TheBookshelf.DAL.Repositories
 				Author aut = db.Authors.SingleOrDefault(t => t.Name == author.Name);
 				if (aut == null)
 				{
-					/*
-					aut = new Author {Bio = author.Bio, Birthday = author.Birthday, Books = author.Books, Name = author.Name };
-					db.Authors.Add(aut);*/
+
+					//	aut = new Author {Bio = author.Bio, Birthday = author.Birthday, Books = author.Books, Name = author.Name };
+					//	db.Authors.Add(aut);
 					continue;
 				}
-				item.Authors.Add(aut);
+				entity.Authors.Add(aut);
 			}
-
-			db.Books.Attach(item);
-			db.Entry(item).State = EntityState.Modified;
+			db.Entry(entity).CurrentValues.SetValues(item);
 		}
 
 		private IQueryable<Book> GetAllQuary()

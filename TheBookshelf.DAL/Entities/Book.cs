@@ -22,10 +22,6 @@ namespace TheBookshelf.DAL.Entities
 		[Url] 
 		public string CoverUrl { get; set; }
 
-		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-		public DateTime? PublishDate { get; set; }
-		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-		public DateTime? AddedDate { get; set; }
 		public int Assessment { get; set; } 
 		public Book()
 		{
