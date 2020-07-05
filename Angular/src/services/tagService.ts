@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Tag} from '../models/tag';
-import {ApiConfig} from '../apiConfig';
+import {config} from '../config';
 import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -9,9 +9,9 @@ import { map } from 'rxjs/operators';
 export class TagService {
 
 
-  private url = this.config.getUrl() + '/api/tags';
+  private url = config.apiUrl + '/api/tags';
 
-  constructor(private http: HttpClient, private config: ApiConfig ) {
+  constructor(private http: HttpClient) {
   }
 
   getTags(): Observable<Tag[]>{

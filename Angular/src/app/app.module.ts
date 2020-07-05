@@ -9,7 +9,6 @@ import { HomeComponent } from './components/home/home.component';
 import { TagsComponent } from './components/tags/tags.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {ApiConfig} from '../apiConfig';
 import {AuthModule} from './auth/auth.module';
 
 
@@ -28,7 +27,7 @@ import {AuthModule} from './auth/auth.module';
     HttpClientModule,
     AuthModule
   ],
-  providers: [ApiConfig],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
