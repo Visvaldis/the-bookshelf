@@ -57,6 +57,16 @@ namespace TheBookshelf.Web.Controllers
 		}
 
 		[Authorize(Roles = "admin, user")]
+		[Route("GetRoles")]
+		[HttpGet]
+		public IHttpActionResult GetRoles()
+		{
+			var userId = RequestContext.Principal.Identity.GetUserId<int>();
+			var roles = userService.GetUserRoles(userId);
+			return Ok(roles);
+		}
+
+		[Authorize(Roles = "admin, user")]
 		[Route("like/{bookId}")]
 		[HttpPost]
 		public IHttpActionResult LikeOrDislikeBook(int bookId)

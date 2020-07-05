@@ -43,7 +43,9 @@ namespace TheBookshelf.BLL.Identity
 			ClaimsIdentity cookiesIdentity = await userManager.CreateIdentityAsync(user,
 				CookieAuthenticationDefaults.AuthenticationType);
 
-			AuthenticationProperties properties = CreateProperties(user.UserName);
+			var role = oAuthIdentity.Claims.Where(c => c.Type == ClaimTypes.Role).ToList().FirstOrDefault();
+			AuthenticationProperties properties = CreateProperties(user.UserName, role.Value);
+
 			AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
 			context.Validated(ticket);
 			context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -85,11 +87,12 @@ namespace TheBookshelf.BLL.Identity
 			return Task.FromResult<object>(null);
 		}
 
-		public static AuthenticationProperties CreateProperties(string userName)
+		public static AuthenticationProperties CreateProperties(string userName, string role)
 		{
 			IDictionary<string, string> data = new Dictionary<string, string>
 			{
-				{ "userName", userName }
+				{ "userName", userName },
+				{"userRole", role }
 			};
 			return new AuthenticationProperties(data);
 		}
