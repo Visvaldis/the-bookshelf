@@ -62,6 +62,12 @@ namespace TheBookshelf.BLL.Services
 			return  Mapper.Map<User, UserDTO>(user);
 		}
 
+		public ICollection<string> GetUserRoles(int userId)
+		{
+			var roles = userManager.GetRoles(userId);
+			return roles;
+		}
+
 		public bool LikeBook(int userId, int bookId, out int likes)
 		{
 			var user = userManager.FindById(userId);

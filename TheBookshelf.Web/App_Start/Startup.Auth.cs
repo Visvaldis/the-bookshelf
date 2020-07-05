@@ -41,7 +41,7 @@ using TheBookshelf.Web.Util;
                 TokenEndpointPath = new PathString("/Token"),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
 				Provider = new OAuthProvider(PublicClientId),
-				AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+				AccessTokenExpireTimeSpan = TimeSpan.FromDays(3),
                 // В рабочем режиме задайте AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };

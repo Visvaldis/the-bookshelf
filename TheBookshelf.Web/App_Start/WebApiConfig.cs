@@ -41,7 +41,7 @@ namespace TheBookshelf.Web
 			jsonFormatter.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
 
 			// Enable CORS for the Angular App
-			var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+			var cors = new EnableCorsAttribute("*", "*", "*");
 			config.EnableCors(cors);
 
 			config.SuppressDefaultHostAuthentication();

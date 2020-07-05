@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using TheBookshelf.BLL.DTO;
 using TheBookshelf.BLL.Infrastructure;
 using TheBookshelf.BLL.Interfaces;
@@ -54,6 +55,16 @@ namespace TheBookshelf.Web.Controllers
 		{
 			var us = await userService.GetAll();
 			return Ok(us);
+		}
+
+		[Authorize(Roles = "admin, user")]
+		[Route("GetRoles")]
+		[HttpGet]
+		public IHttpActionResult GetRoles()
+		{
+			var userId = RequestContext.Principal.Identity.GetUserId<int>();
+			var roles = userService.GetUserRoles(userId);
+			return Ok(roles);
 		}
 
 		[Authorize(Roles = "admin, user")]
