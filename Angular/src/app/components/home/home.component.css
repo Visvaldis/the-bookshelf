@@ -12,9 +12,10 @@
   box-shadow:  -9px -9px 16px #ffffff, 9px 9px 16px #a3b1c6;
 }
 
+
 .card-green:hover {
   background-color: green;
-  color: white;
+  color: white!important;
   box-shadow:  -9px -9px 16px rgba(255, 255, 255, 0.7) inset,
   9px 9px 16px rgba(77, 77, 78, 0.7) inset;
 }

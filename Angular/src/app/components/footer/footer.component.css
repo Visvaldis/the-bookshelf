@@ -1,6 +1,7 @@
 footer {
   color: white !important;
   font-size: 20px !important;
+  flex: 0 0 auto!important;
 }
 
 footer > a {
@@ -25,4 +26,8 @@ footer > p > a {
     color: white !important;
     font-size: 10px !important;
   }
+}
+
+.footer {
+  flex: 0 0 auto;
 }

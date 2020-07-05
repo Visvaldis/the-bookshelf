@@ -1,12 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
-body{
-  background-color: #e0e5ec;
-}
 .bg-info {
   background-color: darkred !important;
 
 
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+  background-color: #e0e5ec;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 

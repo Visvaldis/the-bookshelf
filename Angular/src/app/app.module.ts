@@ -1,23 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import {Routes, RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
-import { TagsComponent } from './tags/tags.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { HomeComponent } from './components/home/home.component';
+import { TagsComponent } from './components/tags/tags.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {ApiConfig} from '../apiConfig';
+import {AuthModule} from './auth/auth.module';
 
-// определение маршрутов
-const appRoutes: Routes = [
-  { path: '', component: HomeComponent},
-  { path: 'tags', component: TagsComponent},
-  { path: '**', redirectTo: ''}
-];
 
 @NgModule({
   declarations: [
@@ -30,9 +24,9 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes),
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthModule
   ],
   providers: [ApiConfig],
   bootstrap: [AppComponent]
