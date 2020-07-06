@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http.Cors;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
@@ -17,6 +18,7 @@ using TheBookshelf.Web.Util;
 
  namespace TheBookshelf.Web
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public partial class Startup
     {
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
@@ -33,6 +35,7 @@ using TheBookshelf.Web.Util;
 			// и использование файла cookie для временного хранения информации о входах пользователя с помощью стороннего поставщика входа
 			app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+        //    app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
             // Настройка приложения для потока обработки на основе OAuth
             PublicClientId = "self";

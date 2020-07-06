@@ -28,7 +28,7 @@ namespace TheBookshelf.BLL.Identity
 
 		public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
 		{
-
+		//	context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "http://localhost" });
 			var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
 			User user = await userManager.FindAsync(context.UserName, context.Password);
@@ -49,6 +49,7 @@ namespace TheBookshelf.BLL.Identity
 			AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
 			context.Validated(ticket);
 			context.Request.Context.Authentication.SignIn(cookiesIdentity);
+		//	context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "http://localhost" });
 		}
 
 		public override Task TokenEndpoint(OAuthTokenEndpointContext context)

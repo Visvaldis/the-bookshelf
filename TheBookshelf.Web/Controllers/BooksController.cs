@@ -21,6 +21,7 @@ using CopyStatus = Microsoft.Azure.Storage.Blob.CopyStatus;
 
 namespace TheBookshelf.Web.Controllers
 {
+
 	[RoutePrefix("api/books")]
 	public class BooksController : ApiController
 	{
