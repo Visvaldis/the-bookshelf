@@ -23,12 +23,22 @@
         </li>
       </ul>
       <ul class=" nav navbar-nav nav-pills  mr-auto ml-auto">
+        <ng-container *ngIf="!this.authService.isLoggedIn() == true">
         <li class="nav-item">
           <a class="nav-link" id="login"  routerLink="/login" routerLinkActive="active">Log in</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="register"  routerLink="/register" routerLinkActive="active">Register</a>
         </li>
+        </ng-container>
+        <ng-container *ngIf="!this.authService.isLoggedIn() == false">
+          <li class="nav-item">
+            <a class="nav-link" id="profile"  routerLink="/profile" routerLinkActive="active">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="logout"  (click)="this.authService.logout()" >Log out</a>
+          </li>
+        </ng-container>
       </ul>
       <form class="form-inline my-2 my-md-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Find book" aria-label="Search">

@@ -9,7 +9,10 @@
         Please enter valid email
       </div>
       <input type="password" id="password" formControlName="password" placeholder="Password">
-
+      <div class="alert alert-danger"
+           *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+        Please enter password
+      </div>
       <button type="submit" class="mt-4">Login</button>
       <p class="message">Not registered? <a routerLink="/register" routerLinkActive="active">Create an account</a></p>
     </form>

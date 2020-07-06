@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import { of, Observable } from 'rxjs';
-import { catchError, mapTo, tap } from 'rxjs/operators';
 import {config} from '../../../config';
+import {AuthUser} from '../models/auth.user';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +10,9 @@ import {config} from '../../../config';
 export class AuthService {
 
   private readonly TOKEN = 'TOKEN';
-  private loggedUser: string;
+  private loggedUser: AuthUser;
 
   constructor(private http: HttpClient) {}
-
-  login(user: { userName: string, password: string }): Observable<boolean> {
-    return this.http.post<any>(`${config.apiUrl}/Token`, user)
-      .pipe(
-        tap(tokens => this.doLoginUser(user.userName, tokens)),
-        mapTo(true),
-        catchError(error => {
-          alert(error.error);
-          return of(false);
-        }));
-  }
 
   logIn(user: { userName: string, password: string }) {
     const url = `${config.apiUrl}/Token`;
@@ -32,13 +21,14 @@ export class AuthService {
     body.set('password', user.password);
     body.set('grant_type', 'password');
 
-    const heders = new HttpHeaders({
+    const authheaders = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
     });
 
-    this.http.post(url, body.toString(), {headers: heders}).subscribe(
+    this.http.post(url, body.toString(), {headers: authheaders}).subscribe(
       (data) => {
-        console.log(data);
+      //  console.log(data);
+        this.doLoginUser(data);
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {
@@ -59,17 +49,26 @@ export class AuthService {
     this.doLogoutUser();
   }
 
-  isLoggedIn() {
-    return !!this.getToken();
+  isLoggedIn(): boolean {
+    const b: boolean = !!this.getToken();
+    return b;
   }
 
   getToken() {
     return localStorage.getItem(this.TOKEN);
   }
-
-  private doLoginUser(username: string, token: string) {
-    this.loggedUser = username;
-    this.storeTokens(token);
+  getUser() {
+    return this.loggedUser;
+  }
+  private doLoginUser(data) {
+    const token = data.access_token;
+    this.loggedUser =
+    {
+      name: data.userName,
+      role: data.userRole,
+    };
+    console.log(this.loggedUser);
+    this.storeToken(token);
   }
 
   private doLogoutUser() {
@@ -77,11 +76,8 @@ export class AuthService {
     this.removeTokens();
   }
 
-  private storeToken(jwt: string) {
-    localStorage.setItem(this.TOKEN, jwt);
-  }
 
-  private storeTokens(token: string) {
+  private storeToken(token: string) {
     localStorage.setItem(this.TOKEN, token);
   }
 
