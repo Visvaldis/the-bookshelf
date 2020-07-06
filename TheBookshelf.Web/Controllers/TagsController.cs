@@ -16,7 +16,6 @@ using TheBookshelf.BLL.Interfaces;
 
 namespace TheBookshelf.Web.Controllers
 {
-
 	[RoutePrefix("api/tags")]
     public class TagsController : ApiController
     {

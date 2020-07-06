@@ -28,7 +28,7 @@ namespace TheBookshelf.BLL.Identity
 
 		public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
 		{
-		//	context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "http://localhost" });
+
 			var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
 			User user = await userManager.FindAsync(context.UserName, context.Password);

@@ -5,6 +5,7 @@ using System.Web.Http.Cors;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
@@ -35,8 +36,7 @@ using TheBookshelf.Web.Util;
 			// и использование файла cookie для временного хранения информации о входах пользователя с помощью стороннего поставщика входа
 			app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-        //    app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-
+            //    app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             // Настройка приложения для потока обработки на основе OAuth
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
