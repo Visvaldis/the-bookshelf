@@ -27,22 +27,28 @@ export class AuthService {
 
   logIn(user: { userName: string, password: string }) {
     const url = `${config.apiUrl}/Token`;
-    const body = `userName=${user.userName}&password=${user.password}&grant_type=password`;
+    const body = new URLSearchParams();
+    body.set('userName', user.userName);
+    body.set('password', user.password);
+    body.set('grant_type', 'password');
+
     const heders = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Origin': '*'
     });
 
-    this.http.post(url, body, {headers: heders},).subscribe(
+    this.http.post(url, body.toString(), {headers: heders}).subscribe(
       (data) => {
         console.log(data);
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {
           console.log('Client-side error occured.');
+          console.log(err.message);
+          console.log(err.error);
         } else {
           console.log('Server-side error occured.');
+          console.log(err.message);
+          console.log(err.error);
         }
       }
     );

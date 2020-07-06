@@ -1,9 +1,15 @@
 
 <div class="login-page">
   <div class="form">
+
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
-      <input type="email" id="username" placeholder="Email">
-      <input type="password" id="password" placeholder="Password">
+      <input type="email" id="username" formControlName="userName" placeholder="Email">
+      <div class="alert alert-danger"
+           *ngIf="loginForm.controls['userName'].invalid && loginForm.controls['userName'].touched">
+        Please enter valid email
+      </div>
+      <input type="password" id="password" formControlName="password" placeholder="Password">
+
       <button type="submit" class="mt-4">Login</button>
       <p class="message">Not registered? <a routerLink="/register" routerLinkActive="active">Create an account</a></p>
     </form>

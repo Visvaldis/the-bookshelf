@@ -5,6 +5,8 @@
   padding: 5% 0 0;
   margin: auto;
 }
+input.ng-touched.ng-invalid {border:solid red 2px!important;}
+input.ng-touched.ng-valid {border:solid green 2px!important;}
 
 .form {
   position: relative;

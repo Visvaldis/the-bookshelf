@@ -10,7 +10,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from './token.interceptor';
 import {AuthGuard} from './guards/auth.guard';
 import {AuthService} from './services/auth.service';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -21,6 +21,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     AppRoutingModule,
     RouterModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   providers:[
     AuthGuard,
