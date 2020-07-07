@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {config} from '../../../config';
 import {AuthUser} from '../models/auth.user';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
+import {catchError, mapTo, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,16 @@ export class AuthService {
   private loggedUser: AuthUser;
 
   constructor(private http: HttpClient) {}
+
+  register(user: {email: string, password: string, confirmPassword: any }): Observable<boolean> {
+    return this.http.post<any>(`${config.apiUrl}/api/account/register`, user)
+      .pipe(
+        mapTo(true),
+        catchError((error: HttpErrorResponse) => {
+          alert(error.error['message']);
+          return of(false);
+        }));
+  }
 
   logIn(user: { userName: string, password: string }) {
     const url = `${config.apiUrl}/Token`;
@@ -25,23 +36,14 @@ export class AuthService {
       'Content-Type': 'application/x-www-form-urlencoded',
     });
 
-    this.http.post(url, body.toString(), {headers: authheaders}).subscribe(
-      (data) => {
-      //  console.log(data);
-        this.doLoginUser(data);
-      },
-      (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-          console.log('Client-side error occured.');
-          console.log(err.message);
-          console.log(err.error);
-        } else {
-          console.log('Server-side error occured.');
-          console.log(err.message);
-          console.log(err.error);
-        }
-      }
-    );
+    return this.http.post(url, body.toString(), {headers: authheaders})
+      .pipe(
+      tap(data => this.doLoginUser(data)),
+      mapTo(true),
+      catchError((error: HttpErrorResponse) => {
+        alert(error.error['error_description']);
+        return of(false);
+      }));
   }
 
 
@@ -84,4 +86,6 @@ export class AuthService {
   private removeTokens() {
     localStorage.removeItem(this.TOKEN);
   }
+
+
 }

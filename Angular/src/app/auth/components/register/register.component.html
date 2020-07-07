@@ -1,15 +1,31 @@
 
 <div class="login-page">
   <div class="form">
-    <form method="POST" class="login-form">
-      <input type="email" placeholder="Email">
-      <input type="password" placeholder="Password">
-      <input type="password" placeholder="Confirm Password">
-      <button type="submit">Register</button>
+    <form class="login-form" [formGroup]="registerForm" (ngSubmit)="register()">
+      <input type="email" id="username" formControlName="userName" placeholder="Email">
+      <div class="alert alert-danger"
+           *ngIf="registerForm.controls['userName'].invalid && registerForm.controls['userName'].touched">
+        Please enter valid email
+      </div>
+      <input type="password" id="password" formControlName="password" placeholder="Password">
+      <div class="alert alert-danger"
+           *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched">
+        Password should contain at least 6 symbols
+      </div>
+      <input type="password" id="confpassword" formControlName="confirmPassword" placeholder="Password">
+      <div class="alert alert-danger"
+           *ngIf="registerForm.errors?.mismatch && (registerForm.controls['confirmPassword'].dirty || registerForm.controls['confirmPassword'].touched)">
+        Passwords not the same
+      </div>
+      <button [disabled]="registerForm.errors?.mismatch || (registerForm.controls['userName'].invalid ||
+                        registerForm.controls['confirmPassword'].invalid ||
+                        registerForm.controls['password'].invalid)" type="submit">Register</button>
       <p class="message">Already have an account? <a routerLink="/login" routerLinkActive="active">Log in</a></p>
     </form>
 
   </div>
 </div>
+
+
 
 
