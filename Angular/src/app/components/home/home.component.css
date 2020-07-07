@@ -43,14 +43,23 @@ a:hover{
   color: orange !important;
 }
 
-.card-book{
-  background-color: #e0e5ec;
-  box-shadow:  -9px -9px 16px #ffffff, 9px 9px 16px #a3b1c6;
+
+
+.book-container {
+  margin: 0 auto;
+  max-width: 1210px;
+}
+
+@media (max-width: 941px) {
+  .book-container {
+    max-width: 700px;
+  }
 }
 
 
-.card-header,
-.card-footer{
-  background-color: transparent;
-  border-color: darkred;
+h1 {
+  color: gray;
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: -3px;
 }
