@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,12 @@ namespace TheBookshelf.Web.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return BadRequest(ModelState);
+				List<string> errors = new List<string>();
+				var a = ModelState.Values.Select(x => x.Errors).ToList();
+				a.ForEach(x => x.ForEach(y => errors.Add( y.ErrorMessage)));
+				string s = "";
+				errors.ForEach(e => s += e + "\n");
+				return BadRequest(s);
 			}
 			var user = new UserDTO() { UserName  = model.Email, Email = model.Email};
 

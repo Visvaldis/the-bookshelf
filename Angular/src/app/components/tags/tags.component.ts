@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Tag} from '../../../models/tag';
 import {TagService} from '../../../services/tagService';
+import {AuthService} from '../../auth/services/auth.service';
+import {AuthUser} from '../../auth/models/auth.user';
 
 @Component({
   selector: 'app-tags',
@@ -13,10 +15,13 @@ export class TagsComponent implements OnInit {
   tag: Tag = new Tag();   // изменяемый товар
   tags: Tag[];                // массив товаров
   tableMode = true;          // табличный режим
+  user: AuthUser;
 
-  constructor(private tagService: TagService) { }
+  constructor(private tagService: TagService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.user = this.authService.getUser();
+    console.log(this.user);
     this.loadProducts();    // загрузка данных при старте компонента
   }
   // получаем данные через сервис

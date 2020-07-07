@@ -10,6 +10,8 @@ import { TagsComponent } from './components/tags/tags.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthModule} from './auth/auth.module';
+import { BookCardComponent } from './components/book-card/book-card.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import {AuthModule} from './auth/auth.module';
     FooterComponent,
     HeaderComponent,
     HomeComponent,
-    TagsComponent
+    TagsComponent,
+    BookCardComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

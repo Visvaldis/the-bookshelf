@@ -4,6 +4,8 @@ import {config} from '../../../config';
 import {AuthUser} from '../models/auth.user';
 import {Observable, of} from 'rxjs';
 import {catchError, mapTo, tap} from 'rxjs/operators';
+import {CryptoService} from './crypto.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,10 @@ import {catchError, mapTo, tap} from 'rxjs/operators';
 export class AuthService {
 
   private readonly TOKEN = 'TOKEN';
-  private loggedUser: AuthUser;
+  private readonly USER = 'USER';
+  public loggedUser: AuthUser;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private crypto: CryptoService) {}
 
   register(user: {email: string, password: string, confirmPassword: any }): Observable<boolean> {
     return this.http.post<any>(`${config.apiUrl}/api/account/register`, user)
@@ -60,7 +63,9 @@ export class AuthService {
     return localStorage.getItem(this.TOKEN);
   }
   getUser() {
-    return this.loggedUser;
+    const user = this.crypto.decryptData(localStorage.getItem(this.USER), localStorage.getItem(this.TOKEN));
+    console.log(user);
+    return user;
   }
   private doLoginUser(data) {
     const token = data.access_token;
@@ -69,6 +74,9 @@ export class AuthService {
       name: data.userName,
       role: data.userRole,
     };
+
+    const cryptUser = this.crypto.encryptData(this.loggedUser, token);
+    localStorage.setItem(this.USER, cryptUser);
     console.log(this.loggedUser);
     this.storeToken(token);
   }
