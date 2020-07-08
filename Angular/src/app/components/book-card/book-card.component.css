@@ -20,16 +20,12 @@
 }
 
 
-/* star button */
-.book:after {
-  font-family: FontAwesome;
-  content: "\f005";
-  font-size: 35px;
+
+.star {
   position: absolute;
   left: 6.3cm;
-  bottom: -.1cm;
+  bottom: .17cm;
   float: right;
-  color: red;
 }
 
 .book{
@@ -61,6 +57,9 @@
 
 .book .author {
   font-size: 12px;
+}
+.title{
+  font-weight: bolder;
 }
 @media (max-width: 941px) {
   .book {

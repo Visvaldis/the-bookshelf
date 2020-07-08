@@ -11,13 +11,23 @@ export class BookService {
 
 
   private url = config.apiUrl + '/api/books';
-
+  public inOrder = {
+    nameDesc: 'name_desc',
+    nameAsc: 'name',
+    markDesc: 'mark_desc',
+    markAsc: 'mark'
+  };
   constructor(private http: HttpClient) {
   }
 
 
-  getBooks(): Observable<BookCard[]>{
-    return this.http.get<BookDetail[]>(this.url).pipe(map(
+  getAllBooks(): Observable<BookCard[]>{
+    return this.getBooks(this.url);
+  }
+
+
+  getBooks(url: string): Observable<BookCard[]>{
+    return this.http.get<BookDetail[]>(url).pipe(map(
       (books: BookDetail[]) => {
         return books.map(book => {
           // tslint:disable-next-line:no-shadowed-variable
@@ -31,6 +41,15 @@ export class BookService {
         });
       }
     ));
+  }
+
+  getBooksInOrder(order: string): Observable<BookCard[]>{
+    const ordurl = `${this.url}/order/${order}`;
+    return this.getBooks(ordurl);
+  }
+  getBooksInOrderCount(order: string, count: number): Observable<BookCard[]>{
+    const ordurl = `${this.url}/order/${count}/${order}`;
+    return this.getBooks(ordurl);
   }
 
 /*

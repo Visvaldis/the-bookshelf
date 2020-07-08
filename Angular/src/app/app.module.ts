@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AuthModule} from './auth/auth.module';
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { SearchComponent } from './components/search/search.component';
+import { PongComponent } from './pong/pong.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SearchComponent } from './components/search/search.component';
     HomeComponent,
     TagsComponent,
     BookCardComponent,
-    SearchComponent
+    SearchComponent,
+    PongComponent
   ],
   imports: [
     BrowserModule,
