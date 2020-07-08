@@ -18,6 +18,7 @@ using System.Web;
 using TheBookshelf.Web.Util;
 using System.Net.Http.Headers;
 using CopyStatus = Microsoft.Azure.Storage.Blob.CopyStatus;
+using System.Web.Routing;
 
 namespace TheBookshelf.Web.Controllers
 {
@@ -43,6 +44,11 @@ namespace TheBookshelf.Web.Controllers
 			return Ok(books);
 		}
 
+		/// <summary>
+		/// You can get book by id
+		/// </summary>
+		/// <param name="id">Book id</param>
+		/// <returns>200 Content: book</returns>
 		[AllowAnonymous]
 		[Route("{id:int}")]
 		[HttpGet, ActionName("GetBook")]
@@ -251,6 +257,17 @@ namespace TheBookshelf.Web.Controllers
 			// Create the container and return a container client object
 			BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 			return containerClient;
+		}
+
+		[AllowAnonymous]
+		[Route("random/{count}")]
+		[HttpGet]
+		public IHttpActionResult GetRandomBooks(int count)
+		{
+			if (count <= 0)
+				return BadRequest("Count can`t be neganive");
+			var books = bookService.GetRandomBooks(count);
+			return Ok(books);
 		}
 
 

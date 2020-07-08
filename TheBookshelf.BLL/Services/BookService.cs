@@ -36,7 +36,11 @@ namespace TheBookshelf.BLL.Services
 
 		}
 
-
+		/// <summary>
+		/// You can get book by id
+		/// </summary>
+		/// <param name="id">Book id</param>
+		/// <returns>200 Content: book</returns>
 		public BookDTO Get(int id)
 		{
 			var book = Database.Books.Get(id);
@@ -100,6 +104,14 @@ namespace TheBookshelf.BLL.Services
 			var book = Database.Books.Get(id);
 			if (book == null) return false;
 			else return true;
+		}
+
+
+		public ICollection<BookDTO> GetRandomBooks(int count)
+		{
+			var randBooks = Database.Books.GetAll()
+				.OrderBy(o => Guid.NewGuid()).Take(count);
+			return Mapper.Map<IEnumerable<Book>, List<BookDTO>>(randBooks);
 		}
 	}
 }
