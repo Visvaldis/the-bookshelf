@@ -111,39 +111,3 @@ h1 {
   margin-bottom: -3px;
 }
 
-/**********************************
-display change
-***********************************/
-/*book height smaller, cover opacity, move text onto cover and star too
-animate it */
-#list-th:target .book {
-  height: 100px;
-  width: 250px;
-  padding: 10px;
-  margin: 25px auto 25px auto;
-}
-
-#list-th:target .cover {
-  width: 246px;
-}
-
-#list-th:target img {
-  opacity: .1;
-}
-
-#list-th:target p {
-  margin-top: -62px;
-  margin-left: 20px;
-}
-/* remove button? */
-#large-th:target .book {
-  height: 390px;
-}
-
-/***********************************
-star animation
-***********************************/
-/***********************************
-zoom on click
-***********************************/
-

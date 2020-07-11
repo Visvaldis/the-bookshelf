@@ -6,6 +6,7 @@ import {BookCard} from '../../../models/book-card';
 import {Tag} from '../../../models/tag';
 import {Author} from '../../../models/author';
 import {TagService} from '../../../services/tagService';
+import {BookDetail} from '../../../models/book-detail';
 
 @Component({
   selector: 'app-search',
@@ -24,18 +25,29 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
-      switchMap(params => {
-        this.searchReq = params.getAll('searchRequest')[0];
-        console.log(params.getAll('searchRequest'));
-        console.log(this.searchReq, 'ken');
-        return this.searchReq;
-      })
-    );
-    this.loadBooks(this.searchReq);
+      switchMap(params => params.getAll('searchRequest'))
+    ).subscribe(data =>
+      {
+        console.log(data);
+        this.searchReq = data;
+        this.loadBooks(this.searchReq);
+      });
+    if (this.searchReq === undefined)
+    {
+      console.log('all');
+      this.getAllBooks();
+    }
   }
 
   loadBooks(name: string) {
     this.bookService.searchBooks(name)
+      .subscribe((data: BookCard[]) => {
+        this.books = data;
+        console.log(this.books);
+      });
+  }
+  getAllBooks() {
+    this.bookService.getAllBooks()
       .subscribe((data: BookCard[]) => {
         this.books = data;
         console.log(this.books);
