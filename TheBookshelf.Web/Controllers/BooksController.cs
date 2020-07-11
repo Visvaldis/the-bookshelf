@@ -73,10 +73,10 @@ namespace TheBookshelf.Web.Controllers
 		public IHttpActionResult GetByName(string name)
 		{
 			if (name is null || name == "")
-				return BadRequest("Name is negative");
+				return BadRequest("Name is null");
 			try
 			{
-				var books = bookService.GetBooksByName(name);
+				var books = bookService.GetByName(name);
 
 				return Ok(books);
 			}

@@ -106,5 +106,10 @@ namespace TheBookshelf.BLL.Services
 			var bookDto = Mappers.BookshelfMapper.Map<IEnumerable<Book>, List<BookDTO>>(books);
 			return bookDto;
 		}
+
+		public ICollection<TagDTO> GetByName(string name)
+		{
+			return GetWithFilter(x => x.Name.Contains(name));
+		}
 	}
 }

@@ -11,7 +11,7 @@ namespace TheBookshelf.BLL.Interfaces
 	{
 		ICollection<T> GetAll();
 		T Get(int id);
-	//	ICollection<T> GetWithFilter(Expression<Func<T, Boolean>> filter);
+		ICollection<T> GetByName(string name);
 		int Add(T item);
 		void Update(T item);
 		void Delete(int id);

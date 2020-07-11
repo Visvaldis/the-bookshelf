@@ -23,9 +23,9 @@ namespace TheBookshelf.BLL.Services
 			Mapper = Mappers.BookshelfMapper;
 		}
 
-		public ICollection<BookDTO> GetBooksByName(string bookName)
+		public ICollection<BookDTO> GetByName(string name)
 		{
-			return GetWithFilter(x => x.Name.Contains(bookName));
+			return GetWithFilter(x => x.Name.Contains(name));
 		}
 
 		public ICollection<BookDTO> GetAll()
@@ -92,13 +92,7 @@ namespace TheBookshelf.BLL.Services
 		{
 			Database.Dispose();
 		}
-/*
-		public ICollection<BookDTO> GetBooksByTag(int tagId)
-		{
-			var tag = Mapper.Map<TagDTO>(Database.Tags.Get(tagId));
-			return GetWithFilter(x => x.Tags.Contains(tag));
-		}
-*/
+
 		public bool Exist(int id)
 		{
 			var book = Database.Books.Get(id);

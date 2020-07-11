@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TheBookshelf.BLL.DTO;
@@ -80,6 +81,24 @@ namespace TheBookshelf.BLL.Services
 		{
 			Database.Authors.Update(Mapper.Map<AuthorDTO, Author>(item));
 			Database.Save();
+		}
+
+		public ICollection<AuthorDTO> GetWithFilter(Expression<Func<AuthorDTO, bool>> filter)
+		{
+			var mapper = new MapperConfiguration(
+				cfg => cfg.CreateMap<Expression<Func<AuthorDTO, bool>>,
+				Expression<Func<Author, bool>>>())
+					.CreateMapper();
+			var expression = mapper.Map<Expression<Func<Author, bool>>>(filter);
+
+			return Mapper.Map<ICollection<Author>, List<AuthorDTO>>
+				(Database.Authors.Find(expression).ToList());
+		}
+
+
+		public ICollection<AuthorDTO> GetByName(string name)
+		{
+			return GetWithFilter(x => x.Name.Contains(name));
 		}
 	}
 }

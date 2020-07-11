@@ -14,7 +14,6 @@ namespace TheBookshelf.BLL.Interfaces
 	//	ICollection<BookDTO> GetBooksByTag(int tagId);
 	//	UserDTO GetBookCreator(int bookId);
 	//	void AddTagToBook(int bookId, int tagId);
-		ICollection<BookDTO> GetBooksByName(string bookName);
 		ICollection<BookDTO> GetWithFilter(Expression<Func<Book, bool>> filter);
 		ICollection<BookDTO> GetRandomBooks(int count);
 

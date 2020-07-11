@@ -118,6 +118,25 @@ namespace TheBookshelf.Web.Controllers
 		}
 
 
+		[AllowAnonymous]
+		[Route("search/{name}")]
+		[HttpGet, ActionName("GetAuthorsByName")]
+		public IHttpActionResult GetByName(string name)
+		{
+			if (name is null || name == "")
+				return BadRequest("Name is null");
+			try
+			{
+				var authors = authorService.GetByName(name);
+
+				return Ok(authors);
+			}
+			catch (ValidationException ex)
+			{
+				return NotFound();
+			}
+		}
+
 
 	}
 }

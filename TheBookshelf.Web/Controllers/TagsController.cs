@@ -134,10 +134,27 @@ namespace TheBookshelf.Web.Controllers
 			return Ok();
 		}
 
-		
+
+		[AllowAnonymous]
+		[Route("search/{name}")]
+		[HttpGet, ActionName("GetTagsByName")]
+		public IHttpActionResult GetByName(string name)
+		{
+			if (name is null || name == "")
+				return BadRequest("Name is null");
+			try
+			{
+				var tags = tagService.GetByName(name);
+
+				return Ok(tags);
+			}
+			catch (ValidationException ex)
+			{
+				return NotFound();
+			}
+		}
 
 
-	
 
 	}
 }
