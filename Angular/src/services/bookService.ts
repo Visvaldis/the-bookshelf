@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {config} from '../config';
-import {Observable} from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Observable, throwError} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 import {BookCard} from '../models/book-card';
 import {BookDetail} from '../models/book-detail';
 
@@ -43,8 +43,15 @@ export class BookService {
     ));
   }
 
+
+
   getBooksInOrder(order: string): Observable<BookCard[]>{
     const ordurl = `${this.url}/order/${order}`;
+    return this.getBooks(ordurl);
+  }
+
+  searchBooks(name: string): Observable<BookCard[]>{
+    const ordurl = `${this.url}/search/${name}`;
     return this.getBooks(ordurl);
   }
   getBooksInOrderCount(order: string, count: number): Observable<BookCard[]>{
@@ -52,22 +59,43 @@ export class BookService {
     return this.getBooks(ordurl);
   }
 
-/*
-  getBook(id: number): Observable<Tag> {
-    return this.http.get<Tag>(this.url + '/' + id).pipe(map(
-      (tags: Tag) =>    tags
-    ));
+  getRandomBooks(count: number): Observable<BookCard[]>{
+    const url = `${this.url}/random/${count}`;
+    return this.getBooks(url);
   }
 
-  createBook(tag: Tag) {
-    return this.http.post(this.url, tag);
+  getRandomBook(): Observable<BookDetail> {
+    return this.http.get<BookDetail>(`${this.url}/random/1`).pipe(
+      map((book: BookDetail) => book[0]),
+      catchError((err: HttpErrorResponse) => {
+        console.log(err);
+        return throwError(err);
+      })
+    );
   }
-  updateBook(tag: Tag) {
+  getBook(id: number): Observable<BookDetail> {
+    return this.http.get<BookDetail>(this.url + '/' + id).pipe(
+      map((book: BookDetail) => book),
+      catchError( (err: HttpErrorResponse) => {
+          console.log(err);
+          return throwError(err);
+      })
+    );
+  }
+  download(id) {
+    const  url =  'https://thebookshelf.azurewebsites.net/api/books' + '/Download/' + id;
+    return this.http.get(url, { observe: 'response', responseType: 'blob'}); }
 
-    return this.http.put(this.url, tag);
-  }
-  deleteBook(id: number) {
-    return this.http.delete(this.url + '/' + id);
-  }
-*/
+
+    createBook(book: BookDetail) {
+      return this.http.post(this.url, book);
+    }
+    updateBook(book: BookDetail) {
+
+      return this.http.put(this.url, book);
+    }
+    deleteBook(id: number) {
+      return this.http.delete(this.url + '/' + id);
+    }
+
 }

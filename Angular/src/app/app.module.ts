@@ -12,7 +12,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {AuthModule} from './auth/auth.module';
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { SearchComponent } from './components/search/search.component';
-import { PongComponent } from './pong/pong.component';
+import { BookDetailComponent } from './components/book-detail/book-detail.component';
+import { Error404Component } from './components/error404/error404.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { PongComponent } from './pong/pong.component';
     TagsComponent,
     BookCardComponent,
     SearchComponent,
-    PongComponent
+    BookDetailComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,

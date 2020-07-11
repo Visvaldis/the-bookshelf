@@ -1,0 +1,89 @@
+.book
+{
+  margin-top: 0rem!important;
+  border-radius: 25px !important;
+  background-color: #e0e5ec;
+  color: black;
+  border: none !important;
+  box-shadow:  -9px -9px 16px #ffffff, 9px 9px 16px #a3b1c6;
+}
+.rounded-top{
+  border-top-left-radius: 25px!important;
+}
+h4 span{
+  font-weight: normal!important;
+}
+hr{
+  height: 6px!important;
+  border-radius: 10px;
+  background-color: darkred;
+}
+.download{
+  font-size: 2rem;
+  height: 5rem;
+  width: 20rem;
+  margin-left: 17%!important;
+  margin-top: 0rem!important;
+  border-radius: 25px !important;
+  background-color: #e0e5ec;
+  color: black;
+  border: none !important;
+  box-shadow:  -9px -9px 16px #ffffff, 9px 9px 16px #a3b1c6;
+  margin-bottom: 2rem;
+}
+
+.download:hover {
+  background-color: darkred;
+  color: white;
+  box-shadow:  -3px -3px 16px rgba(255, 255, 255, 0.7) inset,
+  9px 9px 16px rgba(77, 77, 78, 0.7)  inset;
+}
+
+@media (max-width: 990px) and (min-width: 770px) {
+  .download {
+    margin-left: -3%!important;
+  }
+}
+
+@media (max-width: 770px) {
+  .rounded-top {
+    border-top-right-radius: 25px!important;
+  }
+}
+
+
+.star {
+
+  -webkit-text-stroke: 2.3px #FFFFFF;
+  color: #e0a800;
+  font-size: 60px;
+  position: absolute;
+  left: .5cm;
+  top: .5cm;
+  float: right;
+}
+
+.book{
+  position: relative;
+}
+
+.login{
+  font-size: 1.2rem;
+  height: 3rem;
+  width: 10rem;
+  margin-left: 50%!important;
+  margin-top: 1rem!important;
+  border-radius: 25px !important;
+  background-color: #e0e5ec;
+  color: black;
+  border: none !important;
+  box-shadow:  -9px -9px 16px #ffffff, 9px 9px 16px #a3b1c6;
+  margin-bottom: 2rem;
+}
+
+.login:hover {
+  background-color: #e0a800;
+  color: white;
+  box-shadow:  -3px -3px 16px rgba(255, 255, 255, 0.7) inset,
+  9px 9px 16px rgba(77, 77, 78, 0.7)  inset;
+}

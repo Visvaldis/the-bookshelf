@@ -1,0 +1,42 @@
+<div class="container book">
+  <div class="row mt-5">
+    <div class="col-md-6 col-sm-12 p-0 ">
+      <img class="rounded-top" src="{{book.coverUrl}}" style="width: 100%;" alt="{{book.name}}">
+      <i class="fa star">&#xf005;</i>
+
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+      <h1 class="col-12 text-center pt-2 mt-4 mb-1">{{book.name}}</h1>
+
+      <hr class="mb-4">
+
+      <p class="lead px-3 text-justify">{{ book.description }}</p>
+
+      <hr class="mt-4 mb-4">
+      <div class="px-3">
+        <h4 class="my-3"><strong>Authors: </strong>
+          <span *ngFor="let author of book.authors"> {{author.name}}  </span>
+        </h4>
+        <h4><strong>Tags: </strong>
+           <span *ngFor="let tag of book.tags"> {{tag.name}} </span>
+        </h4>
+      </div>
+      <hr class="mt-4 mb-4">
+
+      <h2 class="text-right pr-4"><strong>{{ book.assessment }}</strong> people like this book</h2>
+      <hr class="mt-4 mb-4">
+
+      <div class="container-fluid">
+        <ng-container *ngIf="( user === undefined) else download">
+          <h5 style="color: red">Only authorized users can download books</h5>
+          <button class="login mx-auto" routerLink="/login">Login</button>
+        </ng-container>
+        <ng-template #download>
+          <button class="download mx-auto" (click)="downloadBook(book.id)">Download book</button>
+        </ng-template>
+      </div>
+    </div>
+
+  </div>
+</div>

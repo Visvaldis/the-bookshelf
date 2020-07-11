@@ -227,13 +227,16 @@ namespace TheBookshelf.Web.Controllers
 				
 				var result = new HttpResponseMessage(HttpStatusCode.OK)
 				{
-					Content = new StreamContent(download.Content)
+					Content = new StreamContent(download.Content),
+
 				};
+
+				result.Content.Headers.Add("File-Name", name);
 				result.Content.Headers.ContentDisposition =
-			  new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
-			  {
-				  FileName = name
-			  };
+					new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+					{
+						FileName = name
+					};
 				result.Content.Headers.ContentType =
 					new MediaTypeHeaderValue("application/octet-stream");
 				IHttpActionResult response;
