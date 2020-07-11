@@ -1,7 +1,32 @@
-.container {
+.book-container {
   margin: 0 auto;
-  max-width: 910px;
+  max-width: 1210px;
 }
+@media (max-width: 941px) {
+  .book-container {
+    max-width: 700px;
+  }
+}
+
+.active{
+  border-radius: 10px !important;
+  background-color: #e0a800!important;
+  color: black;
+}
+
+
+.nav-item
+{
+  margin: 0 8px;
+  border-radius: 10px !important;
+  background-color: #e0e5ec;
+  color: black;
+  border: none !important;
+  box-shadow:  -9px -9px 16px #ffffff, 9px 9px 16px #a3b1c6;
+}
+
+
+
 
 .choose {
   width: 100%;
@@ -13,6 +38,8 @@
   color: gray;
   float: right;
 }
+
+
 /******************************************
 Book stuff
 *******************************************/
@@ -58,9 +85,6 @@ Book stuff
   font-size: 15px;
 }
 @media (max-width: 941px) {
-  .container {
-    max-width: 700px;
-  }
   .book {
     margin: 49px;
   }
@@ -122,3 +146,4 @@ star animation
 /***********************************
 zoom on click
 ***********************************/
+

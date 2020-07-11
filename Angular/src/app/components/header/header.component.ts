@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../auth/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,8 +9,13 @@ import {AuthService} from '../../auth/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public authService: AuthService, ) { }
+  public searchStr: string;
+  constructor(public authService: AuthService, public router: Router) { }
   ngOnInit(): void {
   }
 
+  public search(){
+    this.router.navigate(
+      ['/search', this.searchStr]);
+  }
 }

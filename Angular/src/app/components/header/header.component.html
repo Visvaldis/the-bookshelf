@@ -19,7 +19,7 @@
           <a class="nav-link" id="best" href="{% url 'catalog' %}">Best books</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="api" href="https://thebookshelf.azurewebsites.net/">API</a>
+            <a class="nav-link" id="api" href="https://thebookshelf.azurewebsites.net/">API</a>
         </li>
       </ul>
       <ul class=" nav navbar-nav nav-pills  mr-auto ml-auto">
@@ -41,8 +41,8 @@
         </ng-container>
       </ul>
       <form class="form-inline my-2 my-md-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Find book" aria-label="Search">
-        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+        <input class="form-control mr-sm-2" type="text" placeholder="Find book" aria-label="Search" [(ngModel)]="searchStr" [ngModelOptions]="{standalone: true}">
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit" (click)="search()">Search</button>
       </form>
     </div>
 
