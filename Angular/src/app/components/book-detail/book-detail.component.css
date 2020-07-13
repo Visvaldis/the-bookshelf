@@ -30,8 +30,8 @@ hr{
   border: none !important;
   box-shadow:  -9px -9px 16px #ffffff, 9px 9px 16px #a3b1c6;
   margin-bottom: 2rem;
-}
 
+}
 .download:hover {
   background-color: darkred;
   color: white;
