@@ -51,7 +51,12 @@ namespace TheBookshelf.BLL.Infrastructure
 
 
 					cfg.CreateMap<Expression<Func<BookDTO, bool>>,
-					Expression<Func<Book, bool>>>();
+						Expression<Func<Book, bool>>>();
+
+					cfg.CreateMap<Expression<Func<AuthorDTO, bool>>,
+						Expression<Func<Author, bool>>>();
+					cfg.CreateMap<Expression<Func<TagDTO, bool>>,
+						Expression<Func<Tag, bool>>>();
 				});
 		//		mapperCfg.AssertConfigurationIsValid();
 				return mapperCfg.CreateMapper();

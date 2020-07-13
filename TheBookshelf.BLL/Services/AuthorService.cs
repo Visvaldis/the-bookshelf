@@ -83,16 +83,12 @@ namespace TheBookshelf.BLL.Services
 			Database.Save();
 		}
 
-		public ICollection<AuthorDTO> GetWithFilter(Expression<Func<AuthorDTO, bool>> filter)
+		public ICollection<AuthorDTO> GetWithFilter(Expression<Func<Author, bool>> filter)
 		{
-			var mapper = new MapperConfiguration(
-				cfg => cfg.CreateMap<Expression<Func<AuthorDTO, bool>>,
-				Expression<Func<Author, bool>>>())
-					.CreateMapper();
-			var expression = mapper.Map<Expression<Func<Author, bool>>>(filter);
-
-			return Mapper.Map<ICollection<Author>, List<AuthorDTO>>
-				(Database.Authors.Find(expression).ToList());
+			var a = Database.Authors.Find(filter);
+			var list = a.AsEnumerable<Author>();
+			return Mapper.Map<IEnumerable<Author>, List<AuthorDTO>>
+				(list);
 		}
 
 

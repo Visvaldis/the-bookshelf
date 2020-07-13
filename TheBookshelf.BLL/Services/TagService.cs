@@ -43,16 +43,12 @@ namespace TheBookshelf.BLL.Services
 			Database.Save();
 		}
 
-		public ICollection<TagDTO> GetWithFilter(Expression<Func<TagDTO, bool>> filter)
+		public ICollection<TagDTO> GetWithFilter(Expression<Func<Tag, bool>> filter)
 		{
-			var mapper = new MapperConfiguration(
-				cfg => cfg.CreateMap< Expression<Func<TagDTO, bool>>,
-				Expression<Func<Tag, bool>>>())
-					.CreateMapper();
-			var expression = mapper.Map<Expression<Func<Tag, bool>>>(filter);
-
-			return Mapper.Map<ICollection<Tag>, List<TagDTO>>
-				(Database.Tags.Find(expression).ToList());
+			var a = Database.Tags.Find(filter);
+			var list = a.AsEnumerable<Tag>();
+			return Mapper.Map<IEnumerable<Tag>, List<TagDTO>>
+				(list);
 		}
 
 		public TagDTO Get(int id)
