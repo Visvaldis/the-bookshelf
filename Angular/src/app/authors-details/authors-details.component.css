@@ -1,0 +1,30 @@
+.book-container {
+  margin: 0 auto;
+  max-width: 1210px;
+}
+
+@media (max-width: 1200px) {
+  .book-container {
+   margin-right: 10%;
+    margin-left: 10%;
+  }
+
+}
+
+
+
+
+hr{
+  height: 6px!important;
+  border-radius: 10px;
+  background-color: darkred;
+}
+
+h2 {
+  color: gray;
+  text-align: left;
+  font-size: 40px;
+  margin-top: 35px;
+  margin-bottom: -3px;
+  border-color: #e0a800, ;
+}

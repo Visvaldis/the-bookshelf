@@ -1,29 +1,32 @@
 <ng-container *ngIf="( user === undefined || user.role ==='user') else adminContent">
   <div class="container-md">
-    <a class="tag" *ngFor="let p of tags" [routerLink]="['/tag', p.id]" style="font-size: {{10+ 3*p?.bookCount}}px;">    {{p?.name}}  </a>
+    <h2 class="ml-n4">Author list</h2>
+    <p *ngFor="let author of authors"> <a class="author" [routerLink]="['/author', author.id]">    {{author.name}} </a> </p>
   </div>
 </ng-container>
 
 
 <ng-template #adminContent>
-  <h1>Tag list</h1>
+  <h1>Author list</h1>
   <input type="button" value="Add" class="btn btn-default" (click)="add()" />
   <table *ngIf="tableMode; else create" class="table table-striped">
     <thead>
     <tr>
       <td>Name</td>
-      <td>BookCount</td>
+      <td>Birthday</td>
+      <td>Description</td>
       <td></td>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let p of tags">
-      <ng-template [ngIf]="tag?.id != p.id" [ngIfElse]="edit">
-        <td>{{p?.name}}</td>
-        <td>{{p?.bookCount}}</td>
+    <tr *ngFor="let authorIter of authors">
+      <ng-template [ngIf]="author.id != authorIter.id" [ngIfElse]="edit">
+        <td>{{authorIter.name}}</td>
+        <td>{{authorIter.birthday}}</td>
+        <td>{{authorIter.bio}}</td>
         <td>
-          <button class="btn btn-sm btn-primary" (click)="editProduct(p)">Изменить</button>
-          <button class="btn btn-sm btn-danger" (click)="delete(p)">Удалить</button>
+          <button class="btn btn-sm btn-primary" (click)="editAuthor(authorIter)">Изменить</button>
+          <button class="btn btn-sm btn-danger" (click)="delete(authorIter)">Удалить</button>
         </td>
       </ng-template>
     </tr>
@@ -33,7 +36,9 @@
   <!--шаблон для редактирования-->
   <ng-template #edit>
     <td>
-      <input type="text" [(ngModel)]="tag.name" class="form-control" />
+      <input type="text" [(ngModel)]="author.name" class="form-control" />
+      <input type="date" [(ngModel)]="author.birthday" class="form-control" />
+      <input type="text" [(ngModel)]="author.bio" class="form-control" />
     </td>
     <td>
       <input type="button" value="Сохранить" (click)="save()" class="btn btn-sm btn-success" />
@@ -45,7 +50,9 @@
   <ng-template #create>
     <div class="form-group">
       <label>Модель</label>
-      <input type="text" [(ngModel)]="tag.name" class="form-control" />
+      <input type="text" [(ngModel)]="author.name" class="form-control" />
+      <input type="date" [(ngModel)]="author.birthday" class="form-control" />
+      <input type="text" [(ngModel)]="author.bio" class="form-control" />
     </div>
     <div>
       <input type="button" value="Сохранить" (click)="save()" class="btn btn-success" />

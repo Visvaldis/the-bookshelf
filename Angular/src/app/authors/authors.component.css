@@ -1,0 +1,10 @@
+.author{
+  color: black;
+  font-size: 25px;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.author:hover{
+  color: navy;
+  font-weight: 650;
+}

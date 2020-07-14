@@ -14,6 +14,12 @@ import { BookCardComponent } from './components/book-card/book-card.component';
 import { SearchComponent } from './components/search/search.component';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { Error404Component } from './components/error404/error404.component';
+import { TagDetailComponent } from './components/tag-detail/tag-detail.component';
+import { AuthorsComponent } from './authors/authors.component';
+import { AuthorsDetailsComponent } from './authors-details/authors-details.component';
+import {BookService} from '../services/bookService';
+import {TagService} from '../services/tagService';
+import {AuthorService} from '../services/authorService';
 
 
 @NgModule({
@@ -26,7 +32,10 @@ import { Error404Component } from './components/error404/error404.component';
     BookCardComponent,
     SearchComponent,
     BookDetailComponent,
-    Error404Component
+    Error404Component,
+    TagDetailComponent,
+    AuthorsComponent,
+    AuthorsDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +44,7 @@ import { Error404Component } from './components/error404/error404.component';
     HttpClientModule,
     AuthModule
   ],
-  providers: [],
+  providers: [BookService, TagService, AuthorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,19 @@
+.book-container {
+  margin: 0 auto;
+  max-width: 1210px;
+}
+
+@media (max-width: 941px) {
+  .book-container {
+    max-width: 700px;
+  }
+
+}
+h2 {
+  color: gray;
+  text-align: center;
+  font-size: 40px;
+  margin-top: 35px;
+  margin-bottom: -3px;
+  border-color: #e0a800, ;
+}

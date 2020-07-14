@@ -1,0 +1,9 @@
+<div class="book-container">
+  <h2>{{tag.name}}</h2>
+  <br>
+  <div class="row justify-content-center">
+    <app-book-card
+      *ngFor="let iterbook of books"
+      [book]="iterbook"></app-book-card>
+  </div>
+</div>

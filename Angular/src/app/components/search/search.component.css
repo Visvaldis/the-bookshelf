@@ -17,6 +17,26 @@
     max-width: 800px;
   }
 }
+.tag{
+  color: black;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.tag:hover{
+  color: #e0a800;
+  font-weight: 600;
+}
+
+.author{
+  color: black;
+  font-size: 25px;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.author:hover{
+  color: navy;
+  font-weight: 650;
+}
 
 
 h2 {

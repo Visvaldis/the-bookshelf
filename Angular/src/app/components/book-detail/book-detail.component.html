@@ -16,10 +16,10 @@
       <hr class="mt-4 mb-4">
       <div class="px-3">
         <h4 class="my-3"><strong>Authors: </strong>
-          <span *ngFor="let author of book.authors"> {{author.name}}  </span>
+          <a class="author" *ngFor="let author of book.authors" [routerLink]="['/author', author.id]"> {{author.name}}  </a>
         </h4>
         <h4><strong>Tags: </strong>
-           <span *ngFor="let tag of book.tags"> {{tag.name}} </span>
+           <a class="tag" *ngFor="let tag of book.tags" [routerLink]="['/tag', tag.id]" > {{tag.name}} </a>
         </h4>
       </div>
       <hr class="mt-4 mb-4">

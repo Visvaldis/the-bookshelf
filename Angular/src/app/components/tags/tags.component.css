@@ -1,8 +1,9 @@
-a{
+.tag{
   color: black;
   text-decoration: none;
+  margin-right: 10px;
 }
-a:hover{
+.tag:hover{
   color: #e0a800;
   font-weight: 600;
 }

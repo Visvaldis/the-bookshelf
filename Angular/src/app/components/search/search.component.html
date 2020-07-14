@@ -15,7 +15,7 @@
       <h2> A list of tags</h2>
       <br>
       <div class="container-md">
-        <a *ngFor="let p of tags" routerLink="/" style="font-size: {{10+ 3*p.bookCount}}px">{{p.name}}    </a>
+        <a class="tag" *ngFor="let p of tags" [routerLink]="['/tag', p.id]"  style="font-size: {{10+ 3*p.bookCount}}px">{{p.name}}    </a>
       </div>
     </div>
 
@@ -35,7 +35,7 @@
       <h2> A list of authors</h2>
       <br>
       <div class="container-md">
-        <a *ngFor="let p of authors" routerLink="/">{{p.name}}    </a>
+        <a class="author" *ngFor="let p of authors" [routerLink]="['/author', p.id]">{{p.name}}    </a>
       </div>    </div>
   </div>
 </div>
