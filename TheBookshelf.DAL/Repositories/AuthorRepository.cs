@@ -59,7 +59,8 @@ namespace TheBookshelf.DAL.Repositories
 
 		private IQueryable<Author> GetAllQuary()
 		{
-			return db.Authors.Include(x => x.Books);
+			return db.Authors.Include(x => x.Books.Select(y => y.Tags));
 		}
+
 	}
 }

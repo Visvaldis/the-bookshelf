@@ -126,7 +126,7 @@ namespace TheBookshelf.DAL.Repositories
 		private IQueryable<Book> GetAllQuary()
 		{
 			return db.Books
-					.Include(x => x.Tags).Include(x => x.Authors);
+					.Include(x => x.Tags).Include(x => x.Authors).Include(x => x.FanUsers);
 		}
 	}
 }

@@ -39,7 +39,8 @@ namespace TheBookshelf.DAL.Repositories
 
 		public Tag Get(int id)
 		{
-			return db.Tags.Find(id);
+			return GetAllQuary()
+				.FirstOrDefault(x => x.Id == id);
 		}
 
 		public IEnumerable<Tag> GetAll()
@@ -57,5 +58,11 @@ namespace TheBookshelf.DAL.Repositories
 			db.Entry(entity).CurrentValues.SetValues(item);
 		}
 
+
+		private IQueryable<Tag> GetAllQuary()
+		{
+			return db.Tags
+					.Include(x => x.Books.Select(y => y.Authors));
+		}
 	}
 }
