@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BookService} from '../../../services/bookService';
-import {switchMap} from 'rxjs/operators';
 import {BookCard} from '../../../models/book-card';
 import {Tag} from '../../../models/tag';
 import {Author} from '../../../models/author';
 import {TagService} from '../../../services/tagService';
-import {BookDetail} from '../../../models/book-detail';
 import {AuthorService} from '../../../services/authorService';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -21,23 +20,27 @@ export class SearchComponent implements OnInit {
   tags: Tag[] = [];
   authors: Author[] = [];
   searchReq: string;
+  order: string;
+
+  private routeSubscription: Subscription;
+  private querySubscription: Subscription;
   constructor(private route: ActivatedRoute, private router: Router,
-              private bookService: BookService, private tagService: TagService, private authorService: AuthorService) { }
+              private bookService: BookService, private tagService: TagService, private authorService: AuthorService){
+    this.routeSubscription = route.params.subscribe(params => this.searchReq = params['searchRequest']);
+    this.querySubscription = route.queryParams.subscribe(
+      (queryParam: any) => {
+        this.order = queryParam['order'];
+      }
+    );
+  }
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      switchMap(params => params.getAll('searchRequest'))
-    ).subscribe(data =>
-      {
-        console.log(data);
-        this.searchReq = data;
-
-        this.loadSearch(this.searchReq);
-      });
     if (this.searchReq === undefined)
     {
-      console.log('all');
       this.getAllBooks();
+    }
+    else{
+      this.loadSearch(this.searchReq);
     }
   }
 
@@ -70,7 +73,7 @@ export class SearchComponent implements OnInit {
   }
 
   getAllBooks() {
-    this.bookService.getAllBooks()
+    this.bookService.getBooksInOrder(this.order)
       .subscribe((data: BookCard[]) => {
         this.books = data;
         console.log(this.books);

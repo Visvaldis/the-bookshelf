@@ -12,7 +12,7 @@ import {BookService} from '../../../services/bookService';
 export class HomeComponent implements OnInit {
 
   books: BookCard[];
-  constructor(private bookService: BookService) { }
+  constructor(public bookService: BookService) { }
 
   ngOnInit(): void {
     this.loadBooks();

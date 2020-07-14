@@ -16,7 +16,7 @@
           <a class="nav-link" id="tags" routerLink="/tags" routerLinkActive="active">Tags </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="best" href="{% url 'catalog' %}">Best books</a>
+          <a class="nav-link" id="best" routerLink="/search" [queryParams]="{'order':bookService.inOrder.markDesc}">Best books</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="api" href="https://thebookshelf.azurewebsites.net/">API</a>

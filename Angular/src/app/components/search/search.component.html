@@ -1,5 +1,5 @@
 <div class="search-container container">
-  <ul class="nav nav-tabs nav-fill ">
+  <ul *ngIf="searchReq !== undefined" class="nav nav-tabs nav-fill ">
     <li class="nav-item">
       <a href="#tagsSearch" class="nav-link" data-toggle="tab">Tags ({{tags.length}})</a>
     </li>
