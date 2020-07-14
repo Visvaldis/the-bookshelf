@@ -22,6 +22,27 @@
     <div class="tab-pane fade show active" id="booksSearch">
       <div class="book-container">
         <h2> A list of books</h2>
+        <div class="sorting text-right">
+
+          <strong style="color: #e0a800" class="mx-2">Name</strong>
+          <i class="fa sorting-items mr-1"
+             [ngClass]="{'sorting-active': order === bookService.inOrder.nameAsc }"
+             (click)="changeSorting(bookService.inOrder.nameAsc)">&#xf176;</i>
+          <i class="fa sorting-items"
+             [ngClass]="{'sorting-active': order === bookService.inOrder.nameDesc}"
+             (click)="changeSorting(bookService.inOrder.nameDesc)">&#xf175;</i>
+
+
+          <i class="fa star ml-4 mr-2">&#xf005;</i>
+          <i class="fa sorting-items  mr-1"
+             [ngClass]="{'sorting-active': order === bookService.inOrder.markAsc }"
+             (click)="changeSorting(bookService.inOrder.markAsc)">&#xf176;</i>
+          <i class="fa sorting-items"
+             [ngClass]="{'sorting-active': order === bookService.inOrder.markDesc }"
+             (click)="changeSorting(bookService.inOrder.markDesc)">&#xf175;</i>
+
+
+        </div>
         <br>
         <div class="row justify-content-center">
           <app-book-card

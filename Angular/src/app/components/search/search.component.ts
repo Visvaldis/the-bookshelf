@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
   private routeSubscription: Subscription;
   private querySubscription: Subscription;
   constructor(private route: ActivatedRoute, private router: Router,
-              private bookService: BookService, private tagService: TagService, private authorService: AuthorService){
+              public bookService: BookService, private tagService: TagService, private authorService: AuthorService){
     this.routeSubscription = route.params.subscribe(params => this.searchReq = params['searchRequest']);
     this.querySubscription = route.queryParams.subscribe(
       (queryParam: any) => {
@@ -80,4 +80,8 @@ export class SearchComponent implements OnInit {
       });
   }
 
+  changeSorting(sort: string){
+    this.order = sort;
+    this.books = this.bookService.sortBooks(this.books, this.order);
+  }
 }

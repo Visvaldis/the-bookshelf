@@ -87,6 +87,24 @@ export class BookService {
     return this.http.get(url, { observe: 'response', responseType: 'blob'}); }
 
 
+    sortBooks(books: BookCard[], order: string): BookCard[]{
+        switch (order) {
+          case this.inOrder.nameAsc:
+            books.sort( (a, b) => a.name.localeCompare(b.name));
+            break;
+          case this.inOrder.nameDesc:
+            books.sort( (a, b) => -a.name.localeCompare(b.name));
+            break;
+          case this.inOrder.markAsc:
+            books.sort( (a, b) => a.mark > b.mark ? 1 : -1);
+            break;
+          case this.inOrder.markDesc:
+            books.sort( (a, b) => a.mark < b.mark ? 1 : -1);
+            break;
+        }
+        return books;
+    }
+
     createBook(book: BookDetail) {
       return this.http.post(this.url, book);
     }

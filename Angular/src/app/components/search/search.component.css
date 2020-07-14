@@ -64,3 +64,22 @@ h2 {
   border-color: darkred!important;
   border-bottom-color: transparent!important;
 }
+
+.sorting {
+
+  font-size: 30px;
+  margin-left: 5px;
+}
+
+.sorting-active{
+  color: #e0a800;
+}
+
+.star{
+  color: #e0a800;
+  margin-left: 5px;
+}
+
+.sorting-items:hover{
+  cursor: pointer;
+}
