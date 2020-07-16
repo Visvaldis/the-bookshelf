@@ -6,14 +6,15 @@ import {LoginComponent} from './auth/components/login/login.component';
 import {RegisterComponent} from './auth/components/register/register.component';
 
 import {AuthGuard} from './auth/guards/auth.guard';
-import {ProfileComponent} from './auth/components/profile/profile.component';
+import {ProfileComponent} from './components/profile/profile.component';
 import {ProfileGuard} from './auth/guards/profile.guard';
 import {SearchComponent} from './components/search/search.component';
 import {BookDetailComponent} from './components/book-detail/book-detail.component';
 import {Error404Component} from './components/error404/error404.component';
 import {TagDetailComponent} from './components/tag-detail/tag-detail.component';
-import {AuthorsDetailsComponent} from './authors-details/authors-details.component';
-import {AuthorsComponent} from './authors/authors.component';
+import {AuthorsDetailsComponent} from './components/authors-details/authors-details.component';
+import {AuthorsComponent} from './components/authors/authors.component';
+
 
 // определение маршрутов
 const routes: Routes = [

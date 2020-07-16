@@ -1,4 +1,4 @@
 export class AuthUser {
-  public name: string;
+  public userName: string;
   public role: string;
 }

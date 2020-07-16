@@ -64,14 +64,13 @@ export class AuthService {
   }
   getUser() {
     const user = this.crypto.decryptData(localStorage.getItem(this.USER), localStorage.getItem(this.TOKEN));
-    console.log(user);
     return user;
   }
   private doLoginUser(data) {
     const token = data.access_token;
     this.loggedUser =
     {
-      name: data.userName,
+      userName: data.userName,
       role: data.userRole,
     };
 

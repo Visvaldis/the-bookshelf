@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -15,11 +15,15 @@ import { SearchComponent } from './components/search/search.component';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { Error404Component } from './components/error404/error404.component';
 import { TagDetailComponent } from './components/tag-detail/tag-detail.component';
-import { AuthorsComponent } from './authors/authors.component';
-import { AuthorsDetailsComponent } from './authors-details/authors-details.component';
+import { AuthorsComponent } from './components/authors/authors.component';
+import { AuthorsDetailsComponent } from './components/authors-details/authors-details.component';
 import {BookService} from '../services/bookService';
 import {TagService} from '../services/tagService';
 import {AuthorService} from '../services/authorService';
+import { ProfileComponent } from './components/profile/profile.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -35,16 +39,23 @@ import {AuthorService} from '../services/authorService';
     Error404Component,
     TagDetailComponent,
     AuthorsComponent,
-    AuthorsDetailsComponent
+    AuthorsDetailsComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    AuthModule
+    AuthModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule,
   ],
   providers: [BookService, TagService, AuthorService],
+  exports: [
+    BookCardComponent
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
