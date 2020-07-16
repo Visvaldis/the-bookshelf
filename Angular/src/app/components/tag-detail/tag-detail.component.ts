@@ -4,6 +4,7 @@ import {BookCard} from '../../../models/book-card';
 import {Tag} from '../../../models/tag';
 import {ActivatedRoute, Router} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-tag-detail',
@@ -14,21 +15,24 @@ import {switchMap} from 'rxjs/operators';
 export class TagDetailComponent implements OnInit {
 
   books: BookCard[] = [];
-  tag: Tag;
+  tag: Tag = new Tag();
+  loading = true;
   constructor(private route: ActivatedRoute, private router: Router,
-              private tagService: TagService) { }
+              private tagService: TagService, private spinner: NgxSpinnerService) { }
 
 
   ngOnInit(): void {
+    this.spinner.show();
     this.route.paramMap.pipe(
       switchMap(params => params.getAll('id'))
     )
       .subscribe(data => {
-        console.log(data);
         this.tagService.getTag(+data)
           .subscribe((val: Tag) => {
             this.tag = val;
             this.loadBooks(+data);
+            this.spinner.hide();
+            this.loading = false;
           },
             error => {
               if (error.status === 404)
@@ -48,8 +52,6 @@ export class TagDetailComponent implements OnInit {
     this.tagService.getBookByTag(id)
       .subscribe((value: BookCard[]) => {
           this.books = value;
-          console.log(this.books);
-          console.log(value);
         },
         error => {
           alert(error.message);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {config} from '../config';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
@@ -84,7 +84,8 @@ export class BookService {
   }
   download(id) {
     const  url =  'https://thebookshelf.azurewebsites.net/api/books' + '/Download/' + id;
-    return this.http.get(url, { observe: 'response', responseType: 'blob'}); }
+    return this.http.get(url, { observe: 'response', responseType: 'blob'});
+  }
 
 
     sortBooks(books: BookCard[], order: string): BookCard[]{
@@ -104,6 +105,7 @@ export class BookService {
         }
         return books;
     }
+
 
     createBook(book: BookDetail) {
       return this.http.post(this.url, book);

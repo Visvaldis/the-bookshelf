@@ -8,6 +8,7 @@ import {TagService} from '../../../services/tagService';
 import {AuthorService} from '../../../services/authorService';
 import {Subscription} from 'rxjs';
 
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -19,9 +20,17 @@ export class SearchComponent implements OnInit {
   books: BookCard[] = [];
   tags: Tag[] = [];
   authors: Author[] = [];
-  searchReq: string;
   order: string;
 
+  // tslint:disable-next-line:variable-name
+  private _searchReq: string;
+  get searchReq(): string {
+    return this._searchReq;
+  }
+  set searchReq(newSearchReq: string) {
+      this._searchReq = newSearchReq;
+      this.loadSearch(this._searchReq);
+  }
   private routeSubscription: Subscription;
   private querySubscription: Subscription;
   constructor(private route: ActivatedRoute, private router: Router,
@@ -35,6 +44,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     if (this.searchReq === undefined)
     {
       this.getAllBooks();
@@ -68,7 +78,6 @@ export class SearchComponent implements OnInit {
     this.bookService.searchBooks(name)
       .subscribe((data: BookCard[]) => {
         this.books = data;
-        console.log(this.books);
       });
   }
 
@@ -76,7 +85,6 @@ export class SearchComponent implements OnInit {
     this.bookService.getBooksInOrder(this.order)
       .subscribe((data: BookCard[]) => {
         this.books = data;
-        console.log(this.books);
       });
   }
 

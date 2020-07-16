@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
     this.bookService.getRandomBooks(6)
       .subscribe((data: BookCard[]) => {
         this.books = data;
-        console.log(this.books);
       });
   }
 }

@@ -74,7 +74,7 @@ hr{
 
 
 .star {
-
+  cursor: pointer;
   -webkit-text-stroke: 2.3px #FFFFFF;
   color: #e0a800;
   font-size: 60px;
@@ -82,6 +82,36 @@ hr{
   left: .5cm;
   top: .5cm;
   float: right;
+}
+
+.nolike{
+  -webkit-text-stroke: 1.3px #FFFFFF;
+}
+.liked:hover{
+  color: rgba(224, 168, 0, 0.6);
+}
+
+.liked:active:after{
+  content:"\f006";
+  position: absolute;
+  left: 0;
+  float: right;
+  color: #e0a800;
+  -webkit-text-stroke: 1.3px #FFFFFF;
+}
+
+
+
+.nolike:hover:after{
+  content:"\f005";
+  position: absolute;
+  left: 0;
+  float: right;
+  color: rgba(224, 168, 0, 0.4);
+}
+
+.nolike:active:after{
+  color: #e0a800;
 }
 
 .book{

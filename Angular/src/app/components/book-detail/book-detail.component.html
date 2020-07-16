@@ -1,8 +1,17 @@
-<div class="container book">
+<ngx-spinner bdColor = "rgba(0,0,0,0.6)" size = "large" color = "darkred" type = "square-jelly-box" [fullScreen] = "true">
+<p style="color: white; font-size: 20px; margin-top: 25px;" > Please wait... </p>
+</ngx-spinner>
+
+<div class="container book"  *ngIf="loading === false">
   <div class="row mt-5">
     <div class="col-md-6 col-sm-12 p-0 ">
       <img class="rounded-top" src="{{book.coverUrl}}" style="width: 100%;" alt="{{book.name}}">
-      <i class="fa star">&#xf005;</i>
+      <ng-container *ngIf="(isLiked === true) else nolike">
+          <i class="fa star liked" (click)="like()"> &#xf005;</i>
+      </ng-container>
+      <ng-template #nolike>
+          <i class="fa star nolike" (click)="like()">&#xf006;</i>
+      </ng-template>
 
     </div>
 

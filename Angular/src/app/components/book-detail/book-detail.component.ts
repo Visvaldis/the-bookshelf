@@ -6,73 +6,93 @@ import {BookService} from '../../../services/bookService';
 import {AuthUser} from '../../auth/models/auth.user';
 import {AuthService} from '../../auth/services/auth.service';
 import { saveAs } from 'file-saver';
+import {Subscribable} from 'rxjs';
+import {UserService} from '../../../services/userService';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail.component.html',
   styleUrls: ['./book-detail.component.css'],
-  providers: [BookService]
+  providers: [BookService, UserService]
 })
 export class BookDetailComponent implements OnInit {
   book: BookDetail;
   user: AuthUser;
+  isLiked = false;
+  loading = true;
 
-
-
+  bookSubscription: Subscribable<BookDetail>;
   constructor(private route: ActivatedRoute, private router: Router,
-              private bookService: BookService,  private authService: AuthService){}
-  ngOnInit() {
+              private bookService: BookService,  private authService: AuthService,
+              private userService: UserService, private spinner: NgxSpinnerService){  }
+  ngOnInit()
+  {
+    this.spinner.show();
     this.user = this.authService.getUser();
     this.route.paramMap.pipe(
-      switchMap(params => params.getAll('id'))
-    )
-      .subscribe(data =>
+      switchMap(params => params.getAll('id'))).subscribe(data =>
       {
-        console.log(data);
         // tslint:disable-next-line:triple-equals
-        if (data == 'r'){
-          return this.bookService.getRandomBook().subscribe((value: BookDetail) => {
-              this.book = value;
-              console.log(this.book);
-            },
-            error => {
-              if (error.status === 404)
-              {
-                this.router.navigate(['error404']);
-              }
-              else {
-                alert(error.message);
-              }
-            });
+        if (data == 'r') {
+          this.bookSubscription = this.bookService.getRandomBook();
         }
-        return this.bookService.getBook(+data).subscribe((value: BookDetail) => {
-          this.book = value;
-          console.log(this.book);
+        else {
+          this.bookSubscription =  this.bookService.getBook(+data);
+      }});
+    this.bookSubscription.subscribe((value: BookDetail) => {
+        this.book = value;
+        this.isLiked = this.book.fanUsers.some(user => user.userName === this.user.userName);
+        this.spinner.hide();
+        this.loading = false;
       },
-          error => {
-          if (error.status === 404)
-          {
-            this.router.navigate(['error404']);
-          }
-          else {
-            alert(error.message);
-          }
-          });
+      error => {
+        if (error.status === 404)
+        {
+          this.router.navigate(['error404']);
+        }
+        else {
+          this.spinner.hide();
+          alert(error.message);
+        }
       });
+
+
   }
 
 
   downloadBook(id: number){
+    this.spinner.show();
     this.bookService.download(id).subscribe(
       response => {
         const name = response.headers.get('File-Name');
         const downloadName = this.book.name + name.substr(name.lastIndexOf('.'));
+        this.spinner.hide();
         saveAs(response.body, downloadName);
       }
     );
   }
 
+  like(){
+   this.userService.likeBook(this.book.id).subscribe(
+     response => {
+       console.log(response.body);
+       this.isLiked = response.body['isLiked'];
+       this.book.assessment = response.body['likes'];
+     }, error => {
+       if (error.status === 401)
+       {
+         alert('You need to be logged in if you want to mark a book');
+         this.router.navigate(['login']);
+       }
+       else {
+         this.spinner.hide();
+         alert(error.message);
+       }
+     });
+
+  }
 
 }
 /*

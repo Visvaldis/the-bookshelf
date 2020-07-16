@@ -1,4 +1,8 @@
-<div class="book-container">
+<ngx-spinner bdColor = "rgba(0,0,0,0.6)" size = "large" color = "darkred" type = "square-jelly-box" [fullScreen] = "true">
+  <p style="color: white; font-size: 20px; margin-top: 25px;" > Please wait... </p>
+</ngx-spinner>
+
+<div class="book-container"  *ngIf="loading === false">
   <h1>{{author.name}}</h1>
   <h4 class="my-2 mx-5">(born {{author.birthday | date: 'dd  MMMM  yyyy'}})</h4>
   <hr>

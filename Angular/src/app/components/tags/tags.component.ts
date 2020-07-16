@@ -21,7 +21,6 @@ export class TagsComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.authService.getUser();
-    console.log(this.user);
     this.loadProducts();    // загрузка данных при старте компонента
   }
   // получаем данные через сервис

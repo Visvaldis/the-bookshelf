@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthorService} from '../../services/authorService';
-import {AuthUser} from '../auth/models/auth.user';
-import {AuthService} from '../auth/services/auth.service';
-import {Author} from '../../models/author';
+import {AuthorService} from '../../../services/authorService';
+import {AuthUser} from '../../auth/models/auth.user';
+import {AuthService} from '../../auth/services/auth.service';
+import {Author} from '../../../models/author';
 
 @Component({
   selector: 'app-authors',
@@ -21,7 +21,6 @@ export class AuthorsComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.authService.getUser();
-    console.log(this.user);
     this.loadAuthors();    // загрузка данных при старте компонента
   }
   // получаем данные через сервис
