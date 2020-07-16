@@ -1,4 +1,4 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿ using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System;
@@ -75,7 +75,7 @@ namespace TheBookshelf.Web.Controllers
 
 		[Authorize(Roles = "admin, user")]
 		[Route("like/{bookId}")]
-		[HttpPost]
+		[HttpGet]
 		public IHttpActionResult LikeOrDislikeBook(int bookId)
 		{
 			var userId = RequestContext.Principal.Identity.GetUserId<int>();
@@ -83,9 +83,9 @@ namespace TheBookshelf.Web.Controllers
 			try
 			{
 				bool isLiked = userService.LikeBook(userId, bookId, out likes);
-				var book = bookService.Get(bookId);
+				//var book = bookService.Get(bookId);
 
-				var content = new { IsLiked = isLiked, Likes = likes, Book = book };
+				var content = new { IsLiked = isLiked, Likes = likes};
 				return Ok(content);
 			}
 			catch (ValidationException ex)
@@ -110,22 +110,7 @@ namespace TheBookshelf.Web.Controllers
 				return NotFound();
 			}
 		}
-		[Authorize(Roles = "admin, user")]
-		[Route("{userId}/likedbooks")]
-		[HttpGet]
-		public IHttpActionResult GetLikedBooks(int userId)
-		{
-			try
-			{
-				var books = userService.GetLikedBooks(userId);
-				return Ok(books);
-			}
-			catch (Exception)
-			{
-				return NotFound();
-			}
-		}
-
+		
 		[NonAction]
 		[AllowAnonymous]
 		[Route("initdb")]

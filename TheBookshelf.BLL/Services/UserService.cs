@@ -98,6 +98,7 @@ namespace TheBookshelf.BLL.Services
 
 		public ICollection<BookDTO> GetLikedBooks(int userId)
 		{
+			
 			var user = userManager.FindById(userId);
 			if (user == null)
 				throw new ValidationException("User not found");

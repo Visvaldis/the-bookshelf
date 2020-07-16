@@ -14,10 +14,6 @@ namespace TheBookshelf.DAL.Entities
 	{
 		public virtual ICollection<Book> LikedBooks { get; set; }
 
-	//	[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-	//	public DateTime RegistrationDate { get; set; }
-		public string AvatarUrl { get; set; }
-
 		public User()
 		{
 			LikedBooks = new List<Book>();
@@ -26,7 +22,6 @@ namespace TheBookshelf.DAL.Entities
 		public User(ICollection<Book> likedBooks, string avatarUrl)
 		{
 			LikedBooks = likedBooks;
-			AvatarUrl = avatarUrl;
 		}
 	}
 

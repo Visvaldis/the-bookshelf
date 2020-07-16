@@ -11,20 +11,9 @@ namespace TheBookshelf.BLL.DTO
 		public int Id { get; set; }
 		public string UserName { get; set; }
 		public string Email { get; set; }
-		//		public string Password { get; set; }
-	//	public DateTime RegistrationDate { get; set; }
-		public ICollection<RoleDTO> Roles { get; }
-		//	public virtual ICollection<BookDTO> LikedBooks { get; set; }
-		//		public virtual ICollection<BookDTO> AddedBooks { get; set; }
-		public string AvatarUrl { get; set; }
-/*
-		public UserDTO()
-		{
-			LikedBooks = new List<BookDTO>();
-			AddedBooks = new List<BookDTO >();
-		}
 
-*/
+		public ICollection<RoleDTO> Roles { get; }
+
 	}
 
 	public class RoleDTO

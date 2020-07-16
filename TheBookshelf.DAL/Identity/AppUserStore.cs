@@ -49,14 +49,18 @@ namespace TheBookshelf.DAL.Identity
 
 		public Task<User> FindByIdAsync(int userId)
 		{
-			return db.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+			return GetAllQuary().Where(u => u.Id == userId).FirstOrDefaultAsync();
 		}
 
 		public Task<User> FindByNameAsync(string userName)
 		{
-			return db.Users.Where(u => u.UserName.ToLower() == userName.ToLower()).FirstOrDefaultAsync();
+			return GetAllQuary().Where(u => u.UserName.ToLower() == userName.ToLower()).FirstOrDefaultAsync();
 		}
 
+		private IQueryable<User> GetAllQuary()
+		{
+			return db.Users.Include(x => x.LikedBooks.Select(y => y.Authors));
+		}
 		public async Task<string> GetPasswordHashAsync(User user)
 		{
 			return user.PasswordHash;
