@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     this.loadBooks();
   }
   loadBooks() {
-    this.bookService.getRandomBooks(6)
+    this.bookService.getBooksInOrderCount(this.bookService.inOrder.markDesc, 6)
       .subscribe((data: BookCard[]) => {
         this.books = data;
       });

@@ -45,6 +45,12 @@ hr{
   }
 }
 
+@media (max-width: 450px) {
+  .download {
+    margin-left: 0!important;
+  }
+}
+
 @media (max-width: 770px) {
   .rounded-top {
     border-top-right-radius: 25px!important;
@@ -82,7 +88,15 @@ hr{
   left: .5cm;
   top: .5cm;
   float: right;
+  animation: blinker 2s linear infinite;
 }
+
+@keyframes blinker {
+  50% {
+    opacity: 40%;
+  }
+}
+
 
 .nolike{
   -webkit-text-stroke: 1.3px #FFFFFF;

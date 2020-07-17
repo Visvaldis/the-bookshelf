@@ -7,10 +7,10 @@
     <div class="col-md-6 col-sm-12 p-0 ">
       <img class="rounded-top" src="{{book.coverUrl}}" style="width: 100%;" alt="{{book.name}}">
       <ng-container *ngIf="(isLiked === true) else nolike">
-          <i class="fa star liked" (click)="like()"> &#xf005;</i>
+          <i class="fa star liked" (click)="like()" data-toggle="tooltip" data-placement="bottom" title="Add to favorite"> &#xf005;</i>
       </ng-container>
       <ng-template #nolike>
-          <i class="fa star nolike" (click)="like()">&#xf006;</i>
+          <i class="fa star nolike" (click)="like()" data-toggle="tooltip" data-placement="bottom" title="remove from favorite">&#xf006;</i>
       </ng-template>
 
     </div>
