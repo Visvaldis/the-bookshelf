@@ -28,14 +28,18 @@ namespace TheBookshelf.Web.Controllers
 	public class BooksController : ApiController
 	{
 		IBookService bookService;
-		IUserService userService;
-		public BooksController(IBookService books, IUserService users)
+		public BooksController(IBookService books)
 		{
 			bookService = books;
-			userService = users;
 
 		}
 
+		/// <summary>
+		/// Get all books
+		/// </summary>
+		/// <returns>200 - Collection of books</returns>
+		[ResponseCodes(HttpStatusCode.OK)]
+		[ResponseType(typeof(List<BookDTO>))]
 		[AllowAnonymous]
 		[Route()]
 		[HttpGet, ActionName("GetAllBooks")]
@@ -46,12 +50,15 @@ namespace TheBookshelf.Web.Controllers
 		}
 
 		/// <summary>
-		/// You can get book by id
+		/// Get book from id
 		/// </summary>
-		/// <param name="id">Book id</param>
-		/// <returns>200 Content: book</returns>
-		[AllowAnonymous]
+		/// <param name="id">Unique book identifier </param>
+		/// <returns>200 - Book
+		/// 400 - if id is negative
+		/// 404 - if book is not found</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest, HttpStatusCode.NotFound)]
 		[ResponseType(typeof(BookDTO))]
+		[AllowAnonymous]
 		[Route("{id:int}")]
 		[HttpGet, ActionName("GetBook")]
 		public IHttpActionResult Get(int id)
@@ -69,26 +76,14 @@ namespace TheBookshelf.Web.Controllers
 			}
 		}
 
-		[AllowAnonymous]
-		[Route("search/{name}")]
-		[HttpGet, ActionName("GetBookByName")]
-		public IHttpActionResult GetByName(string name)
-		{
-			if (name is null || name == "")
-				return BadRequest("Name is null");
-			try
-			{
-				var books = bookService.GetByName(name);
-
-				return Ok(books);
-			}
-			catch (ValidationException ex)
-			{
-				return NotFound();
-			}
-		}
-
-
+		/// <summary>
+		/// Create book. Authorization is required (admin only).
+		/// </summary>
+		/// <param name="item">Book you want to add</param>
+		/// <returns>201 - Created book
+		/// 400 - if model is not valid or some internal mistakes</returns>
+		[ResponseCodes(HttpStatusCode.Created, HttpStatusCode.BadRequest)]
+		[ResponseType(typeof(BookDTO))]
 		[Authorize(Roles = "admin")]
 		[Route()]
 		[HttpPost]
@@ -109,6 +104,14 @@ namespace TheBookshelf.Web.Controllers
 			}
 		}
 
+		/// <summary>
+		/// Remove book from database. Book's file also will be deleted  Authorization is required (admin only).
+		/// </summary>
+		/// <param name="id">Unique book identifier</param>
+		/// <returns>204 - if successfully deleted
+		/// 400 - if id is negative
+		/// 404 - if book is not found</returns>
+		[ResponseCodes(HttpStatusCode.NoContent, HttpStatusCode.BadRequest, HttpStatusCode.NotFound)]
 		[Authorize(Roles = "admin")]
 		[Route("{id}")]
 		[HttpDelete]
@@ -133,6 +136,15 @@ namespace TheBookshelf.Web.Controllers
 			return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
 		}
 
+		/// <summary>
+		/// Update book with new model. Book's file will be also updated. Authorization is required (admin only).
+		/// </summary>
+		/// <param name="id">Id of book, that will be updated</param>
+		/// <param name="item">New model for book</param>
+		/// <returns>200 - if book successfully updated
+		/// 400 - if model is not valid
+		/// 404 - if book is not found</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest, HttpStatusCode.NotFound)]
 		[Authorize(Roles = "admin")]
 		[Route("{id}")]
 		[HttpPut]
@@ -160,7 +172,7 @@ namespace TheBookshelf.Web.Controllers
 			bookService.Update(item);
 			return Ok();
 		}
-		public static async Task RenameAsync(BlobContainerClient container, string oldName, string newName)
+		private static async Task RenameAsync(BlobContainerClient container, string oldName, string newName)
 		{
 			BlobClient source = container.GetBlobClient(oldName);
 			BlobClient target = container.GetBlobClient(newName);
@@ -171,6 +183,16 @@ namespace TheBookshelf.Web.Controllers
 		}
 
 
+		/// <summary>
+		/// Upload file, that refers to choosen book. 
+		/// You need upload file from front with name 'file'. 
+		/// In case of Postman: Body -> form-data -> Key='file', type=File, Value=yourFile
+		/// Authorization is required (admin only).
+		/// </summary>
+		/// <param name="id"> Book id</param>
+		/// <returns>200 - if upload is susseccfull
+		/// 400 - if file is not found / null/ or some mistake</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest, HttpStatusCode.NotFound)]
 		[Authorize(Roles = "admin")]
 		[Route("Upload/{id}")]
 		[HttpPost]
@@ -183,7 +205,17 @@ namespace TheBookshelf.Web.Controllers
 				var httpPostedFile = System.Web.HttpContext.Current.Request.Files["file"];
 				if (httpPostedFile != null)
 				{
-					var book = bookService.Get(id);
+					BookDTO book;
+					if (id <= 0)
+						return BadRequest("Id is negative");
+					try
+					{
+						 book = bookService.Get(id);
+					}
+					catch (ValidationException ex)
+					{
+						return NotFound();
+					}	
 					var fname = httpPostedFile.FileName;
 					var blobName = $"{book.Id}-{book.Name}{fname.Substring(fname.LastIndexOf("."))}";
 
@@ -207,16 +239,33 @@ namespace TheBookshelf.Web.Controllers
 
 
 
-
-
+		/// <summary>
+		/// Endpoint for downloading book's file from book id.
+		/// Name of fill contains in header "File-Name":"filename"
+		///  Authorization is required (admin and user).
+		/// </summary>
+		/// <param name="id">Book id</param>
+		/// <returns>200 - stream data, with will be processed by your browser
+		/// 400 - if some mistake</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest)]
 		[Authorize(Roles = "admin, user")]
 		[Route("Download/{id}")]
 		[HttpGet]
 		public async Task<IHttpActionResult> Download([FromUri] int id)
 		{
-			var containerClient = GetBlobContainer();
 
-			var book = bookService.Get(id);
+			var containerClient = GetBlobContainer();
+			BookDTO book;
+			if (id <= 0)
+				return BadRequest("Id is negative");
+			try
+			{
+				book = bookService.Get(id);
+			}
+			catch (ValidationException ex)
+			{
+				return NotFound();
+			}
 			var name = containerClient.GetBlobs()
 				.Where(b => b.Name.Contains($"{book.Id}-{book.Name}"))
 				.Select(b => b.Name).FirstOrDefault();
@@ -264,6 +313,42 @@ namespace TheBookshelf.Web.Controllers
 			return containerClient;
 		}
 
+
+		/// <summary>
+		/// Find all books, whose name contains search string  
+		/// </summary>
+		/// <param name="name">Search string</param>
+		/// <returns>200 - All books, that fits search
+		/// 400 - if name is empty or some internal mistake</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest, HttpStatusCode.NotFound)]
+		[ResponseType(typeof(List<BookDTO>))]
+		[AllowAnonymous]
+		[Route("search/{name}")]
+		[HttpGet, ActionName("GetBookByName")]
+		public IHttpActionResult GetByName(string name)
+		{
+			if (name is null || name == "")
+				return BadRequest("Name is null");
+			try
+			{
+				var books = bookService.GetByName(name);
+
+				return Ok(books);
+			}
+			catch (ValidationException ex)
+			{
+				return NotFound();
+			}
+		}
+
+		/// <summary>
+		///  Get random books
+		/// </summary>
+		/// <param name="count">Count of books</param>
+		/// <returns>200 - Random collection of BookDTO
+		/// 400 - if count is negative</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest)]
+		[ResponseType(typeof(List<BookDTO>))]
 		[AllowAnonymous]
 		[Route("random/{count}")]
 		[HttpGet]
@@ -275,7 +360,16 @@ namespace TheBookshelf.Web.Controllers
 			return Ok(books);
 		}
 
-
+		/// <summary>
+		/// Get sorted books
+		/// </summary>
+		/// <param name="sortOrder">'name' - order by name ascending
+		/// 'name_desc' - order by name descending
+		/// 'mark' - order by assessment ascending
+		/// 'mark_desc' - order by assessment descending</param>
+		/// <returns>>200 - Ordered collection of BookDTO</returns>
+		[ResponseCodes(HttpStatusCode.OK)]
+		[ResponseType(typeof(List<BookDTO>))]
 		[AllowAnonymous]
 		[Route("order/{sortOrder}")]
 		[HttpGet]
@@ -304,11 +398,25 @@ namespace TheBookshelf.Web.Controllers
 			return Ok(booksOrd.ToList());
 		}
 
+		/// <summary>
+		///  Get first N sorted books
+		/// </summary>
+		/// <param name="count"></param>
+		/// <param name="sortOrder">'name' - order by name ascending
+		/// 'name_desc' - order by name descending
+		/// 'mark' - order by assessment ascending
+		/// 'mark_desc' - order by assessment descending</param>
+		/// <returns>>200 - Ordered collection of BookDTO
+		/// 400 - if count is negative</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest)]
+		[ResponseType(typeof(List<BookDTO>))]
 		[AllowAnonymous]
 		[Route("order/{count}/{sortOrder}")]
 		[HttpGet]
 		public IHttpActionResult GetBooksOrdering(int count, [FromUri] string sortOrder)
 		{
+			if (count <= 0)
+				return BadRequest("Count can`t be neganive");
 			var books = bookService.GetAll();
 			IOrderedEnumerable<BookDTO> booksOrd;
 			switch (sortOrder)
