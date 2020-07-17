@@ -23,11 +23,11 @@ namespace TheBookshelf.Web.Controllers
 		}
 
 		/// <summary>
-		/// 
+		/// Get all authors
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>200 - List of authors</returns>
 		[ResponseCodes(HttpStatusCode.OK)]
-		[ResponseType(typeof(BookDTO))]
+		[ResponseType(typeof(List<AuthorDTO>))]
 		[AllowAnonymous]
 		[Route()]
 		[HttpGet, ActionName("GetAllAuthors")]
@@ -36,7 +36,15 @@ namespace TheBookshelf.Web.Controllers
 			var authors = authorService.GetAll();
 			return Ok(authors);
 		}
-
+		/// <summary>
+		/// Get author from id
+		/// </summary>
+		/// <param name="id">Unique author identifier </param>
+		/// <returns>200 - Author
+		/// 400 - if id is negative
+		/// 404 - if author is not found</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest, HttpStatusCode.NotFound)]
+		[ResponseType(typeof(AuthorDTO))]
 		[AllowAnonymous]
 		[Route("{id:int}")]
 		[HttpGet, ActionName("GetAuthor")]
@@ -54,8 +62,15 @@ namespace TheBookshelf.Web.Controllers
 				return NotFound();
 			}
 		}
-
-
+		/// <summary>
+		/// Get all books from author
+		/// </summary>
+		/// <param name="authorId">Author id, whose books we want get </param>
+		/// <returns>200 - List of BookDTO with same author
+		/// 400 - if id is negative
+		/// 404 - if author is not found</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest, HttpStatusCode.NotFound)]
+		[ResponseType(typeof(List<BookDTO>))]
 		[AllowAnonymous]
 		[Route("{authorId}/books")]
 		[HttpGet, ActionName("GetBooksByAuthor")]
@@ -75,7 +90,14 @@ namespace TheBookshelf.Web.Controllers
 
 		}
 
-
+		/// <summary>
+		/// Create author. Authorization is required (admin only).
+		/// </summary>
+		/// <param name="item">Author you want to add</param>
+		/// <returns>201 - Created author
+		/// 400 - if model is not valid or some internal mistakes</returns>
+		[ResponseCodes(HttpStatusCode.Created, HttpStatusCode.BadRequest)]
+		[ResponseType(typeof(AuthorDTO))]
 		[Authorize(Roles = "admin")]
 		[Route()]
 		[HttpPost]
@@ -95,7 +117,14 @@ namespace TheBookshelf.Web.Controllers
 			}
 		}
 
-
+		/// <summary>
+		/// Remove author from database.  Authorization is required (admin only).
+		/// </summary>
+		/// <param name="id">Unique author identifier</param>
+		/// <returns>204 - if successfully deleted
+		/// 400 - if id is negative
+		/// 404 - if author is not found</returns>
+		[ResponseCodes(HttpStatusCode.NoContent, HttpStatusCode.BadRequest, HttpStatusCode.NotFound)]
 		[Authorize(Roles = "admin")]
 		[Route("{id}")]
 		[HttpDelete]
@@ -110,6 +139,15 @@ namespace TheBookshelf.Web.Controllers
 			return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
 		}
 
+		/// <summary>
+		/// Update author with new model. Authorization is required (admin only).
+		/// </summary>
+		/// <param name="id">Id of author, that will be updated</param>
+		/// <param name="item">New model for author</param>
+		/// <returns>200 - if author successfully updated
+		/// 400 - if model is not valid
+		/// 404 - if author is not found</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest, HttpStatusCode.NotFound)]
 		[Authorize(Roles = "admin")]
 		[Route("{id}")]
 		[HttpPut]
@@ -125,7 +163,14 @@ namespace TheBookshelf.Web.Controllers
 			return Ok();
 		}
 
-
+		/// <summary>
+		/// Find all authors, whose name contains search string  
+		/// </summary>
+		/// <param name="name">Search string</param>
+		/// <returns>200 - All authors, that fits search
+		/// 400 - if name is empty or some internal mistake</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest, HttpStatusCode.NotFound)]
+		[ResponseType(typeof(List<AuthorDTO>))]
 		[AllowAnonymous]
 		[Route("search/{name}")]
 		[HttpGet, ActionName("GetAuthorsByName")]
@@ -141,7 +186,7 @@ namespace TheBookshelf.Web.Controllers
 			}
 			catch (ValidationException ex)
 			{
-				return NotFound();
+				return BadRequest(ex.Message);
 			}
 		}
 
