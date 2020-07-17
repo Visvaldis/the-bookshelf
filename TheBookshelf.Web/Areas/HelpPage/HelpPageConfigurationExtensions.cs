@@ -11,8 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
+using System.Web.Http.Filters;
 using TheBookshelf.Web.Areas.HelpPage.ModelDescriptions;
 using TheBookshelf.Web.Areas.HelpPage.Models;
+using TheBookshelf.Web.Util;
 
 namespace TheBookshelf.Web.Areas.HelpPage
 {
@@ -240,6 +242,16 @@ namespace TheBookshelf.Web.Areas.HelpPage
             {
                 ApiDescription = apiDescription,
             };
+
+            //Add this:
+            var statusCodesAttrib = apiDescription.ActionDescriptor.GetCustomAttributes<ResponseCodesAttribute>();
+            var isAnonymous = apiDescription.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any()
+            || apiDescription.ActionDescriptor.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any();
+
+            if (!isAnonymous && apiDescription.ActionDescriptor.GetFilterPipeline().Where(f => f.Instance is IAuthorizationFilter).Any())
+                apiModel.RequiresAuthorization = true;
+            if (statusCodesAttrib.Any())
+                apiModel.ResponseCodes = statusCodesAttrib.FirstOrDefault().ResponseCodes;
 
             ModelDescriptionGenerator modelGenerator = config.GetModelDescriptionGenerator();
             HelpPageSampleGenerator sampleGenerator = config.GetHelpPageSampleGenerator();

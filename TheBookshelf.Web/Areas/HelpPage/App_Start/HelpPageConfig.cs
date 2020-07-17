@@ -12,6 +12,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
+using System.Xml;
 #if Handle_PageResultOfT
 using System.Web.Http.OData;
 #endif
@@ -33,9 +34,23 @@ namespace TheBookshelf.Web.Areas.HelpPage
             Justification = "Part of a URI.")]
         public static void Register(HttpConfiguration config)
         {
-            //// Uncomment the following to use the documentation from XML documentation file.
-            //config.SetDocumentationProvider(new XmlDocumentationProvider(HttpContext.Current.Server.MapPath("~/App_Data/XmlDocument.xml")));
-
+            // Uncomment the following to use the documentation from XML documentation file.
+            XmlDocument apiDoc = new XmlDocument();
+            apiDoc.Load(HttpContext.Current.Server.MapPath("~/App_Data/XmlDocument.xml"));
+            XmlDocument contractsDoc = new XmlDocument();
+            contractsDoc.Load(HttpContext.Current.Server.MapPath("~/App_Data/BLLXmlDocument.xml"));
+            if (contractsDoc.DocumentElement != null && apiDoc.DocumentElement != null)
+            {
+                XmlNodeList nodes = contractsDoc.DocumentElement.ChildNodes;
+                foreach (XmlNode node in nodes)
+                {
+                    XmlNode copiedNode = apiDoc.ImportNode(node, true);
+                    apiDoc.DocumentElement.AppendChild(copiedNode);
+                }
+                apiDoc.Save(HttpContext.Current.Server.MapPath("~/App_Data/XmlDocument.xml"));
+            }
+            config.SetDocumentationProvider(new XmlDocumentationProvider(HttpContext.Current.Server.MapPath("~/App_Data/XmlDocument.xml")));
+          
             //// Uncomment the following to use "sample string" as the sample for all actions that have string as the body parameter or return type.
             //// Also, the string arrays will be used for IEnumerable<string>. The sample objects will be serialized into different media type 
             //// formats by the available formatters.

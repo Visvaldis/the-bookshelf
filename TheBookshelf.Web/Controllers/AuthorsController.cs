@@ -5,8 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using TheBookshelf.BLL.DTO;
 using TheBookshelf.BLL.Interfaces;
+using TheBookshelf.Web.Util;
 
 namespace TheBookshelf.Web.Controllers
 {
@@ -20,6 +22,12 @@ namespace TheBookshelf.Web.Controllers
 			authorService = _authorService;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		[ResponseCodes(HttpStatusCode.OK)]
+		[ResponseType(typeof(BookDTO))]
 		[AllowAnonymous]
 		[Route()]
 		[HttpGet, ActionName("GetAllAuthors")]

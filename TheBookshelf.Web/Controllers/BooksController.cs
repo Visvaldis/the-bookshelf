@@ -19,6 +19,7 @@ using TheBookshelf.Web.Util;
 using System.Net.Http.Headers;
 using CopyStatus = Microsoft.Azure.Storage.Blob.CopyStatus;
 using System.Web.Routing;
+using System.Web.Http.Description;
 
 namespace TheBookshelf.Web.Controllers
 {
@@ -50,6 +51,7 @@ namespace TheBookshelf.Web.Controllers
 		/// <param name="id">Book id</param>
 		/// <returns>200 Content: book</returns>
 		[AllowAnonymous]
+		[ResponseType(typeof(BookDTO))]
 		[Route("{id:int}")]
 		[HttpGet, ActionName("GetBook")]
 		public IHttpActionResult Get(int id)

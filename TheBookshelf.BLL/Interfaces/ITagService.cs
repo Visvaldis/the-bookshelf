@@ -12,7 +12,6 @@ namespace TheBookshelf.BLL.Interfaces
 	{
 		IEnumerable<BookDTO> GetBooksByTag(int tagId);
 		//	int GetBookCountByTag(int tagId);
-		bool Exist(int id);
 		bool Exist(string Name);
 	}
 }

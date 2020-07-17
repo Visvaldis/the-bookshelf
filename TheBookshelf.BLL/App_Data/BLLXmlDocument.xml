@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheBookshelf.BLL</name>
+    </assembly>
+    <members>
+        <member name="P:TheBookshelf.BLL.DTO.AuthorDTO.Name">
+            <summary>
+            Author name
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.AuthorDTO.Bio">
+            <summary>
+            authorbio
+            </summary>
+        </member>
+        <member name="M:TheBookshelf.BLL.Services.BookService.Get(System.Int32)">
+            <summary>
+            You can get book by id
+            </summary>
+            <param name="id">Book id</param>
+            <returns>200 Content: book</returns>
+        </member>
+    </members>
+</doc>

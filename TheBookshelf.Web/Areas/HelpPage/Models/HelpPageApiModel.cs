@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
 using TheBookshelf.Web.Areas.HelpPage.ModelDescriptions;
@@ -11,6 +12,8 @@ namespace TheBookshelf.Web.Areas.HelpPage.Models
     /// </summary>
     public class HelpPageApiModel
     {
+        public bool RequiresAuthorization { get; set; }
+        public IEnumerable<HttpStatusCode> ResponseCodes { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="HelpPageApiModel"/> class.
         /// </summary>
