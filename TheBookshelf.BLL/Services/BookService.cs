@@ -36,11 +36,6 @@ namespace TheBookshelf.BLL.Services
 
 		}
 
-		/// <summary>
-		/// You can get book by id
-		/// </summary>
-		/// <param name="id">Book id</param>
-		/// <returns>200 Content: book</returns>
 		public BookDTO Get(int id)
 		{
 			var book = Database.Books.Get(id);

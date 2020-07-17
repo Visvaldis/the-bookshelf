@@ -9,10 +9,12 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Http.Description;
 using TheBookshelf.BLL.DTO;
 using TheBookshelf.BLL.Infrastructure;
 using TheBookshelf.BLL.Interfaces;
 using TheBookshelf.Web.Models;
+using TheBookshelf.Web.Util;
 
 namespace TheBookshelf.Web.Controllers
 {
@@ -28,7 +30,14 @@ namespace TheBookshelf.Web.Controllers
 			bookService = books;
 		}
 
-		// POST api/Account/Register
+		/// <summary>
+		///  Register user in system  
+		/// </summary>
+		/// <param name="model">Register model</param>
+		/// <returns>200 - if user successfully registered
+		/// 400 - if mode is not valid
+		/// </returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest)]
 		[AllowAnonymous]
 		[Route("Register")]
 		public async Task<IHttpActionResult> Register(RegisterModel model)
@@ -53,7 +62,12 @@ namespace TheBookshelf.Web.Controllers
 
 			return Ok();
 		}
-
+		/// <summary>
+		/// Get all users.  Authorization is required (admin only).
+		/// </summary>
+		/// <returns>200 - Collection of UserDTO</returns>
+		[ResponseCodes(HttpStatusCode.OK)]
+		[ResponseType(typeof(List<UserDTO>))]
 		[Authorize(Roles = "admin")]
 		[Route("")]
 		[HttpGet]
@@ -63,6 +77,13 @@ namespace TheBookshelf.Web.Controllers
 			return Ok(us);
 		}
 
+		/// <summary>
+		/// Get roles of current user.
+		///  Authorization is required (admin and user).
+		/// </summary>
+		/// <returns>200 - Collection of RoleDTO</returns>
+		[ResponseCodes(HttpStatusCode.OK)]
+		[ResponseType(typeof(List<RoleDTO>))]
 		[Authorize(Roles = "admin, user")]
 		[Route("GetRoles")]
 		[HttpGet]
@@ -73,6 +94,18 @@ namespace TheBookshelf.Web.Controllers
 			return Ok(roles);
 		}
 
+		/// <summary>
+		/// Like some book or dislike (if current user has already liked it)
+		///  Authorization is required (admin and user).
+		/// </summary>
+		/// <param name="bookId">Book id</param>
+		/// <returns>200 - {
+		/// 'isLiked': bool (true if user likes this book, false if user not likes it)
+		/// 'likes' : number (count of likes)
+		/// }
+		/// 400 - if user or book not found or some error
+		/// </returns>
+		[ResponseCodes(HttpStatusCode.OK)]
 		[Authorize(Roles = "admin, user")]
 		[Route("like/{bookId}")]
 		[HttpGet]
@@ -85,7 +118,7 @@ namespace TheBookshelf.Web.Controllers
 				bool isLiked = userService.LikeBook(userId, bookId, out likes);
 				//var book = bookService.Get(bookId);
 
-				var content = new { IsLiked = isLiked, Likes = likes};
+				var content = (IsLiked: isLiked, Likes: likes);
 				return Ok(content);
 			}
 			catch (ValidationException ex)
@@ -94,6 +127,16 @@ namespace TheBookshelf.Web.Controllers
 			}
 			
 		}
+
+		/// <summary>
+		/// Get users's liked books 
+		///  Authorization is required (admin and user).
+		/// </summary>
+		/// <returns>
+		/// 200 - Collection of BookDTO
+		/// 404 - if user not found</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.NotFound)]
+		[ResponseType(typeof(List<BookDTO>))]
 		[Authorize(Roles = "admin, user")]
 		[Route("likedbooks")]
 		[HttpGet]
