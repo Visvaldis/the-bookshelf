@@ -4,22 +4,95 @@
         <name>TheBookshelf.BLL</name>
     </assembly>
     <members>
+        <member name="P:TheBookshelf.BLL.DTO.AuthorDTO.Id">
+            <summary>
+            Author identifier
+            </summary>
+        </member>
         <member name="P:TheBookshelf.BLL.DTO.AuthorDTO.Name">
             <summary>
-            Author name
+            Author full name
             </summary>
         </member>
         <member name="P:TheBookshelf.BLL.DTO.AuthorDTO.Bio">
             <summary>
-            authorbio
+            Author biography
             </summary>
         </member>
-        <member name="M:TheBookshelf.BLL.Services.BookService.Get(System.Int32)">
+        <member name="P:TheBookshelf.BLL.DTO.AuthorDTO.Birthday">
             <summary>
-            You can get book by id
+            Author bithday
             </summary>
-            <param name="id">Book id</param>
-            <returns>200 Content: book</returns>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.TagDTO.Id">
+            <summary>
+            Tag identifier
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.TagDTO.Name">
+            <summary>
+            Tag title
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.TagDTO.BookCount">
+            <summary>
+            Count of books with this tag
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.UserDTO.Id">
+            <summary>
+            Tag identifier
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.UserDTO.UserName">
+            <summary>
+            UserName
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.UserDTO.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.UserDTO.Roles">
+            <summary>
+            Colection of roles
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.RoleDTO.Name">
+            <summary>
+            Role name
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.BookDTO.Id">
+            <summary>
+            Book identifier
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.BookDTO.Name">
+            <summary>
+            Book  title
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.BookDTO.Description">
+            <summary>
+            Book annotation
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.BookDTO.Authors">
+            <summary>
+            Collection of book's authors
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.BookDTO.Tags">
+            <summary>
+            Collection of book's tags
+            </summary>
+        </member>
+        <member name="P:TheBookshelf.BLL.DTO.BookDTO.CoverUrl">
+            <summary>
+            Url to book cover image
+            </summary>
         </member>
     </members>
 </doc>

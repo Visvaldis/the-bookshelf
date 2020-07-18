@@ -9,17 +9,25 @@ namespace TheBookshelf.BLL.DTO
 {
 	public class AuthorDTO
 	{
-		[Required]
+		/// <summary>
+		/// Author identifier
+		/// </summary>
+		[Key]
 		public int Id { get; set; }
 		/// <summary>
-		/// Author name
+		/// Author full name
 		/// </summary>
-		[MaxLength(30)]
+		[Required, MaxLength(256, ErrorMessage = "Author`s name can't more than 256 symbols")]
 		public string Name { get; set; }
 		/// <summary>
-		/// authorbio
+		/// Author biography
 		/// </summary>
+		[Required]
 		public string Bio { get; set; }
+		/// <summary>
+		/// Author bithday
+		/// </summary>
+		[Required]
 		public DateTime Birthday { get; set; }
 
 	}

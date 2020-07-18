@@ -544,7 +544,7 @@
             <summary>
             Get all books
             </summary>
-            <returns>200 - List of books</returns>
+            <returns>200 - Collection of books</returns>
         </member>
         <member name="M:TheBookshelf.Web.Controllers.BooksController.Get(System.Int32)">
             <summary>
@@ -613,11 +613,33 @@
         </member>
         <member name="M:TheBookshelf.Web.Controllers.BooksController.GetRandomBooks(System.Int32)">
             <summary>
-            
+             Get random books
+            </summary>
+            <param name="count">Count of books</param>
+            <returns>200 - Random collection of BookDTO
+            400 - if count is negative</returns>
+        </member>
+        <member name="M:TheBookshelf.Web.Controllers.BooksController.GetBooksOrdering(System.String)">
+            <summary>
+            Get sorted books
+            </summary>
+            <param name="sortOrder">'name' - order by name ascending
+            'name_desc' - order by name descending
+            'mark' - order by assessment ascending
+            'mark_desc' - order by assessment descending</param>
+            <returns>>200 - Ordered collection of BookDTO</returns>
+        </member>
+        <member name="M:TheBookshelf.Web.Controllers.BooksController.GetBooksOrdering(System.Int32,System.String)">
+            <summary>
+             Get first N sorted books
             </summary>
             <param name="count"></param>
-            <returns></returns>
-            
+            <param name="sortOrder">'name' - order by name ascending
+            'name_desc' - order by name descending
+            'mark' - order by assessment ascending
+            'mark_desc' - order by assessment descending</param>
+            <returns>>200 - Ordered collection of BookDTO
+            400 - if count is negative</returns>
         </member>
         <member name="M:TheBookshelf.Web.Controllers.TagsController.GetAll">
             <summary>
@@ -677,6 +699,50 @@
             <param name="name">Search string</param>
             <returns>200 - All tags, that fits search
             400 - if name is empty or some internal mistake</returns>
+        </member>
+        <member name="M:TheBookshelf.Web.Controllers.UsersController.Register(TheBookshelf.Web.Models.RegisterModel)">
+            <summary>
+             Register user in system  
+            </summary>
+            <param name="model">Register model</param>
+            <returns>200 - if user successfully registered
+            400 - if mode is not valid
+            </returns>
+        </member>
+        <member name="M:TheBookshelf.Web.Controllers.UsersController.GetAll">
+            <summary>
+            Get all users.  Authorization is required (admin only).
+            </summary>
+            <returns>200 - Collection of UserDTO</returns>
+        </member>
+        <member name="M:TheBookshelf.Web.Controllers.UsersController.GetRoles">
+            <summary>
+            Get roles of current user.
+             Authorization is required (admin and user).
+            </summary>
+            <returns>200 - Collection of RoleDTO</returns>
+        </member>
+        <member name="M:TheBookshelf.Web.Controllers.UsersController.LikeOrDislikeBook(System.Int32)">
+            <summary>
+            Like some book or dislike (if current user has already liked it)
+             Authorization is required (admin and user).
+            </summary>
+            <param name="bookId">Book id</param>
+            <returns>200 - {
+            'isLiked': bool (true if user likes this book, false if user not likes it)
+            'likes' : number (count of likes)
+            }
+            400 - if user or book not found or some error
+            </returns>
+        </member>
+        <member name="M:TheBookshelf.Web.Controllers.UsersController.GetLikedBooks">
+            <summary>
+            Get users's liked books 
+             Authorization is required (admin and user).
+            </summary>
+            <returns>
+            200 - Collection of BookDTO
+            404 - if user not found</returns>
         </member>
     </members>
 </doc>
