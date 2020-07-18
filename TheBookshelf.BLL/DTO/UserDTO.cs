@@ -10,7 +10,7 @@ namespace TheBookshelf.BLL.DTO
 	public class UserDTO
 	{
 		/// <summary>
-		/// Tag identifier
+		/// User identifier
 		/// </summary>
 		[Key]
 		public int Id { get; set; }
