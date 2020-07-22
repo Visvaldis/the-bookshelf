@@ -94,7 +94,7 @@ namespace TheBookshelf.DAL.Repositories
 			}
 
 			var tags = item.Tags;
-			item.Tags = new List<Tag>();
+			entity.Tags = new List<Tag>();
 			foreach (var booktag in tags)
 			{
 				Tag tag = db.Tags.SingleOrDefault(t => t.Name == booktag.Name);
@@ -107,7 +107,7 @@ namespace TheBookshelf.DAL.Repositories
 			}
 
 			var authors = item.Authors;
-			item.Authors = new List<Author>();
+			entity.Authors = new List<Author>();
 			foreach (var author in authors)
 			{
 				Author aut = db.Authors.SingleOrDefault(t => t.Name == author.Name);

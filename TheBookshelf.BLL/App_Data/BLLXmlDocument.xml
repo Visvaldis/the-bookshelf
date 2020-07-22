@@ -41,7 +41,7 @@
         </member>
         <member name="P:TheBookshelf.BLL.DTO.UserDTO.Id">
             <summary>
-            Tag identifier
+            User identifier
             </summary>
         </member>
         <member name="P:TheBookshelf.BLL.DTO.UserDTO.UserName">

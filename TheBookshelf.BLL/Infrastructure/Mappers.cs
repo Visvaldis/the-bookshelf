@@ -20,7 +20,8 @@ namespace TheBookshelf.BLL.Infrastructure
 				{
 					cfg.CreateMap<Book, BookDTO>().ReverseMap();
 
-					cfg.CreateMap<User, UserDTO>();
+					cfg.CreateMap<User, UserDTO>()
+					.ForMember(dest => dest.Roles, conf => conf.Ignore());
 					cfg.CreateMap<UserDTO, User>()
 					.ForMember(dest => dest.LikedBooks, conf => conf.Ignore())
 					.ForMember(dest => dest.EmailConfirmed, conf => conf.Ignore())

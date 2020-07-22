@@ -21,5 +21,10 @@ namespace TheBookshelf.BLL.Interfaces
 		Task SetInitialData(UserDTO adminDto, string password, List<string> roles);
 		Task<IdentityResult> DeleteUser(int userId);
 		ICollection<string> GetUserRoles(int userId);
+		Task<ICollection<RoleDTO>> GetAllRoles();
+		Task<IdentityResult> PromoteToRole(int userId, string roleName);
+		Task<IdentityResult> RemoveFromRole(int userId, string roleName);
+		void AddRole(string roleName);
+
 	}
 }

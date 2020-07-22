@@ -85,13 +85,85 @@ namespace TheBookshelf.Web.Controllers
 		[ResponseCodes(HttpStatusCode.OK)]
 		[ResponseType(typeof(List<RoleDTO>))]
 		[Authorize(Roles = "admin, user")]
-		[Route("GetRoles")]
+		[Route("UserRoles")]
 		[HttpGet]
-		public IHttpActionResult GetRoles()
+		public IHttpActionResult GetUserRoles()
 		{
 			var userId = RequestContext.Principal.Identity.GetUserId<int>();
 			var roles = userService.GetUserRoles(userId);
 			return Ok(roles);
+		}
+
+
+		/// <summary>
+		/// Get all roles
+		/// </summary>
+		/// <returns>200 - Collection of RoleDTO</returns>
+		[ResponseCodes(HttpStatusCode.OK)]
+		[ResponseType(typeof(List<RoleDTO>))]
+		[Route("Roles")]
+		[HttpGet]
+		public IHttpActionResult GetAllRoles()
+		{
+			var roles = userService.GetAllRoles();
+			return Ok(roles);
+		}
+
+
+		/// <summary>
+		/// Add new role
+		///  Authorization is required (admin only).
+		/// </summary>
+		/// <param name="roleName">Role name</param>
+		/// <returns>200</returns>
+		[ResponseCodes(HttpStatusCode.OK)]
+		[Authorize(Roles = "admin")]
+		[Route("Roles")]
+		[HttpPost]
+		public IHttpActionResult AddNewRole([FromBody] string roleName)
+		{
+			userService.AddRole(roleName);
+			return Ok();
+		}
+
+
+		/// <summary>
+		/// Add user to role
+		/// </summary>
+		/// <param name="userId">User identifier</param>
+		/// <param name="roleName">Role name</param>
+		/// <returns>200 - Ok</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest)]
+		[Authorize(Roles = "admin")]
+		[Route("Roles/{userId}")]
+		[HttpPost]
+		public async Task<IHttpActionResult> PromoteToRole(int userId, [FromBody] string roleName)
+		{
+			var res = await userService.PromoteToRole(userId, roleName);
+			if (res.Succeeded)
+				return Ok();
+			else
+				return BadRequest(res.Errors.ToString());
+		}
+
+
+		/// <summary>
+		/// Remove user from role
+		/// </summary>
+		/// <param name="userId">User identifier</param>
+		/// <param name="roleName">Role name</param>
+		/// <returns>200 - Ok</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.BadRequest)]
+		[Authorize(Roles = "admin")]
+		[Route("Roles/{userId}")]
+		[HttpDelete]
+		public async Task<IHttpActionResult> RemoveFromRole(int userId, [FromBody] string roleName)
+		{
+			var res = await userService.RemoveFromRole(userId, roleName);
+			if (res.Succeeded)
+				return Ok();
+			else
+				return BadRequest(res.Errors.ToString());
 		}
 
 		/// <summary>
@@ -167,9 +239,16 @@ namespace TheBookshelf.Web.Controllers
 			}, "admin!", new List<string> { "user", "admin" });
 		}
 
+		/// <summary>
+		/// Delete user
+		/// </summary>
+		/// <param name="id">User identifier</param>
+		/// <returns>200 - ok
+		/// 400 - if some errors or id is negative</returns>
+		[ResponseCodes(HttpStatusCode.OK, HttpStatusCode.NotFound)]
 		[Authorize(Roles = "admin")]
 		[HttpDelete]
-		[Route("delete/{id}")]
+		[Route("{id}")]
 		public async Task<IHttpActionResult> DeleteUser(int id)
 		{
 			if (id < 0)
@@ -180,6 +259,9 @@ namespace TheBookshelf.Web.Controllers
 			else
 				return BadRequest(result.Errors.First());
 		}
+
+	
+
 
 		private IAuthenticationManager Authentication
 		{

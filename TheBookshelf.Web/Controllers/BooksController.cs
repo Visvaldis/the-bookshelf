@@ -220,6 +220,17 @@ namespace TheBookshelf.Web.Controllers
 					var blobName = $"{book.Id}-{book.Name}{fname.Substring(fname.LastIndexOf("."))}";
 
 					var container = GetBlobContainer();
+
+					var name = container.GetBlobs()
+					.Where(b => b.Name.Contains($"{book.Id}-{book.Name}"))
+					.Select(b => b.Name).FirstOrDefault();
+					if (name != null)
+					{
+						// Get a reference to a blob
+						BlobClient blobClient = container.GetBlobClient(name);
+						await blobClient.DeleteAsync();
+					}
+
 					var blockBlob = container.GetBlobClient(blobName);
 					try
 					{
@@ -294,7 +305,7 @@ namespace TheBookshelf.Web.Controllers
 				response = ResponseMessage(result);
 				return response;
 			}
-			return BadRequest();
+			return NotFound();
 		}
 
 		[NonAction]

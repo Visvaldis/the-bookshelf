@@ -25,7 +25,7 @@ namespace TheBookshelf.BLL.DTO
 		/// <summary>
 		/// Colection of roles
 		/// </summary>
-		public ICollection<RoleDTO> Roles { get; }
+		public ICollection<RoleDTO> Roles { get; set; }
 
 	}
 

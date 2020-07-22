@@ -36,10 +36,47 @@ namespace TheBookshelf.BLL.Services
 
 		public async Task<ICollection<UserDTO>> GetAll()
 		{
-			var users = await userManager.Users.ToListAsync();
-			return Mapper.Map<List<User>, List<UserDTO>>(users);
+			var users = await userManager.Users.Include(x => x.Roles).ToListAsync();
+			List<UserDTO> userDTOs = Mapper.Map<List<User>, List<UserDTO>>(users);
+			foreach (var item in userDTOs)
+			{
+				var rolesName = userManager.GetRoles(item.Id);
+				List<RoleDTO> roles = new List<RoleDTO>();
+				foreach (var roleIter in rolesName)
+				{
+					var role = await roleManager.FindByNameAsync(roleIter);
+					var roleDto = Mapper.Map<Role, RoleDTO>(role);
+					roles.Add(roleDto);
+				}
+				item.Roles = roles;
+			}
+			return userDTOs;
+		}
+		public async Task<ICollection<RoleDTO>> GetAllRoles()
+		{
+			var roles = await roleManager.Roles.ToListAsync();
+			return Mapper.Map<List<Role>, List<RoleDTO>>(roles);
 		}
 
+		public async Task<IdentityResult> PromoteToRole(int userId, string roleName)
+		{
+			return await userManager.AddToRoleAsync(userId, roleName);
+		}
+
+		public async Task<IdentityResult> RemoveFromRole(int userId, string roleName)
+		{
+			return await userManager.RemoveFromRoleAsync(userId, roleName);
+		}
+
+		public async void AddRole(string roleName)
+		{
+			var role = await roleManager.FindByNameAsync(roleName);
+			if (role == null)
+			{
+				role = new Role { Name = roleName };
+				await roleManager.CreateAsync(role);
+			}
+		}
 
 		public void Dispose()
 		{
