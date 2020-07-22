@@ -9,6 +9,7 @@ import { saveAs } from 'file-saver';
 import {Subscribable} from 'rxjs';
 import {UserService} from '../../../services/userService';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {HttpErrorResponse} from '@angular/common/http';
 
 
 @Component({
@@ -70,6 +71,14 @@ export class BookDetailComponent implements OnInit {
         const downloadName = this.book.name + name.substr(name.lastIndexOf('.'));
         this.spinner.hide();
         saveAs(response.body, downloadName);
+      }, (error: HttpErrorResponse) => {
+        if (error.status === 404)
+        {
+           alert('Sorry, file is not found');
+        }
+        else {
+          console.log(error.message);
+        }
       }
     );
   }

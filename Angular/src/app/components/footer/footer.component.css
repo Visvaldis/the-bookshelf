@@ -31,3 +31,8 @@ footer > p > a {
 .footer {
   flex: 0 0 auto;
 }
+
+.admin{
+  color: white !important;
+  text-decoration: none;
+}

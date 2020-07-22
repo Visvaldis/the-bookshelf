@@ -44,7 +44,7 @@ export class AuthorService {
   }
   updateAuthor(author: Author) {
 
-    return this.http.put(this.url, author);
+    return this.http.put(this.url + '/' + author.id, author);
   }
   deleteAuthor(id: number) {
     return this.http.delete(this.url + '/' + id);

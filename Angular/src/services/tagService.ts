@@ -44,8 +44,7 @@ export class TagService {
     return this.http.post(this.url, tag);
   }
   updateProduct(tag: Tag) {
-
-    return this.http.put(this.url, tag);
+    return this.http.put(this.url + '/' + tag.id, tag);
   }
   deleteProduct(id: number) {
     return this.http.delete(this.url + '/' + id);

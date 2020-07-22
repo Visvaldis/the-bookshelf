@@ -1,0 +1,100 @@
+<div class="container">
+  <button type="button" class="btn btn-success btn-block mt-3" (click)="add()"> Add new book</button>
+  <table *ngIf="tableMode; else create" class="table table-striped table-hover table-sm">
+    <thead>
+    <tr>
+      <td>Cover</td>
+      <td>Name</td>
+      <td>Description</td>
+      <td>Tags</td>
+      <td  style="min-width:8rem">Authors</td>
+      <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let bookIter of books">
+      <ng-template [ngIf]="book.id != bookIter.id" [ngIfElse]="edit">
+        <td> <img src="{{bookIter.coverUrl}}" width="50px" height="80px"> </td>
+        <td>{{bookIter.name}}</td>
+        <td>{{bookIter.description}}</td>
+        <td> <span *ngFor="let tag of bookIter.tags" > {{tag.name}},  </span></td>
+        <td> <span *ngFor="let author of bookIter.authors" > {{author.name}}   </span></td>
+        <td>
+          <button class="btn btn-sm btn-primary" (click)="editBook(bookIter)">Change</button>
+          <button class="btn btn-sm btn-danger" (click)="delete(bookIter)">Delete</button>
+
+        </td>
+      </ng-template>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--шаблон для редактирования-->
+<ng-template #edit>
+
+  <td style="min-width:6rem"> <input type="text" [(ngModel)]="book.coverUrl" class="form-control" />     </td>
+  <td style="min-width:12rem"> <input type="text" [(ngModel)]="book.name" class="form-control" /> </td>
+
+  <td> <textarea [(ngModel)]="book.description" class="form-control"> </textarea>     </td>
+  <td>
+    <ng-select [items]="tags"
+               bindLabel="name"
+               [addTag]="addTag"
+               [multiple]="true"
+               placeholder="Select tags or add custom one"
+               [(ngModel)]="book.tags">
+    </ng-select>
+  </td>
+  <td>
+    <ng-select [items]="authors"
+               bindLabel="name"
+               [multiple]="true"
+               placeholder="Select authors"
+               [(ngModel)]="book.authors">
+    </ng-select>
+
+  </td>
+
+  <td>
+    <input type="button" value="Save" (click)="save()" class="btn btn-sm btn-success" />
+    <input type="button" value="Cancel" (click)="cancel()" class="btn btn-sm btn-warning" />
+
+    <input type="file" id="file"  value="Upload file" (change)="handleFileInput($event)" class="inputfile" />
+    <label for="file" class="btn btn-sm">{{fileName}}</label>
+    <button *ngIf="fileToUpload !== null" (click)="uploadFileToBook(book.id)" class="btn btn-sm btn-success" >Upload</button>
+  </td>
+</ng-template>
+
+<!--шаблон для добавления-->
+<ng-template #create>
+  <div class="form-group">
+    <label>Book name</label>
+    <input type="text" placeholder="Book name" [(ngModel)]="book.name" class="form-control" />
+    <label>Book description</label>
+    <textarea [(ngModel)]="book.description" placeholder="Book description" class="form-control"> </textarea>
+    <label>Url to book cover</label>
+    <input type="text" [(ngModel)]="book.coverUrl" class="form-control" />
+    <label>Book tags</label>
+    <ng-select [items]="tags"
+               bindLabel="name"
+               [addTag]="addTag"
+               [multiple]="true"
+               placeholder="Select tags or add custom one"
+               [(ngModel)]="book.tags">
+    </ng-select>
+    <label>Book authors</label>
+    <ng-select [items]="authors"
+               bindLabel="name"
+               [multiple]="true"
+               placeholder="Select authors"
+               [(ngModel)]="book.authors">
+    </ng-select>
+
+    <input class="mt-2" type="file" name="file" (change)="handleFileInput($event)">
+  </div>
+  <div>
+    <input type="button" value="Save" (click)="save()" class="btn btn-success" />
+    <input type="button" value="Cancel" (click)="cancel()" class="btn btn-warning" />
+  </div>
+</ng-template>

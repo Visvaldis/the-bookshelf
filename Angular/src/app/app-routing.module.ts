@@ -14,7 +14,20 @@ import {Error404Component} from './components/error404/error404.component';
 import {TagDetailComponent} from './components/tag-detail/tag-detail.component';
 import {AuthorsDetailsComponent} from './components/authors-details/authors-details.component';
 import {AuthorsComponent} from './components/authors/authors.component';
+import {AdminTagsComponent} from './admin/components/admin-tags/admin-tags.component';
+import {AdminBooksComponent} from './admin/components/admin-books/admin-books.component';
+import {AdminAuthorsComponent} from './admin/components/admin-authors/admin-authors.component';
+import {AdminUsersComponent} from './admin/components/admin-users/admin-users.component';
+import {AdminComponent} from './admin/admin.component';
+import {AdminGuard} from './admin/guards/admin.guard';
 
+
+const adminRoutes: Routes = [
+  { path: 'tags', component: AdminTagsComponent},
+  { path: 'books', component: AdminBooksComponent},
+  { path: 'authors', component: AdminAuthorsComponent},
+  { path: 'users', component: AdminUsersComponent},
+];
 
 // определение маршрутов
 const routes: Routes = [
@@ -30,6 +43,7 @@ const routes: Routes = [
   { path: 'book/:id', component: BookDetailComponent},
   { path: 'search/:searchRequest', component: SearchComponent},
   { path: 'error404', component: Error404Component},
+  { path: 'admin', component: AdminComponent, children: adminRoutes, canActivate : [AdminGuard]},
   { path: '*', redirectTo: ''}
 ];
 

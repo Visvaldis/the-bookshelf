@@ -21,6 +21,12 @@ export class BookService {
   }
 
 
+  getAllDetail(): Observable<BookDetail[]>{
+    return this.http.get<BookDetail[]>(this.url).pipe(map(
+      (books: BookDetail[]) =>    books
+    ));
+  }
+
   getAllBooks(): Observable<BookCard[]>{
     return this.getBooks(this.url);
   }
@@ -83,8 +89,26 @@ export class BookService {
     );
   }
   download(id) {
-    const  url =  'https://thebookshelf.azurewebsites.net/api/books' + '/Download/' + id;
-    return this.http.get(url, { observe: 'response', responseType: 'blob'});
+    const  url =  this.url + '/Download/' + id;
+    return this.http.get(url, { observe: 'response', responseType: 'blob'}).pipe(
+      catchError( (err: HttpErrorResponse) => {
+        console.log(err);
+        return throwError(err);
+      })
+    );
+  }
+  upload(id: number, fileToUpload: File): Observable<boolean> {
+    const endpoint = this.url + '/Upload/' + id;
+    const formData: FormData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return this.http
+      .post(endpoint, formData).pipe(
+       map(() => true),
+      catchError( (err: HttpErrorResponse) => {
+         console.log(err);
+         return throwError(err);
+      })
+      );
   }
 
 
@@ -111,8 +135,7 @@ export class BookService {
       return this.http.post(this.url, book);
     }
     updateBook(book: BookDetail) {
-
-      return this.http.put(this.url, book);
+      return this.http.put(this.url + '/' + book.id, book);
     }
     deleteBook(id: number) {
       return this.http.delete(this.url + '/' + id);

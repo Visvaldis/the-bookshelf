@@ -1,0 +1,12 @@
+a {
+  color: black;
+  font-size: 25px;
+  margin-bottom: 10px;
+  margin-left: 3%;
+  text-decoration: none;
+}
+
+a:hover{
+  color: darkred;
+  font-weight: bolder;
+}

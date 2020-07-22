@@ -22,7 +22,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
   ],
-  providers:[
+  providers: [
     AuthGuard,
     AuthService,
     {

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
@@ -24,6 +24,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AdminModule} from './admin/admin.module';
+import {UserService} from '../services/userService';
 
 
 @NgModule({
@@ -48,10 +50,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     HttpClientModule,
     AuthModule,
+    AdminModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
   ],
-  providers: [BookService, TagService, AuthorService],
+  providers: [BookService, TagService, AuthorService, UserService],
   exports: [
     BookCardComponent
   ],
