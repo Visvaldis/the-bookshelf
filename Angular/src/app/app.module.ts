@@ -26,6 +26,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AdminModule} from './admin/admin.module';
 import {UserService} from '../services/userService';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import {UserService} from '../services/userService';
     AdminModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
+    FontAwesomeModule
   ],
   providers: [BookService, TagService, AuthorService, UserService],
   exports: [

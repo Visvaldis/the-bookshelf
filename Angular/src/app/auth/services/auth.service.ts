@@ -70,6 +70,7 @@ export class AuthService {
     const token = data.access_token;
     this.loggedUser =
     {
+      id: data.id,
       userName: data.userName,
       role: data.userRole,
     };
