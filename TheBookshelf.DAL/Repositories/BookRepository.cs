@@ -41,9 +41,6 @@ namespace TheBookshelf.DAL.Repositories
 				Author aut = db.Authors.SingleOrDefault(t => t.Name == author.Name);
 				if (aut == null)
 				{
-					/*
-					aut = new Author {Bio = author.Bio, Birthday = author.Birthday, Books = author.Books, Name = author.Name };
-					db.Authors.Add(aut);*/
 					continue;
 				}
 				item.Authors.Add(aut);
@@ -80,13 +77,6 @@ namespace TheBookshelf.DAL.Repositories
 
 		public void Update(Book item)
 		{
-
-			/*
-			
-			db.Entry(item).State = EntityState.Modified;
-
-		*/
-
 			var entity = db.Books.Find(item.Id);
 			if (entity == null)
 			{
@@ -113,9 +103,6 @@ namespace TheBookshelf.DAL.Repositories
 				Author aut = db.Authors.SingleOrDefault(t => t.Name == author.Name);
 				if (aut == null)
 				{
-
-					//	aut = new Author {Bio = author.Bio, Birthday = author.Birthday, Books = author.Books, Name = author.Name };
-					//	db.Authors.Add(aut);
 					continue;
 				}
 				entity.Authors.Add(aut);

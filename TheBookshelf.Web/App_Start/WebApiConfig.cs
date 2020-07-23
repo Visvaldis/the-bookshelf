@@ -40,11 +40,6 @@ namespace TheBookshelf.Web
 			config.Formatters.Remove(config.Formatters.XmlFormatter);
 			jsonFormatter.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
 
-			// Enable CORS for the Angular App
-			//	var cors = new EnableCorsAttribute("http://localhost, ", "accept,accesstoken,authorization,cache-control,pragma,content-type,origin", "GET,PUT,POST,DELETE,TRACE,HEAD,OPTIONS");
-			//	config.EnableCors(cors);
-			//config.EnableCors(new EnableCorsAttribute("*", "", ""));
-
 			config.SuppressDefaultHostAuthentication();
 			config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 			// Маршруты веб-API

@@ -11,7 +11,6 @@ namespace TheBookshelf.BLL.Interfaces
 	public interface ITagService :IService<TagDTO>
 	{
 		IEnumerable<BookDTO> GetBooksByTag(int tagId);
-		//	int GetBookCountByTag(int tagId);
 		bool Exist(string Name);
 	}
 }

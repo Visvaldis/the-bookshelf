@@ -24,7 +24,6 @@ namespace TheBookshelf.DAL.Repositories
 		private BookshelfContext db;
 		private BookRepository bookRepository;
 		private AuthorRepository authorRepository;
-//		private UserRepository userRepository;
 		private TagRepository tagRepository;
 		private AppUserStore userStore;
 		private RoleStore<Role, int, UserRole> roleStore;
@@ -77,18 +76,6 @@ namespace TheBookshelf.DAL.Repositories
 				return bookRepository;
 			}
 		}
-		/*
-		public IRepository<User> Users
-		{
-			get
-			{
-				if (userRepository == null)
-					userRepository = new UserRepository(db);
-				return userRepository;
-			}
-		}
-		*/
-	
 		public async Task SaveAsync()
 		{
 			await db.SaveChangesAsync();

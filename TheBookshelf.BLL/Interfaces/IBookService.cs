@@ -11,12 +11,7 @@ namespace TheBookshelf.BLL.Interfaces
 {
 	public interface IBookService: IService<BookDTO>
 	{
-	//	ICollection<BookDTO> GetBooksByTag(int tagId);
-	//	UserDTO GetBookCreator(int bookId);
-	//	void AddTagToBook(int bookId, int tagId);
 		ICollection<BookDTO> GetWithFilter(Expression<Func<Book, bool>> filter);
 		ICollection<BookDTO> GetRandomBooks(int count);
-
-		//	ICollection<AuthorDTO> GetAuthorsByBook(int bookId);
 	}
 }

@@ -37,7 +37,7 @@ using TheBookshelf.Web.Util;
 			// и использование файла cookie для временного хранения информации о входах пользователя с помощью стороннего поставщика входа
 			app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-            //    app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             // Настройка приложения для потока обработки на основе OAuth
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions

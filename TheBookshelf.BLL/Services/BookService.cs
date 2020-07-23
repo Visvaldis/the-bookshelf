@@ -60,7 +60,6 @@ namespace TheBookshelf.BLL.Services
 				throw new ArgumentNullException("Book is null. Try again.");
 			var book = Mapper.Map<BookDTO, Book>(item);
 			int id = Database.Books.Create(book);
-		//	Database.Save();
 			return id;
 
 		}

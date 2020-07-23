@@ -35,7 +35,7 @@ namespace TheBookshelf.BLL.Infrastructure
 					.ForMember(dest => dest.Logins, conf => conf.Ignore())
 					.ForMember(dest => dest.AccessFailedCount, conf => conf.Ignore())
 					.ForMember(dest => dest.Claims, conf => conf.Ignore());
-					//	.ForAllOtherMembers(conf => conf.Ignore());
+
 
 
 
@@ -59,7 +59,6 @@ namespace TheBookshelf.BLL.Infrastructure
 					cfg.CreateMap<Expression<Func<TagDTO, bool>>,
 						Expression<Func<Tag, bool>>>();
 				});
-		//		mapperCfg.AssertConfigurationIsValid();
 				return mapperCfg.CreateMapper();
 			}
 		}
